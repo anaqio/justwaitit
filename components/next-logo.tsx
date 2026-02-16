@@ -1,11 +1,18 @@
-export function NextLogo() {
+type NextLogoProps = {
+  className?: string;
+  width?: number | string;
+  height?: number | string;
+};
+
+export function NextLogo({ className, width = 300, height = 68 }: NextLogoProps) {
   return (
     <svg
       aria-label="Next.js logotype"
-      height="68"
+      height={height}
       role="img"
       viewBox="0 0 394 79"
-      width="100"
+      width={width}
+      className={className}
     >
       <path
         d="M261.919 0.0330722H330.547V12.7H303.323V79.339H289.71V12.7H261.919V0.0330722Z"
