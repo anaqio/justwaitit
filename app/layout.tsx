@@ -9,8 +9,22 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "anaqio",
-  description: "anaqio - Secure authentication and user management",
+  title: "Anaqio — Virtual Studio for Fashion Commerce",
+  description:
+    "Anaqio is a virtual studio empowering fashion brands with cutting-edge digital tools for modern commerce. Join the waitlist for early access.",
+  openGraph: {
+    title: "Anaqio — Virtual Studio for Fashion Commerce",
+    description:
+      "Empowering fashion brands with cutting-edge digital tools for modern commerce.",
+    siteName: "Anaqio",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Anaqio — Virtual Studio for Fashion Commerce",
+    description:
+      "Empowering fashion brands with cutting-edge digital tools for modern commerce.",
+  },
 };
 
 const geistSans = Geist({
