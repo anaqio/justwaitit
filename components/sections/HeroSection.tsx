@@ -35,7 +35,7 @@ const logoVariants = {
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient">
+    <section className="relative h-screen flex items-center justify-center overflow-hidden hero-gradient snap-start">
       {/* Decorative orbs */}
       <div className="glow-orb w-[500px] h-[500px] bg-purple-500/10 top-[-10%] left-[-10%] animate-float-slow" />
       <div className="glow-orb w-[400px] h-[400px] bg-pink-500/10 bottom-[-5%] right-[-5%] animate-float" />

@@ -43,7 +43,7 @@ export function WaitlistSection() {
   };
 
   return (
-    <section id="waitlist" className="relative py-24 sm:py-32 px-4">
+    <section id="waitlist" className="relative h-screen flex items-center justify-center px-4 snap-start overflow-hidden">
       <motion.div
         variants={sectionVariants}
         initial="hidden"

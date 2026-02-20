@@ -5,7 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main className="h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth">
       <Header />
       <HeroSection />
       <WaitlistSection />
