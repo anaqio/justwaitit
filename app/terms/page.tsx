@@ -611,6 +611,9 @@ export default function TermsOfServicePage() {
           <div className="footer-logo">Anaqio</div>
           <ul className="footer-links">
             <li>
+              <Link href="/brand">Brand</Link>
+            </li>
+            <li>
               <Link href="/legal-mentions">Legal Mentions</Link>
             </li>
             <li>

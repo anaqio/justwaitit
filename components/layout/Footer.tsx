@@ -10,6 +10,12 @@ export function Footer() {
 
         <div className="flex items-center gap-6">
           <Link
+            href="/brand"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+          >
+            Brand
+          </Link>
+          <Link
             href="/legal-mentions"
             className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
           >

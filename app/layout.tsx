@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Cormorant_Garamond, DM_Sans } from "next/font/google";
+import {
+  Geist,
+  Cormorant_Garamond,
+  DM_Sans,
+  Syne,
+  Plus_Jakarta_Sans,
+  JetBrains_Mono,
+} from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
@@ -45,6 +52,24 @@ const dmSans = DM_Sans({
   weight: ["300", "400", "500"],
 });
 
+const syne = Syne({
+  variable: "--font-syne",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -53,7 +78,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${cormorant.variable} ${dmSans.variable} antialiased`}
+        className={`${geistSans.variable} ${cormorant.variable} ${dmSans.variable} ${syne.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
