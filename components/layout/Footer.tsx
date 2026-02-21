@@ -10,6 +10,12 @@ export function Footer() {
 
         <div className="flex items-center gap-6">
           <Link
+            href="/legal-mentions"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+          >
+            Legal Mentions
+          </Link>
+          <Link
             href="/terms"
             className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
           >
@@ -20,6 +26,12 @@ export function Footer() {
             className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
           >
             Privacy Policy
+          </Link>
+          <Link
+            href="/cookies"
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+          >
+            Cookie Policy
           </Link>
         </div>
       </div>
