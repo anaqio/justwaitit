@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 export const metadata: Metadata = {
   title: "Terms of Service — Anaqio",
@@ -92,9 +93,12 @@ export default function TermsOfServicePage() {
           <Link href="/" className="nav-logo">
             Anaqio
           </Link>
-          <Link href="/" className="nav-back">
-            ← Back to Home
-          </Link>
+          <div className="flex items-center gap-6">
+            <Link href="/" className="nav-back">
+              ← Back to Home
+            </Link>
+            <ThemeSwitcher />
+          </div>
         </nav>
 
         <div className="page-wrap">

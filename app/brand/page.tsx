@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 export default function BrandIdentityPage() {
   const [password, setPassword] = useState("");
@@ -456,7 +457,6 @@ export default function BrandIdentityPage() {
           font-size: 10px; letter-spacing: 0.08em; color: white;
           font-weight: 500;
         }
-        .ompic-badge svg { width: 12px; height: 12px; }
         .color-swatch-info {
           background: white;
           padding: 16px 20px;
@@ -773,7 +773,7 @@ export default function BrandIdentityPage() {
         {/* DOC NAV */}
         <nav className="doc-nav">
           <div className="doc-nav-inner">
-            <a href="#logo" className="brand">Anaqio</a>
+            <Link href="/" className="brand">Anaqio</Link>
             <a href="#logo">Logo</a>
             <a href="#colors">Colors</a>
             <a href="#typography">Typography</a>
@@ -782,6 +782,9 @@ export default function BrandIdentityPage() {
             <a href="#components">Components</a>
             <a href="#tokens">Tokens</a>
             <a href="#trademark">Trademark</a>
+            <div className="ml-auto">
+              <ThemeSwitcher />
+            </div>
           </div>
         </nav>
 

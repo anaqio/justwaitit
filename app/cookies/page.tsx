@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 export default function CookiePolicyPage() {
   const [preferences, setPreferences] = useState({
@@ -129,9 +130,12 @@ export default function CookiePolicyPage() {
           <Link href="/" className="nav-logo">
             Anaqio
           </Link>
-          <Link href="/" className="nav-back">
-            ← Back to Home
-          </Link>
+          <div className="flex items-center gap-6">
+            <Link href="/" className="nav-back">
+              ← Back to Home
+            </Link>
+            <ThemeSwitcher />
+          </div>
         </nav>
 
         <div className="page-wrap">

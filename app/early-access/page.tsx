@@ -3,6 +3,7 @@
 import { useState, useTransition, useEffect } from "react";
 import Link from "next/link";
 import { joinWaitlist } from "@/lib/actions/waitlist";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 export default function EarlyAccessPage() {
   const [isPending, startTransition] = useTransition();
@@ -597,17 +598,20 @@ export default function EarlyAccessPage() {
           <Link href="/" className="nav-logo">
             Anaqio
           </Link>
-          <ul className="nav-links">
-            <li>
-              <a href="#features">Studio</a>
-            </li>
-            <li>
-              <a href="#workflow">How It Works</a>
-            </li>
-            <li>
-              <a href="#waitlist">Early Access</a>
-            </li>
-          </ul>
+          <div className="flex items-center gap-8">
+            <ul className="nav-links">
+              <li>
+                <a href="#features">Studio</a>
+              </li>
+              <li>
+                <a href="#workflow">How It Works</a>
+              </li>
+              <li>
+                <a href="#waitlist">Early Access</a>
+              </li>
+            </ul>
+            <ThemeSwitcher />
+          </div>
         </nav>
 
         {/* HERO */}
