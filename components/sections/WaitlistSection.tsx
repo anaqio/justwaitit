@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { joinWaitlist } from "@/lib/actions/waitlist";
@@ -52,13 +53,13 @@ export function WaitlistSection() {
         className="mx-auto max-w-lg"
       >
         {/* Glass card */}
-        <div className="glass-strong rounded-3xl p-8 sm:p-10 text-center space-y-6">
-          <div className="space-y-2">
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+        <div className="glass-strong rounded-[2rem] border-white/5 p-8 sm:p-12 text-center space-y-8 noise-overlay">
+          <div className="space-y-3 relative z-10">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-display">
               Join the Waitlist
             </h2>
-            <p className="text-sm text-muted-foreground">
-              Be the first to experience Anaqio. Sign up for early access.
+            <p className="text-base text-muted-foreground font-body">
+              Be the first to experience the Anaqio studio. Sign up for early access to the future of fashion.
             </p>
           </div>
 
@@ -86,20 +87,22 @@ export function WaitlistSection() {
               <p className="text-foreground font-medium">{message}</p>
             </motion.div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+              <input type="hidden" name="source" value="home" />
               <div className="flex flex-col sm:flex-row gap-3">
                 <Input
                   type="email"
                   name="email"
-                  placeholder="Enter your email"
+                  placeholder="Enter your professional email"
                   required
                   disabled={isPending}
-                  className="flex-1 h-12 rounded-xl bg-background/50 border-border/50 placeholder:text-muted-foreground/50 focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all"
+                  className="flex-1 h-14 rounded-xl bg-background/40 border-white/10 placeholder:text-muted-foreground/40 focus:border-aq-blue/50 transition-all font-body px-6"
                 />
                 <Button
                   type="submit"
+                  variant="brand"
                   disabled={isPending}
-                  className="h-12 px-6 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-medium transition-all duration-200 hover:shadow-lg hover:shadow-primary/20"
+                  className="h-14 px-8 rounded-xl text-sm"
                 >
                   {isPending ? (
                     <span className="flex items-center gap-2">
@@ -125,7 +128,7 @@ export function WaitlistSection() {
                       Joining...
                     </span>
                   ) : (
-                    "Join Waitlist"
+                    "Get Access"
                   )}
                 </Button>
               </div>
@@ -134,27 +137,27 @@ export function WaitlistSection() {
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="text-sm text-destructive"
+                  className="text-sm text-destructive font-medium"
                 >
                   {message}
                 </motion.p>
               )}
 
-              <p className="text-xs text-muted-foreground/60">
-                By joining, you agree to our{" "}
-                <a
+              <p className="text-xs text-muted-foreground/50 font-body">
+                By joining you agree to our{" "}
+                <Link
                   href="/terms"
-                  className="underline hover:text-foreground transition-colors"
+                  className="underline underline-offset-4 hover:text-aq-blue transition-colors"
                 >
                   Terms
-                </a>{" "}
+                </Link>{" "}
                 and{" "}
-                <a
+                <Link
                   href="/privacy"
-                  className="underline hover:text-foreground transition-colors"
+                  className="underline underline-offset-4 hover:text-aq-blue transition-colors"
                 >
                   Privacy Policy
-                </a>
+                </Link>
                 .
               </p>
             </form>

@@ -62,22 +62,22 @@ export function HeroSection() {
 
         {/* Tagline */}
         <motion.div variants={fadeUpVariants} className="space-y-4 max-w-2xl">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
-            <span className="text-gradient">Anaqio</span>
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter">
+            <span className="text-brand-gradient">Anaqio</span>
           </h1>
-          <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground font-light leading-relaxed">
-            A virtual studio for fashion commerce.
+          <p className="text-xl sm:text-2xl lg:text-3xl text-foreground font-medium tracking-tight font-display italic">
+            Virtual studio. Real commerce.
           </p>
         </motion.div>
 
         {/* Subtitle */}
         <motion.p
           variants={fadeUpVariants}
-          className="text-sm sm:text-base text-muted-foreground/70 max-w-md leading-relaxed"
+          className="text-base sm:text-lg text-muted-foreground max-w-lg leading-relaxed font-body"
         >
-          Empowering fashion brands with cutting-edge digital tools.
+          Empowering the next generation of fashion brands with AI-driven creative tools.
           <br />
-          <span className="text-foreground/60 font-medium">Coming soon.</span>
+          <span className="text-aq-blue font-bold mt-4 inline-block uppercase tracking-[0.3em] text-[10px]">Experience the future</span>
         </motion.p>
 
         {/* Scroll indicator */}
@@ -88,9 +88,9 @@ export function HeroSection() {
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-1.5"
+            className="w-6 h-10 rounded-full border-2 border-aq-blue/20 flex items-start justify-center p-1.5"
           >
-            <motion.div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/50" />
+            <motion.div className="w-1.5 h-1.5 rounded-full bg-aq-blue/50" />
           </motion.div>
         </motion.div>
       </motion.div>

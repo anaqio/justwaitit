@@ -4,6 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 
 export async function joinWaitlist(formData: FormData) {
   const email = formData.get("email") as string;
+  const fullName = formData.get("full_name") as string;
+  const source = formData.get("source") as string;
 
   if (!email || typeof email !== "string") {
     return { success: false, message: "Please provide a valid email address." };
@@ -20,7 +22,11 @@ export async function joinWaitlist(formData: FormData) {
 
     const { error } = await supabase
       .from("waitlist")
-      .insert({ email: email.toLowerCase().trim() });
+      .insert({ 
+        email: email.toLowerCase().trim(),
+        full_name: fullName?.trim() || null,
+        source: source?.trim() || "home"
+      });
 
     if (error) {
       if (error.code === "23505") {

@@ -15,21 +15,21 @@ export function Header() {
       <nav className="glass-strong mx-auto max-w-5xl rounded-2xl px-6 py-3 flex items-center justify-between pointer-events-auto">
         <Link
           href="/"
-          className="text-lg font-semibold tracking-tight text-gradient"
+          className="text-2xl font-extrabold tracking-tighter text-brand-gradient font-display"
         >
           anaqio
         </Link>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-8">
           <Link
             href="/terms"
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+            className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 uppercase tracking-widest"
           >
             Terms
           </Link>
           <Link
             href="/privacy"
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+            className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 uppercase tracking-widest"
           >
             Privacy
           </Link>
