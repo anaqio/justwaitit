@@ -61,12 +61,14 @@ export function HeroSection() {
         </motion.div>
 
         {/* Tagline */}
-        <motion.div variants={fadeUpVariants} className="space-y-4 max-w-2xl">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter">
-            <span className="text-brand-gradient">Anaqio</span>
+        <motion.div variants={fadeUpVariants} className="space-y-4 max-w-3xl">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[1.1]">
+            <span className="text-brand-gradient">AI Visual Studio</span>
+            <br />
+            <span className="text-foreground">for Fashion Commerce</span>
           </h1>
-          <p className="text-xl sm:text-2xl lg:text-3xl text-foreground font-medium tracking-tight font-display italic">
-            Virtual studio. Real commerce.
+          <p className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground font-medium tracking-tight font-display italic">
+            Generate studio-quality fashion visuals instantly.
           </p>
         </motion.div>
 
@@ -75,9 +77,9 @@ export function HeroSection() {
           variants={fadeUpVariants}
           className="text-base sm:text-lg text-muted-foreground max-w-lg leading-relaxed font-body"
         >
-          Empowering the next generation of fashion brands with AI-driven creative tools.
+          Empowering fashion brands with cutting-edge AI tools to transform concepts into commerce-ready imagery.
           <br />
-          <span className="text-aq-blue font-bold mt-4 inline-block uppercase tracking-[0.3em] text-[10px]">Experience the future</span>
+          <span className="text-aq-blue font-bold mt-4 inline-block uppercase tracking-[0.3em] text-[10px]">Experience the future of fashion</span>
         </motion.p>
 
         {/* Scroll indicator */}

@@ -5,6 +5,9 @@ import { createClient } from "@/lib/supabase/server";
 export async function joinWaitlist(formData: FormData) {
   const email = formData.get("email") as string;
   const fullName = formData.get("full_name") as string;
+  const role = formData.get("role") as string;
+  const company = formData.get("company") as string;
+  const revenueRange = formData.get("revenue_range") as string;
   const source = formData.get("source") as string;
 
   if (!email || typeof email !== "string") {
@@ -25,6 +28,9 @@ export async function joinWaitlist(formData: FormData) {
       .insert({ 
         email: email.toLowerCase().trim(),
         full_name: fullName?.trim() || null,
+        role: role || null,
+        company: company?.trim() || null,
+        revenue_range: revenueRange || null,
         source: source?.trim() || "home"
       });
 
