@@ -21,18 +21,27 @@ export function Header() {
         </Link>
 
         <div className="flex items-center gap-8">
-          <Link
-            href="/terms"
-            className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 uppercase tracking-widest"
+          <div className="hidden sm:flex items-center gap-6">
+            <Link
+              href="/terms"
+              className="text-[10px] font-bold text-muted-foreground hover:text-foreground transition-colors duration-200 uppercase tracking-[0.2em]"
+            >
+              Terms
+            </Link>
+            <Link
+              href="/privacy"
+              className="text-[10px] font-bold text-muted-foreground hover:text-foreground transition-colors duration-200 uppercase tracking-[0.2em]"
+            >
+              Privacy
+            </Link>
+          </div>
+          
+          <button
+            onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
+            className="text-[10px] font-bold bg-aq-blue text-white px-4 py-2 rounded-lg uppercase tracking-[0.2em] hover:bg-aq-blue/90 transition-colors"
           >
-            Terms
-          </Link>
-          <Link
-            href="/privacy"
-            className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 uppercase tracking-widest"
-          >
-            Privacy
-          </Link>
+            Join Waitlist
+          </button>
           <ThemeSwitcher />
         </div>
       </nav>

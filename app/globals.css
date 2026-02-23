@@ -103,6 +103,13 @@
   border: 1px solid hsla(var(--border), 0.2);
 }
 
+.glass-card {
+  background: hsla(var(--card), 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid hsla(var(--border), 0.1);
+}
+
 .text-brand-gradient {
   background: linear-gradient(90deg, #3F57AF 0%, #484DA9 32%, #6049A8 67%, #6F47A7 100%);
   -webkit-background-clip: text;

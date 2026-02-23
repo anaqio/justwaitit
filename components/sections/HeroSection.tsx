@@ -78,9 +78,19 @@ export function HeroSection() {
           className="text-base sm:text-lg text-muted-foreground max-w-lg leading-relaxed font-body"
         >
           Empowering fashion brands with cutting-edge AI tools to transform concepts into commerce-ready imagery.
-          <br />
-          <span className="text-aq-blue font-bold mt-4 inline-block uppercase tracking-[0.3em] text-[10px]">Experience the future of fashion</span>
         </motion.p>
+
+        {/* CTA */}
+        <motion.div variants={fadeUpVariants} className="flex flex-col items-center gap-4">
+          <button
+            onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
+            className="group relative px-8 py-4 bg-aq-blue text-white rounded-2xl font-bold transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(37,99,235,0.3)]"
+          >
+            Join the Waitlist
+            <span className="absolute -top-px -left-px -right-px -bottom-px rounded-2xl border-2 border-white/20 pointer-events-none" />
+          </button>
+          <span className="text-aq-blue font-bold uppercase tracking-[0.3em] text-[10px]">Experience the future of fashion</span>
+        </motion.div>
 
         {/* Scroll indicator */}
         <motion.div
