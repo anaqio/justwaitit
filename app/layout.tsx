@@ -7,6 +7,7 @@ import {
   Plus_Jakarta_Sans,
   JetBrains_Mono,
 } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
@@ -89,6 +90,7 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
       </body>
+      <GoogleAnalytics gaId="G-32QQVBGQN1" />
     </html>
   );
 }
