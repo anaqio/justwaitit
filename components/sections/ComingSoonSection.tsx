@@ -107,7 +107,7 @@ export function ComingSoonSection() {
                   >
                     <Player
                       component={IntroVideo}
-                      durationInFrames={150}
+                      durationInFrames={270}
                       compositionWidth={1080}
                       compositionHeight={1920}
                       fps={30}
