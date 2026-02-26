@@ -1,9 +1,9 @@
-import { AbsoluteFill, useVideoConfig, useCurrentFrame, interpolate, spring, Sequence, Series } from 'remotion';
+import { AbsoluteFill, useVideoConfig, useCurrentFrame, interpolate, spring, Series } from 'remotion';
 import { loadFont } from '@remotion/google-fonts/Syne';
 import { loadFont as loadCormorant } from '@remotion/google-fonts/CormorantGaramond';
 
-const { fontFamily: syne } = loadFont('normal', { weight: '800' });
-const { fontFamily: cormorant } = loadCormorant('normal', { weight: '400', style: 'italic' });
+const { fontFamily: syne } = loadFont('normal', { weights: ['800'] });
+const { fontFamily: cormorant } = loadCormorant('normal', { weights: ['400'] });
 
 const BrandGradient = 'linear-gradient(90deg, #3F57AF 0%, #484DA9 32%, #6049A8 67%, #6F47A7 100%)';
 

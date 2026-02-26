@@ -29,7 +29,7 @@ export async function joinWaitlist(formData: FormData) {
   if (!validatedFields.success) {
     return { 
       success: false, 
-      message: validatedFields.error.errors[0].message 
+      message: validatedFields.error.issues[0].message 
     };
   }
 

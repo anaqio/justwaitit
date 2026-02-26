@@ -15,7 +15,6 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ThemeSwitcher } from "@/components/theme-switcher";
 
 export function SignUpForm({
   className,

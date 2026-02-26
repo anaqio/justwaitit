@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Camera, MapPin, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const vibes = [
   {
@@ -35,7 +36,6 @@ export function InteractivePreview() {
   const [selectedVibe, setSelectedVibe] = useState(vibes[0]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showResult, setShowResult] = useState(false);
-  const [sliderPos, setSliderPos] = useState(50);
 
   const handleVibeChange = (vibe: typeof vibes[0]) => {
     if (vibe.id === selectedVibe.id) return;
@@ -65,9 +65,10 @@ export function InteractivePreview() {
             transition={{ duration: 1 }}
             className="absolute inset-0"
           >
-            <img
+            <Image
               src={selectedVibe.image}
               alt={selectedVibe.name}
+              fill
               className="w-full h-full object-cover grayscale-[0.2] brightness-[0.8]"
             />
             <div className="absolute inset-0 bg-black/20" />
@@ -81,9 +82,10 @@ export function InteractivePreview() {
             animate={{ scale: 1, opacity: 1 }}
             className="relative w-[80%] h-[80%]"
           >
-            <img
+            <Image
               src={garmentImage}
               alt="Fashion Garment"
+              fill
               className={cn(
                 "w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-1000",
                 showResult ? "brightness-110 contrast-110" : "brightness-90"
@@ -180,7 +182,7 @@ export function InteractivePreview() {
                   : "border-transparent opacity-60 hover:opacity-100 hover:scale-[1.02]"
               )}
             >
-              <img src={vibe.image} className="w-full h-full object-cover" alt={vibe.name} />
+              <Image src={vibe.image} className="w-full h-full object-cover" alt={vibe.name} fill />
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
               <div className="absolute inset-0 flex flex-col items-center justify-center p-2 text-center">
                 <span className="text-[10px] font-bold uppercase tracking-tight text-white">{vibe.name}</span>

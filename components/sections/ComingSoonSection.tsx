@@ -53,7 +53,7 @@ export function ComingSoonSection() {
             </div>
 
             <div className="space-y-4">
-              {features.map((f, i) => (
+              {features.map((f) => (
                 <div key={f.title} className="flex items-start gap-4 p-4 rounded-2xl border border-white/5 bg-secondary/5 hover:bg-secondary/10 transition-colors">
                   <div className="w-10 h-10 rounded-xl bg-aq-blue/10 flex items-center justify-center shrink-0">
                     <f.icon className="w-5 h-5 text-aq-blue" />
@@ -167,7 +167,7 @@ export function ComingSoonSection() {
             <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-aq-ink border border-white/10 flex items-center justify-center shadow-xl animate-float">
               <span className="font-display font-extrabold text-aq-blue text-xs tracking-tighter uppercase">{view}</span>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
