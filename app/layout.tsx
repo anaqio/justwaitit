@@ -45,6 +45,7 @@ export const metadata: Metadata = {
     url: defaultUrl,
     siteName: "Anaqio",
     locale: "en_US",
+    alternateLocale: ["ar_MA"],
     type: "website",
     images: [
       {

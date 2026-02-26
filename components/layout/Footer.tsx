@@ -12,7 +12,7 @@ export function Footer() {
           <ThemeSwitcher />
         </div>
 
-        <div className="grid grid-cols-2 sm:flex items-center gap-x-10 gap-y-4">
+        <nav aria-label="Footer Navigation" className="grid grid-cols-2 sm:flex items-center gap-x-10 gap-y-4">
           <Link
             href="/brand"
             className="text-[10px] font-semibold text-muted-foreground hover:text-foreground transition-colors duration-200 uppercase tracking-[0.2em]"
@@ -43,7 +43,7 @@ export function Footer() {
           >
             Cookies
           </Link>
-        </div>
+        </nav>
       </div>
     </footer>
   );

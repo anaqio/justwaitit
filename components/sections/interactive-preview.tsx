@@ -10,21 +10,21 @@ const vibes = [
     id: "sahara",
     name: "Sahara Sunset",
     location: "Merzouga, Morocco",
-    image: "https://images.unsplash.com/photo-1509060408203-06d398642e97?auto=format&fit=crop&q=80&w=1000",
+    image: "https://images.unsplash.com/photo-1509060408203-06d398642e97?auto=format&fit=crop&q=80&w=1200",
     color: "#ea580c",
   },
   {
     id: "marrakech",
     name: "Marrakech Riad",
     location: "Medina, Marrakech",
-    image: "https://images.unsplash.com/photo-1548013146-72479768bbaa?auto=format&fit=crop&q=80&w=1000",
+    image: "https://images.unsplash.com/photo-1548013146-72479768bbaa?auto=format&fit=crop&q=80&w=1200",
     color: "#c9a96e",
   },
   {
     id: "atlas",
     name: "Atlas Morning",
     location: "High Atlas Mountains",
-    image: "https://images.unsplash.com/photo-1539181912690-41aa51ee58ba?auto=format&fit=crop&q=80&w=1000",
+    image: "https://images.unsplash.com/photo-1539181912690-41aa51ee58ba?auto=format&fit=crop&q=80&w=1200",
     color: "#3b82f6",
   },
 ];
@@ -172,6 +172,7 @@ export function InteractivePreview() {
               key={vibe.id}
               onClick={() => handleVibeChange(vibe)}
               disabled={isProcessing}
+              aria-label={`Switch to ${vibe.name} environment`}
               className={cn(
                 "relative h-24 rounded-2xl overflow-hidden border-2 transition-all group disabled:opacity-50",
                 selectedVibe.id === vibe.id 

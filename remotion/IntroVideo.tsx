@@ -58,7 +58,7 @@ const SolutionScene = () => {
     <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#0a0a08' }}>
       <div style={{ position: 'absolute', inset: 0, opacity: 0.3 }}>
         <img 
-          src="https://images.unsplash.com/photo-1548013146-72479768bbaa?auto=format&fit=crop&q=80&w=1000" 
+          src="https://images.unsplash.com/photo-1548013146-72479768bbaa?auto=format&fit=crop&q=80&w=1200" 
           style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
           alt="Marrakech"
         />
