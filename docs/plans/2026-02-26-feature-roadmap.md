@@ -1,7 +1,5 @@
 # ANAQIO Feature Roadmap & Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
-
 **Goal:** Bridge the gap between the current landing page and a functional, interactive AI fashion studio, while tailoring the brand for the Moroccan market.
 
 **Architecture:** A multi-phase rollout focusing on client-side interactivity (Interactive Preview), core AI features (Editor & Lookbook), and brand localization (Moroccan MAD/DH pricing and high-end Moroccan fashion aesthetic).
@@ -22,6 +20,19 @@
 
 ---
 
+## Current Status (as of February 26, 2026)
+
+The project codebase has undergone a comprehensive review and several critical issues have been resolved, enhancing stability, type safety, and adherence to modern Next.js practices.
+
+**Resolved Issues:**
+-   **Linting & Type Safety:** Addressed various `react/no-unescaped-entities`, `react/jsx-no-comment-textnodes` errors in `app/brand/brand-content.tsx` and unused variable/import warnings across components. Replaced `any[]` with specific types where possible.
+-   **Image Optimization:** Replaced direct `<img>` tags with `next/image` in `components/sections/interactive-preview.tsx` for optimized image delivery.
+-   **Zod Validation:** Corrected `ZodError` access from `error.errors` to `error.issues` in `lib/actions/waitlist.ts` for compatibility with current Zod versions.
+-   **Supabase Middleware:** Fixed cookie handling in `lib/supabase/middleware.ts` (now `proxy.ts`) to align with `NextRequest` and `NextResponse` cookie API.
+-   **Remotion Integration:** Resolved font loading (`weight` vs `weights`, `style` property) and composition registration (`registerComposition` vs `<Composition>`) issues in Remotion files. Ensured correct JSX processing by renaming `remotion/index.ts` to `remotion/index.tsx`.
+-   **Tailwind CSS Configuration:** Imported `Config` type in `tailwind.config.ts` to resolve TypeScript errors.
+-   **Next.js Middleware Migration:** Successfully migrated the deprecated `middleware.ts` file to the new `proxy.ts` convention using the `@next/codemod` tool, aligning with Next.js 16+ best practices.
+
 ## Interactive Preview
 
 - **Scope:** A "try-before-you-buy" component embedded in the landing page allowing users to toggle backgrounds and lighting styles on high-end garments.
@@ -40,6 +51,7 @@
   - Interactive Preview component.
   - Introduction video built with Remotion.
   - Consistent branding with Syne and Cormorant fonts.
+  - Next.js `proxy.ts` for Edge runtime logic.
 - **Out Scope:**
   - Real-time AI backend processing (simulated for now).
   - Moroccan payment gateway integration (Stripe/Payzone).
@@ -77,7 +89,8 @@
 ### Phase 3: Video & Lookbook Alpha (Upcoming)
 - [ ] Refine Remotion animation sequence with actual fashion assets.
 - [ ] Implement early-access dashboard for waitlisted users.
-- [ ] Add "Style Preference" survey to the waitlist form.
+- [x] Add `preferences` field to the waitlist table (migration).
+- [ ] Update the form to collect "Desired Aesthetic" (Modern, Traditional, Streetwear).
 
 ---
 
