@@ -31,7 +31,7 @@ export function ComingSoonSection() {
   const [view, setView] = useState<"video" | "preview">("video");
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center py-24 px-4 snap-start overflow-hidden">
+    <section className="relative h-screen flex items-center justify-center px-4 snap-start overflow-hidden">
       <div className="max-w-6xl mx-auto w-full space-y-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <motion.div

@@ -13,7 +13,7 @@ const features = [
 
 export function ProductPreviewSection() {
   return (
-    <section id="product-preview" className="relative min-h-screen flex items-center justify-center py-24 px-4 snap-start overflow-hidden">
+    <section id="product-preview" className="relative h-screen flex items-center justify-center px-4 snap-start overflow-hidden">
       {/* Background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl max-h-4xl bg-aq-blue/5 rounded-full blur-[120px] pointer-events-none" />
 
@@ -32,7 +32,7 @@ export function ProductPreviewSection() {
               <span className="text-brand-gradient">reimagined.</span>
             </h3>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-lg font-body">
-              Transform your product shots into high-end editorial campaigns without leaving your desk. 
+              Transform your product shots into high-end editorial campaigns without leaving your desk.
               Our AI understands fashion textures, draping, and lighting.
             </p>
           </div>

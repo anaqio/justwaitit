@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export function DemoSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center py-24 px-4 snap-start">
+    <section className="relative h-screen flex items-center justify-center px-4 snap-start">
       <div className="max-w-5xl mx-auto w-full text-center space-y-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -40,7 +40,7 @@ export function DemoSection() {
               </p>
             </div>
           </div>
-          
+
           {/* Overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
         </motion.div>

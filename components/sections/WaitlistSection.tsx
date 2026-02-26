@@ -15,7 +15,7 @@ const sectionVariants = {
 
 export function WaitlistSection() {
   return (
-    <section id="waitlist" className="relative min-h-screen flex items-center justify-center py-24 px-4 snap-start overflow-hidden">
+    <section id="waitlist" className="relative h-screen flex items-center justify-center px-4 snap-start overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-aq-blue/10 rounded-full blur-[160px] pointer-events-none animate-glow" />
       <motion.div
         variants={sectionVariants}
