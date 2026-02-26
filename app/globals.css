@@ -1,3 +1,6 @@
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,300;0,6..96,400;1,6..96,300&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Jost:wght@200;300;400&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -28,6 +31,13 @@
     /* Anaqio Specific */
     --aq-gradient: linear-gradient(90deg, #3F57AF 0%, #484DA9 32%, #6049A8 67%, #6F47A7 100%);
     --aq-gradient-diag: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+
+    /* Typography System */
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-ui: 'DM Sans', system-ui, sans-serif;
+    --font-label: 'Jost', system-ui, sans-serif;
+    --font-editorial: 'Playfair Display', Georgia, serif;
+    --font-wordmark: 'Bodoni Moda', Georgia, serif;
   }
 
   .dark {
@@ -61,7 +71,8 @@
     @apply bg-aq-blue/20 text-aq-blue;
   }
   body {
-    @apply bg-background text-foreground font-body;
+    font-family: var(--font-ui);
+    @apply bg-background text-foreground;
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4, h5, h6 {
@@ -243,4 +254,57 @@
 
 .page-entrance {
   animation: entrance 1s ease-out forwards;
+}
+
+/* ==============================
+   Typography System
+   ============================== */
+
+@layer components {
+  .text-display {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+  }
+
+  .text-headline {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  .text-subheading {
+    font-family: var(--font-ui);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  .text-body {
+    font-family: var(--font-ui);
+    font-weight: 400;
+    line-height: 1.75;
+  }
+
+  .text-caption {
+    font-family: var(--font-ui);
+    font-weight: 300;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+  }
+
+  .text-cta {
+    font-family: var(--font-label);
+    font-weight: 400;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .text-wordmark {
+    font-family: var(--font-wordmark);
+    font-weight: 300;
+    font-style: italic;
+  }
 }
