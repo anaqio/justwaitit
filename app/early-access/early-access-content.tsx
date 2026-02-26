@@ -1,45 +1,11 @@
 "use client";
 
-import { useState, useTransition } from "react";
 import Link from "next/link";
-import { joinWaitlist } from "@/lib/actions/waitlist";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { WaitlistForm } from "@/components/sections/waitlist-form";
 
 export function EarlyAccessContent() {
-  const [isPending, startTransition] = useTransition();
-  const [heroStatus, setHeroStatus] = useState<"idle" | "success" | "error">(
-    "idle"
-  );
-  const [ctaStatus, setCtaStatus] = useState<"idle" | "success" | "error">(
-    "idle"
-  );
-
-  const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>,
-    source: "hero" | "cta"
-  ) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const setStatus = source === "hero" ? setHeroStatus : setCtaStatus;
-
-    startTransition(async () => {
-      try {
-        const result = await joinWaitlist(formData);
-        if (result.success) {
-          setStatus("success");
-          (e.target as HTMLFormElement).reset();
-        } else {
-          setStatus("error");
-        }
-      } catch {
-        setStatus("error");
-      }
-    });
-  };
-
   return (
     <div className="min-h-screen bg-background text-foreground font-body selection:bg-aq-blue/20">
       <Header />
@@ -67,28 +33,8 @@ export function EarlyAccessContent() {
                 stage, and sell fashion — without traditional production overhead.
               </p>
 
-              <div className="max-w-md">
-                {heroStatus === "success" ? (
-                  <div className="p-4 bg-aq-blue/10 border border-aq-blue/20 rounded-xl text-aq-blue font-bold text-sm uppercase tracking-widest flex items-center gap-3">
-                    <span className="text-xl">✦</span> You&apos;re on the list.
-                  </div>
-                ) : (
-                  <form className="flex gap-2" onSubmit={(e) => handleSubmit(e, "hero")}>
-                    <input type="hidden" name="source" value="early-access-hero" />
-                    <Input
-                      type="email"
-                      name="email"
-                      placeholder="professional@email.com"
-                      aria-label="Email address for early access"
-                      className="h-14 bg-background/50 border-white/10 rounded-xl px-6"
-                      required
-                      disabled={isPending}
-                    />
-                    <Button variant="brand" className="h-14 px-8 rounded-xl shrink-0" disabled={isPending}>
-                      {isPending ? "Joining..." : "Get Access"}
-                    </Button>
-                  </form>
-                )}
+              <div className="max-w-md relative">
+                <WaitlistForm source="early-access-hero" variant="simple" />
                 <p className="mt-4 text-[10px] text-muted-foreground uppercase tracking-widest font-medium">
                   By joining you agree to our <Link href="/privacy" className="text-foreground underline">Privacy</Link> & <Link href="/terms" className="text-foreground underline">Terms</Link>
                 </p>
@@ -144,25 +90,7 @@ export function EarlyAccessContent() {
             </h2>
             
             <div className="max-w-md mx-auto relative z-10 space-y-6">
-              {ctaStatus === "success" ? (
-                <p className="text-aq-blue font-bold tracking-widest uppercase">✦ Registration Confirmed</p>
-              ) : (
-                <form className="flex flex-col gap-3" onSubmit={(e) => handleSubmit(e, "cta")}>
-                  <input type="hidden" name="source" value="early-access-cta" />
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    aria-label="Email address for spot reservation"
-                    className="h-14 bg-white/5 border-white/10 rounded-xl px-6 text-white text-center"
-                    required
-                    disabled={isPending}
-                  />
-                  <Button variant="brand" className="h-14 rounded-xl" disabled={isPending}>
-                    {isPending ? "Requesting..." : "Reserve Your Spot"}
-                  </Button>
-                </form>
-              )}
+              <WaitlistForm source="early-access-cta" variant="simple" className="flex-col sm:flex-row" />
               <p className="text-xs text-muted-foreground font-medium uppercase tracking-widest">Limited slots available for v1.0</p>
             </div>
           </div>

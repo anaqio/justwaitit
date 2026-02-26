@@ -1,11 +1,8 @@
 "use client";
 
-import { useState, useTransition } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { joinWaitlist } from "@/lib/actions/waitlist";
+import { WaitlistForm } from "./waitlist-form";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -17,32 +14,6 @@ const sectionVariants = {
 };
 
 export function WaitlistSection() {
-  const [isPending, startTransition] = useTransition();
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const [message, setMessage] = useState("");
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-
-    startTransition(async () => {
-      try {
-        const result = await joinWaitlist(formData);
-        if (result.success) {
-          setStatus("success");
-          setMessage(result.message);
-          (e.target as HTMLFormElement).reset();
-        } else {
-          setStatus("error");
-          setMessage(result.message);
-        }
-      } catch {
-        setStatus("error");
-        setMessage("Something went wrong. Please try again.");
-      }
-    });
-  };
-
   return (
     <section id="waitlist" className="relative min-h-screen flex items-center justify-center py-24 px-4 snap-start overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-aq-blue/10 rounded-full blur-[160px] pointer-events-none animate-glow" />
@@ -61,7 +32,7 @@ export function WaitlistSection() {
                 Exclusive <br />
                 <span className="text-brand-gradient">Incentives.</span>
               </h2>
-              <p className="text-muted-foreground font-body">
+              <p className="text-muted-foreground font-body text-sm">
                 Join our private beta and help shape the future of fashion commerce.
               </p>
             </div>
@@ -77,8 +48,8 @@ export function WaitlistSection() {
                     <div className="w-2 h-2 rounded-full bg-aq-blue" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-foreground">{item.title}</h4>
-                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                    <h4 className="font-bold text-foreground text-sm">{item.title}</h4>
+                    <p className="text-xs text-muted-foreground">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -96,133 +67,14 @@ export function WaitlistSection() {
               </p>
             </div>
 
-            {status === "success" ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="py-12 text-center space-y-4"
-              >
-                <div className="w-16 h-16 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mx-auto">
-                  <svg className="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <div className="space-y-2">
-                  <p className="text-xl font-bold text-foreground">You&apos;re on the list!</p>
-                  <p className="text-muted-foreground">{message}</p>
-                </div>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
-                <input type="hidden" name="source" value="home" />
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label htmlFor="full_name" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Name</label>
-                    <Input
-                      id="full_name"
-                      type="text"
-                      name="full_name"
-                      placeholder="Your name"
-                      required
-                      disabled={isPending}
-                      aria-label="Full Name"
-                      className="h-12 rounded-xl bg-background/40 border-white/10 placeholder:text-muted-foreground/30 focus:border-aq-blue/50 transition-all font-body px-4"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Email</label>
-                    <Input
-                      id="email"
-                      type="email"
-                      name="email"
-                      placeholder="professional@email.com"
-                      required
-                      disabled={isPending}
-                      aria-label="Professional Email"
-                      className="h-12 rounded-xl bg-background/40 border-white/10 placeholder:text-muted-foreground/30 focus:border-aq-blue/50 transition-all font-body px-4"
-                    />
-                  </div>
-                </div>
+            <WaitlistForm source="home" />
 
-                <div className="space-y-2">
-                  <label htmlFor="role" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Your Role</label>
-                  <select
-                    id="role"
-                    name="role"
-                    required
-                    defaultValue=""
-                    disabled={isPending}
-                    aria-label="Professional Role"
-                    className="flex h-12 w-full rounded-xl border border-white/10 bg-background/40 px-4 py-2 text-sm shadow-sm transition-colors focus:border-aq-blue/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 appearance-none font-body text-foreground"
-                  >
-                    <option value="" disabled>Select your professional role</option>
-                    <option value="Brand">Brand Owner / Representative</option>
-                    <option value="Stylist">Fashion Stylist</option>
-                    <option value="Seller">E-commerce Seller</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label htmlFor="company" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Company (Optional)</label>
-                    <Input
-                      id="company"
-                      type="text"
-                      name="company"
-                      placeholder="Brand or Studio name"
-                      disabled={isPending}
-                      aria-label="Company Name"
-                      className="h-12 rounded-xl bg-background/40 border-white/10 placeholder:text-muted-foreground/30 focus:border-aq-blue/50 transition-all font-body px-4"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="revenue_range" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Revenue (Optional)</label>
-                    <select
-                      id="revenue_range"
-                      name="revenue_range"
-                      defaultValue=""
-                      disabled={isPending}
-                      aria-label="Monthly Revenue Range"
-                      className="flex h-12 w-full rounded-xl border border-white/10 bg-background/40 px-4 py-2 text-sm shadow-sm transition-colors focus:border-aq-blue/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 appearance-none font-body text-foreground"
-                    >
-                      <option value="">Monthly Revenue Range</option>
-                      <option value="0-10k">$0 - $10k</option>
-                      <option value="10k-50k">$10k - $50k</option>
-                      <option value="50k-250k">$50k - $250k</option>
-                      <option value="250k+">$250k+</option>
-                    </select>
-                  </div>
-                </div>
-
-                <Button
-                  type="submit"
-                  variant="brand"
-                  disabled={isPending}
-                  className="w-full h-14 rounded-xl text-base font-bold shadow-lg shadow-aq-blue/20"
-                >
-                  {isPending ? "Securing your spot..." : "Join the Waitlist"}
-                </Button>
-
-                {status === "error" && (
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-sm text-destructive font-medium text-center"
-                  >
-                    {message}
-                  </motion.p>
-                )}
-
-                <p className="text-[10px] text-muted-foreground/50 font-body text-center">
-                  By joining you agree to our{" "}
-                  <Link href="/terms" className="underline hover:text-aq-blue transition-colors">Terms</Link>
-                  {" "}and{" "}
-                  <Link href="/privacy" className="underline hover:text-aq-blue transition-colors">Privacy Policy</Link>.
-                </p>
-              </form>
-            )}
+            <p className="text-[10px] text-muted-foreground/50 font-body text-center relative z-10">
+              By joining you agree to our{" "}
+              <Link href="/terms" className="underline hover:text-aq-blue transition-colors">Terms</Link>
+              {" "}and{" "}
+              <Link href="/privacy" className="underline hover:text-aq-blue transition-colors">Privacy Policy</Link>.
+            </p>
           </div>
         </div>
       </motion.div>
