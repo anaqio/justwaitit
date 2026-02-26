@@ -166,6 +166,24 @@ export function WaitlistForm({ source, variant = "full", className }: WaitlistFo
         </div>
       </div>
 
+      <div className="space-y-2">
+        <label htmlFor="aesthetic" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Desired Aesthetic (Optional)</label>
+        <select
+          id="aesthetic"
+          name="aesthetic"
+          defaultValue=""
+          disabled={isPending}
+          className="flex h-12 w-full rounded-xl border border-white/10 bg-background/40 px-4 py-2 text-sm shadow-sm transition-colors focus:border-aq-blue/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 appearance-none text-foreground"
+        >
+          <option value="">Select Aesthetic Preference</option>
+          <option value="Modern Minimalist">Modern Minimalist</option>
+          <option value="Traditional Moroccan">Traditional Moroccan</option>
+          <option value="Luxury Editorial">Luxury Editorial</option>
+          <option value="Streetwear">Streetwear</option>
+          <option value="Avant-Garde">Avant-Garde</option>
+        </select>
+      </div>
+
       <Button
         type="submit"
         variant="brand"

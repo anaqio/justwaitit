@@ -9,6 +9,7 @@ const WaitlistSchema = z.object({
   role: z.string().min(1, "Please select your role."),
   company: z.string().max(100).optional().nullable(),
   revenue_range: z.string().optional().nullable(),
+  aesthetic: z.string().optional(),
   source: z.string().default("home"),
 });
 
@@ -19,6 +20,7 @@ export async function joinWaitlist(formData: FormData) {
     role: formData.get("role"),
     company: formData.get("company"),
     revenue_range: formData.get("revenue_range"),
+    aesthetic: formData.get("aesthetic"),
     source: formData.get("source"),
   };
 
@@ -31,7 +33,7 @@ export async function joinWaitlist(formData: FormData) {
     };
   }
 
-  const { email, full_name, role, company, revenue_range, source } = validatedFields.data;
+  const { email, full_name, role, company, revenue_range, aesthetic, source } = validatedFields.data;
 
   try {
     const supabase = await createClient();
@@ -44,6 +46,7 @@ export async function joinWaitlist(formData: FormData) {
         role: role,
         company: company?.trim() || null,
         revenue_range: revenue_range || null,
+        preferences: aesthetic ? { aesthetic } : {},
         source: source
       });
 
