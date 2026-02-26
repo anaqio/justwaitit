@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
+import { InteractivePreview } from "./interactive-preview";
 
 const features = [
   "Studio-quality lighting & textures",
@@ -12,7 +13,7 @@ const features = [
 
 export function ProductPreviewSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center py-24 px-4 snap-start overflow-hidden">
+    <section id="product-preview" className="relative min-h-screen flex items-center justify-center py-24 px-4 snap-start overflow-hidden">
       {/* Background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl max-h-4xl bg-aq-blue/5 rounded-full blur-[120px] pointer-events-none" />
 
@@ -47,23 +48,13 @@ export function ProductPreviewSection() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="relative aspect-square sm:aspect-video lg:aspect-square rounded-3xl overflow-hidden glass-card border-white/5 shadow-2xl"
+          className="relative aspect-[4/5] lg:aspect-square w-full"
         >
-          {/* Placeholder for Product Image/Preview */}
-          <div className="absolute inset-0 bg-gradient-to-br from-aq-blue/10 to-transparent flex items-center justify-center">
-            <div className="text-center p-8 space-y-4">
-              <div className="w-20 h-20 bg-aq-blue/20 rounded-2xl mx-auto flex items-center justify-center">
-                <svg className="w-10 h-10 text-aq-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <p className="text-muted-foreground font-medium">Interactive Preview Coming Soon</p>
-            </div>
-          </div>
+          <InteractivePreview />
         </motion.div>
       </div>
     </section>

@@ -132,18 +132,36 @@ export function ComingSoonSection() {
                       <Sparkles className="w-10 h-10 text-aq-blue" />
                     </div>
                     <h4 className="text-2xl font-bold font-display italic">Interactive Experience</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      Select your garment and environment to see the AI transformation in real-time.
+                    <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
+                      The alpha version of our interactive engine is now available for testing.
                     </p>
-                    <div className="grid grid-cols-3 gap-2 w-full max-w-xs mt-8">
+                    <button 
+                      onClick={() => document.getElementById('product-preview')?.scrollIntoView({ behavior: 'smooth' })}
+                      className="mt-6 px-6 py-3 bg-aq-blue text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-all shadow-lg shadow-aq-blue/20"
+                    >
+                      Explore Studio Engine
+                    </button>
+                    <div className="grid grid-cols-3 gap-2 w-full max-w-xs mt-8 opacity-20">
                       {[1, 2, 3].map(i => (
-                        <div key={i} className="aspect-square rounded-xl bg-white/5 border border-white/5 animate-pulse" />
+                        <div key={i} className="aspect-square rounded-xl bg-white/5 border border-white/5" />
                       ))}
                     </div>
-                    <span className="text-[10px] font-bold text-aq-blue uppercase tracking-[0.2em] animate-pulse">Coming in Phase 2</span>
                   </motion.div>
                 )}
               </AnimatePresence>
+
+              {/* Timeline Indicator */}
+              <div className="absolute bottom-12 left-0 right-0 px-12 z-10">
+                <div className="h-1 w-full bg-white/10 rounded-full relative">
+                  <div className="absolute top-0 left-0 h-full w-2/3 bg-aq-blue shadow-[0_0_15px_rgba(37,99,235,0.5)]" />
+                  <div className="absolute top-1/2 -translate-y-1/2 left-2/3 w-3 h-3 rounded-full bg-aq-blue border-4 border-background" />
+                </div>
+                <div className="flex justify-between mt-4">
+                  <span className="text-[8px] font-bold text-aq-blue uppercase tracking-widest">Phase 1: Brand</span>
+                  <span className="text-[8px] font-bold text-aq-blue uppercase tracking-widest">Phase 2: Preview</span>
+                  <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Phase 3: Studio</span>
+                </div>
+              </div>
             </div>
             
             <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-aq-ink border border-white/10 flex items-center justify-center shadow-xl animate-float">
