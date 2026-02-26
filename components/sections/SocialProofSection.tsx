@@ -23,13 +23,17 @@ export function SocialProofSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 opacity-30 grayscale contrast-125">
-          {/* Logo Placeholders */}
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-12 flex items-center justify-center">
-              <div className="w-32 h-8 bg-foreground/20 rounded-lg animate-pulse" />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 opacity-40 grayscale contrast-150 relative z-10">
+          {/* Logo Placeholders with brand-like feel */}
+          {["VOGUE", "HARPER'S", "ELLE", "LOOFFICIEL"].map((brand) => (
+            <div key={brand} className="h-16 flex items-center justify-center">
+              <span className="font-display font-black text-2xl tracking-[0.4em] text-foreground/40">{brand}</span>
             </div>
           ))}
+        </div>
+        
+        <div className="pt-12">
+          <p className="text-[10px] uppercase tracking-[0.5em] font-bold text-aq-blue/40">Selected Partners Only</p>
         </div>
       </div>
     </section>

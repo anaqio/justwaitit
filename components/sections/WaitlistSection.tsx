@@ -45,6 +45,7 @@ export function WaitlistSection() {
 
   return (
     <section id="waitlist" className="relative min-h-screen flex items-center justify-center py-24 px-4 snap-start overflow-hidden">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-aq-blue/10 rounded-full blur-[160px] pointer-events-none animate-glow" />
       <motion.div
         variants={sectionVariants}
         initial="hidden"
@@ -117,38 +118,45 @@ export function WaitlistSection() {
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Name</label>
+                    <label htmlFor="full_name" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Name</label>
                     <Input
+                      id="full_name"
                       type="text"
                       name="full_name"
                       placeholder="Your name"
                       required
                       disabled={isPending}
+                      aria-label="Full Name"
                       className="h-12 rounded-xl bg-background/40 border-white/10 placeholder:text-muted-foreground/30 focus:border-aq-blue/50 transition-all font-body px-4"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Email</label>
+                    <label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Email</label>
                     <Input
+                      id="email"
                       type="email"
                       name="email"
                       placeholder="professional@email.com"
                       required
                       disabled={isPending}
+                      aria-label="Professional Email"
                       className="h-12 rounded-xl bg-background/40 border-white/10 placeholder:text-muted-foreground/30 focus:border-aq-blue/50 transition-all font-body px-4"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Your Role</label>
+                  <label htmlFor="role" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Your Role</label>
                   <select
+                    id="role"
                     name="role"
                     required
+                    defaultValue=""
                     disabled={isPending}
+                    aria-label="Professional Role"
                     className="flex h-12 w-full rounded-xl border border-white/10 bg-background/40 px-4 py-2 text-sm shadow-sm transition-colors focus:border-aq-blue/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 appearance-none font-body text-foreground"
                   >
-                    <option value="" disabled selected>Select your professional role</option>
+                    <option value="" disabled>Select your professional role</option>
                     <option value="Brand">Brand Owner / Representative</option>
                     <option value="Stylist">Fashion Stylist</option>
                     <option value="Seller">E-commerce Seller</option>
@@ -158,23 +166,28 @@ export function WaitlistSection() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Company (Optional)</label>
+                    <label htmlFor="company" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Company (Optional)</label>
                     <Input
+                      id="company"
                       type="text"
                       name="company"
                       placeholder="Brand or Studio name"
                       disabled={isPending}
+                      aria-label="Company Name"
                       className="h-12 rounded-xl bg-background/40 border-white/10 placeholder:text-muted-foreground/30 focus:border-aq-blue/50 transition-all font-body px-4"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Revenue (Optional)</label>
+                    <label htmlFor="revenue_range" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Revenue (Optional)</label>
                     <select
+                      id="revenue_range"
                       name="revenue_range"
+                      defaultValue=""
                       disabled={isPending}
+                      aria-label="Monthly Revenue Range"
                       className="flex h-12 w-full rounded-xl border border-white/10 bg-background/40 px-4 py-2 text-sm shadow-sm transition-colors focus:border-aq-blue/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 appearance-none font-body text-foreground"
                     >
-                      <option value="" selected>Monthly Revenue Range</option>
+                      <option value="">Monthly Revenue Range</option>
                       <option value="0-10k">$0 - $10k</option>
                       <option value="10k-50k">$10k - $50k</option>
                       <option value="50k-250k">$50k - $250k</option>

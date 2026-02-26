@@ -6,6 +6,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Registration Successful — Anaqio",
+  robots: "noindex, nofollow",
+};
+
 export default function SignUpSuccessPage() {
   return (
     <Card className="noise-overlay border-white/5">

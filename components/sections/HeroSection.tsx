@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const containerVariants = {
   hidden: {},
@@ -34,12 +35,22 @@ const logoVariants = {
 };
 
 export function HeroSection() {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, -80]);
+
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden hero-gradient snap-start">
+    <section ref={containerRef} className="relative h-screen flex items-center justify-center overflow-hidden hero-gradient snap-start">
       {/* Decorative orbs */}
-      <div className="glow-orb w-[500px] h-[500px] bg-purple-500/10 top-[-10%] left-[-10%] animate-float-slow" />
-      <div className="glow-orb w-[400px] h-[400px] bg-pink-500/10 bottom-[-5%] right-[-5%] animate-float" />
-      <div className="glow-orb w-[300px] h-[300px] bg-indigo-500/8 top-[30%] right-[10%] animate-glow" />
+      <motion.div style={{ y: y1 }} className="glow-orb w-[500px] h-[500px] bg-purple-500/10 top-[-10%] left-[-10%] animate-float-slow" />
+      <motion.div style={{ y: y2 }} className="glow-orb w-[400px] h-[400px] bg-pink-500/10 bottom-[-5%] right-[-5%] animate-float" />
+      <motion.div style={{ y: y3 }} className="glow-orb w-[300px] h-[300px] bg-indigo-500/8 top-[30%] right-[10%] animate-glow" />
 
       <motion.div
         variants={containerVariants}
@@ -84,10 +95,11 @@ export function HeroSection() {
         <motion.div variants={fadeUpVariants} className="flex flex-col items-center gap-4">
           <button
             onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
+            aria-label="Join the Anaqio waitlist"
             className="group relative px-8 py-4 bg-aq-blue text-white rounded-2xl font-bold transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(37,99,235,0.3)]"
           >
             Join the Waitlist
-            <span className="absolute -top-px -left-px -right-px -bottom-px rounded-2xl border-2 border-white/20 pointer-events-none" />
+            <span className="absolute -top-px -left-px -right-px -bottom-px rounded-2xl border-white/20 pointer-events-none border-2" />
           </button>
           <span className="text-aq-blue font-bold uppercase tracking-[0.3em] text-[10px]">Experience the future of fashion</span>
         </motion.div>

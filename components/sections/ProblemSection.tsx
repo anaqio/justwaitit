@@ -60,13 +60,14 @@ export function ProblemSection() {
               }}
               className="glass-card p-8 rounded-2xl border-white/5 hover:border-aq-blue/20 transition-all group"
             >
-              <div className="text-aq-blue mb-4 font-mono text-lg font-bold">0{index + 1}</div>
-              <h4 className="text-xl font-bold mb-3 group-hover:text-aq-blue transition-colors">
+              <div className="text-aq-blue mb-4 font-mono text-lg font-bold group-hover:scale-110 transition-transform origin-left">0{index + 1}</div>
+              <h4 className="text-xl font-bold mb-3 group-hover:text-brand-gradient transition-colors">
                 {problem.title}
               </h4>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors">
                 {problem.description}
               </p>
+              <div className="absolute bottom-0 left-0 h-1 w-0 bg-brand-gradient group-hover:w-full transition-all duration-500" />
             </motion.div>
           ))}
         </div>

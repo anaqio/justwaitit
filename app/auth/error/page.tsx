@@ -1,6 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Suspense } from "react";
 import { AlertCircle } from "lucide-react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Authentication Error — Anaqio",
+  robots: "noindex, nofollow",
+};
 
 async function ErrorContent({
   searchParams,

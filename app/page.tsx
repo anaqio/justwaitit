@@ -9,7 +9,7 @@ import { Footer } from "@/components/layout/Footer";
 
 export default function Home() {
   return (
-    <main className="h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth relative bg-background text-foreground selection:bg-aq-blue/20">
+    <main className="h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth relative bg-background text-foreground selection:bg-aq-blue/20 page-entrance">
       <Header />
       <div className="snap-section">
         <HeroSection />

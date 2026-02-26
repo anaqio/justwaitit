@@ -1,24 +1,37 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { z } from "zod";
+
+const WaitlistSchema = z.object({
+  email: z.string().email("Please provide a valid email address."),
+  full_name: z.string().min(2, "Name is too short.").max(100, "Name is too long."),
+  role: z.string().min(1, "Please select your role."),
+  company: z.string().max(100).optional().nullable(),
+  revenue_range: z.string().optional().nullable(),
+  source: z.string().default("home"),
+});
 
 export async function joinWaitlist(formData: FormData) {
-  const email = formData.get("email") as string;
-  const fullName = formData.get("full_name") as string;
-  const role = formData.get("role") as string;
-  const company = formData.get("company") as string;
-  const revenueRange = formData.get("revenue_range") as string;
-  const source = formData.get("source") as string;
+  const rawData = {
+    email: formData.get("email"),
+    full_name: formData.get("full_name"),
+    role: formData.get("role"),
+    company: formData.get("company"),
+    revenue_range: formData.get("revenue_range"),
+    source: formData.get("source"),
+  };
 
-  if (!email || typeof email !== "string") {
-    return { success: false, message: "Please provide a valid email address." };
+  const validatedFields = WaitlistSchema.safeParse(rawData);
+
+  if (!validatedFields.success) {
+    return { 
+      success: false, 
+      message: validatedFields.error.errors[0].message 
+    };
   }
 
-  // Basic email validation
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    return { success: false, message: "Please enter a valid email address." };
-  }
+  const { email, full_name, role, company, revenue_range, source } = validatedFields.data;
 
   try {
     const supabase = await createClient();
@@ -27,16 +40,15 @@ export async function joinWaitlist(formData: FormData) {
       .from("waitlist")
       .insert({ 
         email: email.toLowerCase().trim(),
-        full_name: fullName?.trim() || null,
-        role: role || null,
+        full_name: full_name.trim(),
+        role: role,
         company: company?.trim() || null,
-        revenue_range: revenueRange || null,
-        source: source?.trim() || "home"
+        revenue_range: revenue_range || null,
+        source: source
       });
 
     if (error) {
       if (error.code === "23505") {
-        // Unique constraint violation
         return {
           success: false,
           message: "This email is already on the waitlist!",

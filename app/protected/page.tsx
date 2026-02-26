@@ -3,6 +3,12 @@ import { createClient } from "@/lib/supabase/server";
 import { InfoIcon, User, Terminal } from "lucide-react";
 import { Suspense } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Studio Overview — Anaqio",
+  robots: "noindex, nofollow",
+};
 
 async function UserDetails() {
   const supabase = await createClient();
