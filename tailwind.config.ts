@@ -73,7 +73,7 @@ export default {
         display: ["var(--font-syne)", "sans-serif"],
         body: ["var(--font-plus-jakarta)", "sans-serif"],
         mono: ["var(--font-mono)", "monospace"],
-        legal: ["var(--font-cormorant)", "serif"],
+        serif: ["var(--font-cormorant)", "serif"],
       },
       borderRadius: {
         lg: "var(--radius)",

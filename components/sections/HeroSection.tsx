@@ -78,7 +78,7 @@ export function HeroSection() {
             <br />
             <span className="text-foreground">for Fashion Commerce</span>
           </h1>
-          <p className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground font-medium tracking-tight font-display italic">
+          <p className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground font-medium tracking-tight font-serif italic">
             Generate studio-quality fashion visuals instantly.
           </p>
         </motion.div>
@@ -95,10 +95,10 @@ export function HeroSection() {
         <motion.div variants={fadeUpVariants} className="flex flex-col items-center gap-4">
           <button
             onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
-            aria-label="Join the Anaqio waitlist"
+            aria-label="Get Early Access to Anaqio"
             className="group relative px-8 py-4 bg-aq-blue text-white rounded-2xl font-bold transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(37,99,235,0.3)]"
           >
-            Join the Waitlist
+            Get Early Access
             <span className="absolute -top-px -left-px -right-px -bottom-px rounded-2xl border-white/20 pointer-events-none border-2" />
           </button>
           <span className="text-aq-blue font-bold uppercase tracking-[0.3em] text-[10px]">Experience the future of fashion</span>

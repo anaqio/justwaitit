@@ -40,7 +40,7 @@ export function WaitlistSection() {
             <div className="space-y-6">
               {[
                 { title: "Early Access", desc: "Be the first to create with our AI studio." },
-                { title: "20% Lifetime Discount", desc: "Locked-in pricing for our early supporters." },
+                { title: "Lifetime Discount", desc: "Locked-in early supporter pricing in DH." },
                 { title: "Beta Testing Access", desc: "Direct input on features and roadmap." },
               ].map((item) => (
                 <div key={item.title} className="flex gap-4">

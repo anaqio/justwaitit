@@ -158,10 +158,10 @@ export function WaitlistForm({ source, variant = "full", className }: WaitlistFo
             className="flex h-12 w-full rounded-xl border border-white/10 bg-background/40 px-4 py-2 text-sm shadow-sm transition-colors focus:border-aq-blue/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 appearance-none text-foreground"
           >
             <option value="">Monthly Revenue Range</option>
-            <option value="0-10k">$0 - $10k</option>
-            <option value="10k-50k">$10k - $50k</option>
-            <option value="50k-250k">$50k - $250k</option>
-            <option value="250k+">$250k+</option>
+            <option value="0-10k">0 - 10k DH</option>
+            <option value="10k-50k">10k - 50k DH</option>
+            <option value="50k-250k">50k - 250k DH</option>
+            <option value="250k+">250k DH+</option>
           </select>
         </div>
       </div>
