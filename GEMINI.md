@@ -40,7 +40,7 @@ This project, named **ANAQIO**, is a high-end AI fashion studio platform tailore
 ## Building and Running
 
 ### Prerequisites
-- Node.js & npm/pnpm/yarn.
+- Node.js & bun.
 - A Supabase project.
 
 ### Commands
