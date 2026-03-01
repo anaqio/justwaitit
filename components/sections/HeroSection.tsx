@@ -107,81 +107,93 @@ export function HeroSection() {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-20 flex flex-col items-center gap-8 sm:gap-12 lg:gap-16 text-center w-full max-w-4xl"
+        className="relative z-20 flex flex-col items-center gap-12 sm:gap-16 lg:gap-20 text-center w-full max-w-5xl px-4 sm:px-6 py-8"
       >
-        {/* Logo with Parallax */}
+        {/* Logo with Parallax - Subtle positioning */}
         <motion.div 
           variants={logoVariants}
           style={{ scale: logoScale }}
-          className="w-full flex justify-center"
+          className="w-full flex justify-center pt-8 sm:pt-12"
         >
           <TypoLogo
             theme={mounted ? currentTheme : "dark"}
-            className="relative w-full max-w-[200px] sm:max-w-[280px] md:max-w-[340px] drop-shadow-2xl"
+            className="relative w-full max-w-[180px] sm:max-w-[240px] md:max-w-[280px] drop-shadow-2xl"
           />
         </motion.div>
 
-        {/* Text and CTA Wrapper */}
-        <div className="flex flex-col items-center gap-6 sm:gap-10">
-          {/* Main Headline */}
-          <motion.div variants={fadeUpVariants} className="space-y-3 sm:space-y-5">
-            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-display font-extrabold tracking-tight leading-[1.1] text-pretty">
-              <span className="text-brand-gradient">AI Visual Studio</span>
-              <span className="block text-foreground">for Fashion Commerce</span>
-            </h1>
+        {/* Core Message - Main Focus */}
+        <motion.div 
+          variants={fadeUpVariants} 
+          className="flex flex-col items-center gap-8 sm:gap-10"
+        >
+          {/* Primary Tagline - Emphasizes the core message */}
+          <div className="flex flex-col items-center gap-6 sm:gap-8">
             <motion.p 
               variants={fadeUpVariants}
-              className="text-base sm:text-xl lg:text-2xl text-muted-foreground font-medium tracking-tight"
+              className="text-2xl sm:text-4xl lg:text-5xl font-display font-bold tracking-tight leading-[1.2] text-pretty max-w-3xl"
             >
-              Generate studio-quality fashion visuals instantly.
+              Generate <span className="text-brand-gradient">studio-quality</span> fashion visuals <span className="text-brand-gradient">instantly</span>
             </motion.p>
-          </motion.div>
+            
+            {/* Supporting Headline */}
+            <motion.h1 
+              variants={fadeUpVariants}
+              className="text-lg sm:text-2xl lg:text-3xl font-display font-medium text-muted-foreground tracking-tight text-pretty max-w-3xl"
+            >
+              AI Visual Studio for Fashion Commerce
+            </motion.h1>
+          </div>
 
-          {/* Subtitle */}
+          {/* Descriptive Paragraph */}
           <motion.p
             variants={fadeUpVariants}
-            className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-2xl leading-relaxed px-2"
+            className="text-base sm:text-lg text-muted-foreground max-w-2xl leading-relaxed font-light"
           >
-            Empowering Moroccan fashion brands with cutting-edge AI tools to transform concepts into commerce-ready imagery in seconds.
+            Empowering Moroccan fashion brands with cutting-edge AI tools to transform concepts into commerce-ready imagery in seconds. Redefine your creative workflow.
           </motion.p>
 
-          {/* CTA Group */}
-          <motion.div variants={fadeUpVariants} className="flex flex-col items-center gap-5 pt-2">
+          {/* CTA Section - Prominent positioning */}
+          <motion.div 
+            variants={fadeUpVariants} 
+            className="flex flex-col items-center gap-6 sm:gap-8 pt-4 sm:pt-6"
+          >
             <motion.button
               onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
               aria-label="Get Early Access to Anaqio"
-              className="group relative px-8 sm:px-12 py-4 sm:py-5 bg-aq-blue text-white rounded-full font-bold text-sm sm:text-base transition-all hover:shadow-[0_0_60px_rgba(37,99,235,0.5)]"
-              whileHover={{ scale: 1.05 }}
+              className="group relative px-10 sm:px-14 py-5 sm:py-6 bg-aq-blue text-white rounded-full font-bold text-base sm:text-lg transition-all hover:shadow-[0_0_80px_rgba(37,99,235,0.6)] active:scale-95"
+              whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.95 }}
             >
               Get Early Access
               <span className="absolute -inset-px rounded-full border border-white/20 pointer-events-none" />
             </motion.button>
+            
+            {/* Tagline under CTA */}
             <motion.div 
               variants={fadeUpVariants}
-              className="flex flex-col items-center gap-2 pt-1"
+              className="flex flex-col items-center gap-3"
             >
-              <span className="text-aq-blue font-bold uppercase tracking-wider text-[10px] sm:text-[11px]">The future of fashion</span>
+              <span className="text-aq-blue font-bold uppercase tracking-widest text-xs sm:text-sm">The future of fashion</span>
               <motion.div 
-                animate={{ scaleX: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="h-0.5 w-8 bg-aq-blue/40 origin-center"
+                animate={{ scaleX: [1, 1.3, 1] }}
+                transition={{ duration: 2.5, repeat: Infinity }}
+                className="h-0.5 w-10 bg-aq-blue/30 origin-center"
               />
             </motion.div>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Scroll indicator */}
         <motion.div
           variants={fadeUpVariants}
-          className="pt-6 sm:pt-10 absolute bottom-6 sm:bottom-10"
+          className="pt-8 sm:pt-12 absolute bottom-8 sm:bottom-12"
         >
           <motion.div
-            animate={{ y: [0, 8, 0] }}
+            animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-5 h-8 rounded-full border-2 border-aq-blue/40 flex items-start justify-center p-1"
+            className="w-6 h-10 rounded-full border-2 border-aq-blue/40 flex items-start justify-center p-1.5"
           >
-            <motion.div className="w-1 h-1.5 rounded-full bg-aq-blue" />
+            <motion.div className="w-1.5 h-2 rounded-full bg-aq-blue" />
           </motion.div>
         </motion.div>
       </motion.div>
