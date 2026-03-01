@@ -114,6 +114,7 @@ export function ComingSoonSection() {
                       controls
                       autoPlay
                       loop
+                      acknowledgeRemotionLicense
                       style={{
                         width: '100%',
                         height: '100%',
