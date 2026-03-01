@@ -40,10 +40,10 @@ const logoVariants = {
 const sliceVariants = {
   hidden: { opacity: 0, scale: 0.95, filter: "blur(10px)" },
   visible: {
-    opacity: 0.6,
+    opacity: 1,
     scale: 1,
     filter: "blur(0px)",
-    transition: { duration: 2, ease: "easeOut" },
+    transition: { duration: 2, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
@@ -75,7 +75,7 @@ export function HeroSection() {
         variants={sliceVariants}
         initial="hidden"
         animate="visible"
-        className="absolute top-[-5%] left-[-5%] w-[300px] sm:w-[500px] md:w-[600px] opacity-20 pointer-events-none z-0"
+        className="absolute top-[-5%] left-[-5%] w-[300px] sm:w-[500px] md:w-[600px] pointer-events-none z-0 mix-blend-overlay dark:mix-blend-soft-light"
       >
         <LiToSliMemo className="w-full h-auto" />
       </motion.div>
@@ -85,7 +85,7 @@ export function HeroSection() {
         variants={sliceVariants}
         initial="hidden"
         animate="visible"
-        className="absolute bottom-[-5%] right-[-5%] w-[300px] sm:w-[500px] md:w-[600px] opacity-20 pointer-events-none z-0"
+        className="absolute bottom-[-5%] right-[-5%] w-[300px] sm:w-[500px] md:w-[600px] pointer-events-none z-0 mix-blend-overlay dark:mix-blend-soft-light"
       >
         <RiBoSliMemo className="w-full h-auto" />
       </motion.div>
