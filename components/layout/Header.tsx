@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { TypoLogo } from "@/components/ui/TypoLogo";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import dynamic from 'next/dynamic';
 
 const DynamicThemeSwitcher = dynamic(() => import('../ThemeSwitcher'), {
@@ -15,16 +15,49 @@ const DynamicThemeSwitcher = dynamic(() => import('../ThemeSwitcher'), {
 export function Header() {
   const { theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout>();
+  const { scrollY } = useScroll();
 
   useEffect(() => setMounted(true), []);
 
+  useMotionValueEvent(scrollY, "change", (current) => {
+    const prev = lastScrollY;
+    const isScrollingDown = current > prev && current > 80;
+
+    setIsHidden(isScrollingDown);
+    setLastScrollY(current);
+
+    // Clear existing timeout
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+
+    // Show header after scroll stops
+    if (isScrollingDown) {
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsHidden(false);
+      }, 1000);
+    }
+  });
+
+  useEffect(() => {
+    return () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const currentTheme = (resolvedTheme || theme) as "light" | "dark";
+
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}
-      className="fixed top-0 left-0 right-0 z-50 px-4 py-4 pointer-events-none"
+      animate={{ y: isHidden ? -120 : 0, opacity: isHidden ? 0 : 1 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="fixed top-0 left-0 right-0 z-50 px-4 py-4 pointer-events-none relative"
     >
       <nav aria-label="Main Navigation" className="glass-strong mx-auto max-w-5xl rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between pointer-events-auto">
         <Link
