@@ -28,7 +28,7 @@ const problems = [
 
 export function ProblemSection() {
   return (
-    <section className="relative h-screen flex items-center justify-center px-4 snap-start">
+    <section className="relative min-h-screen flex items-center justify-center px-4 snap-start py-20">
       <div className="max-w-6xl mx-auto w-full">
         <motion.div
           initial="hidden"
@@ -37,13 +37,13 @@ export function ProblemSection() {
           variants={fadeUpVariants}
           className="text-center mb-16 space-y-4"
         >
-          <h2 className="text-sm font-bold text-aq-blue uppercase tracking-[0.3em]">The Problem</h2>
-          <h3 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-display">
+          <h2 className="text-xs sm:text-sm font-bold text-aq-blue uppercase tracking-[0.3em]">The Problem</h2>
+          <h3 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display">
             Fashion imagery is <span className="text-muted-foreground italic">hard.</span>
           </h3>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {problems.map((problem, index) => (
             <motion.div
               key={problem.title}
@@ -58,13 +58,13 @@ export function ProblemSection() {
                   transition: { delay: index * 0.1, duration: 0.6 },
                 },
               }}
-              className="glass-card p-8 rounded-2xl border-white/5 hover:border-aq-blue/20 transition-all group"
+              className="glass-card p-6 sm:p-8 rounded-2xl border-white/5 hover:border-aq-blue/20 transition-all group relative overflow-hidden"
             >
               <div className="text-aq-blue mb-4 font-mono text-lg font-bold group-hover:scale-110 transition-transform origin-left">0{index + 1}</div>
               <h4 className="text-xl font-bold mb-3 group-hover:text-brand-gradient transition-colors">
                 {problem.title}
               </h4>
-              <p className="text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors">
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors">
                 {problem.description}
               </p>
               <div className="absolute bottom-0 left-0 h-1 w-0 bg-brand-gradient group-hover:w-full transition-all duration-500" />

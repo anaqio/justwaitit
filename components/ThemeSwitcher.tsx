@@ -57,4 +57,4 @@ const ThemeSwitcher = () => {
   );
 };
 
-export { ThemeSwitcher };
+export default ThemeSwitcher;

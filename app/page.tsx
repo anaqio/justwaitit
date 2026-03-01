@@ -11,31 +11,37 @@ import { Footer } from "@/components/layout/Footer";
 export default function Home() {
   return (
     <main className="relative bg-background text-foreground selection:bg-aq-blue/20">
-      <Header />
-      <div className="h-screen snap-y snap-mandatory overflow-y-auto scroll-smooth">
-        <div className="snap-start">
+      {
+        /**
+         *
+         * 
+      <Header  />
+         * */
+      }
+      <div className="lg:h-screen lg:snap-y lg:snap-mandatory overflow-y-auto scroll-smooth">
+        <div className="lg:snap-start">
           <HeroSection />
         </div>
-        <div className="snap-start">
+        <div className="lg:snap-start">
           <ProblemSection />
         </div>
-        <div className="snap-start">
+        <div className="lg:snap-start">
           <ProductPreviewSection />
         </div>
-        <div className="snap-start">
+        <div className="lg:snap-start">
           <DemoSection />
         </div>
-        <div className="snap-start">
+        <div className="lg:snap-start">
           <ComingSoonSection />
         </div>
-        <div className="snap-start">
+        <div className="lg:snap-start">
           <SocialProofSection />
         </div>
-        <div className="snap-start">
+        <div className="lg:snap-start">
           <WaitlistSection />
         </div>
+        <Footer />
       </div>
-      <Footer />
     </main>
   );
 }

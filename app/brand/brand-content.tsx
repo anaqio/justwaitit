@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { ThemeSwitcher } from "@/components/theme-switcher";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 export function BrandIdentityContent() {
   const [password, setPassword] = useState("");
