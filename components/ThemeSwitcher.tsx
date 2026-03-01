@@ -39,15 +39,15 @@ const ThemeSwitcher = () => {
     setShowOverlay(true);
     setIsAnimating(true);
 
-    // Change theme after overlay starts
+    // Change theme at the halfway point of the overlay animation
     setTimeout(() => {
       setTheme(isDark ? "light" : "dark");
-    }, 100);
+    }, 350);
 
-    // Reset animation state after overlay completes
+    // Reset animation state when overlay completes
     setTimeout(() => {
       setIsAnimating(false);
-    }, 700);
+    }, 1200);
   };
 
   const handleOverlayComplete = () => {
