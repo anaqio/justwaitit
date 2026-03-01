@@ -1,21 +1,16 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Monitor, Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
-  const { setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [isAnimating, setIsAnimating] = useState(false);
 
-  // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -24,36 +19,42 @@ const ThemeSwitcher = () => {
     return null;
   }
 
-  const ICON_SIZE = 16;
+  const currentTheme = resolvedTheme || theme;
+  const isDark = currentTheme === "dark";
+
+  const handleToggle = () => {
+    setIsAnimating(true);
+    setTheme(isDark ? "light" : "dark");
+    setTimeout(() => setIsAnimating(false), 400);
+  };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className="h-9 w-9 rounded-full bg-background/50 backdrop-blur-sm border border-border/50 hover:bg-background/80 transition-all"
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      initial={false}
+    >
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={handleToggle}
+        aria-label="Toggle theme"
+        className="relative h-9 w-9 rounded-full bg-background/50 backdrop-blur-sm border border-border/50 hover:bg-background/80 transition-colors overflow-hidden"
+      >
+        <motion.div
+          animate={{ rotate: isAnimating ? 180 : 0 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+          className="absolute inset-0 flex items-center justify-center"
         >
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="glass-strong border-border/50">
-        <DropdownMenuItem onClick={() => setTheme("light")} className="gap-2 cursor-pointer">
-          <Sun size={ICON_SIZE} />
-          <span>Light</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")} className="gap-2 cursor-pointer">
-          <Moon size={ICON_SIZE} />
-          <span>Dark</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")} className="gap-2 cursor-pointer">
-          <Monitor size={ICON_SIZE} />
-          <span>System</span>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          {isDark ? (
+            <Moon className="h-[1.2rem] w-[1.2rem] text-amber-400" />
+          ) : (
+            <Sun className="h-[1.2rem] w-[1.2rem] text-amber-500" />
+          )}
+        </motion.div>
+        <span className="sr-only">Toggle theme</span>
+      </Button>
+    </motion.div>
   );
 };
 

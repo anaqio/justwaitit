@@ -51,31 +51,41 @@ export function HeroSection() {
   const { theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => setMounted(true), []);
 
   const currentTheme = (resolvedTheme || theme) as "light" | "dark";
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"],
+    offset: ["start start", "end center"],
   });
 
-  const sliceY1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const sliceY2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, 50]);
+  // Enhanced parallax effects with different speeds for depth
+  const sliceY1 = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  const sliceY2 = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const logoScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.8]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0.6]);
 
   return (
     <section 
       ref={containerRef} 
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden hero-gradient snap-start px-6 py-24"
+      className="relative h-screen flex flex-col items-center justify-center overflow-hidden hero-gradient snap-start px-4 sm:px-6"
     >
+      {/* Depth layers for immersive effect */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/5 dark:to-background/10" />
+        <div className="absolute inset-0 radial-gradient opacity-0 dark:opacity-50 transition-opacity duration-1000" />
+      </div>
+
       {/* Background Decorative Slices */}
       <motion.div 
         style={{ y: sliceY1 }}
         variants={sliceVariants}
         initial="hidden"
         animate="visible"
-        className="absolute top-[-5%] left-[-5%] w-[300px] sm:w-[500px] md:w-[600px] pointer-events-none z-0 mix-blend-overlay dark:mix-blend-soft-light"
+        className="absolute top-0 left-0 w-[250px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-auto pointer-events-none z-10 mix-blend-overlay dark:mix-blend-soft-light"
       >
         <LiToSliMemo className="w-full h-auto" />
       </motion.div>
@@ -85,80 +95,96 @@ export function HeroSection() {
         variants={sliceVariants}
         initial="hidden"
         animate="visible"
-        className="absolute bottom-[-5%] right-[-5%] w-[300px] sm:w-[500px] md:w-[600px] pointer-events-none z-0 mix-blend-overlay dark:mix-blend-soft-light"
+        className="absolute bottom-0 right-0 w-[250px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-auto pointer-events-none z-10 mix-blend-overlay dark:mix-blend-soft-light"
       >
         <RiBoSliMemo className="w-full h-auto" />
       </motion.div>
 
       {/* Main Content */}
       <motion.div
-        style={{ y: contentY }}
+        ref={contentRef}
+        style={{ y: contentY, opacity: contentOpacity }}
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 flex flex-col items-center gap-10 sm:gap-16 text-center w-full max-w-5xl pt-12"
+        className="relative z-20 flex flex-col items-center gap-8 sm:gap-12 lg:gap-16 text-center w-full max-w-4xl"
       >
-        {/* Logo */}
-        <motion.div variants={logoVariants} className="w-full flex justify-center">
+        {/* Logo with Parallax */}
+        <motion.div 
+          variants={logoVariants}
+          style={{ scale: logoScale }}
+          className="w-full flex justify-center"
+        >
           <TypoLogo
             theme={mounted ? currentTheme : "dark"}
-            className="relative w-full max-w-[240px] sm:max-w-[340px] md:max-w-[400px] drop-shadow-2xl"
+            className="relative w-full max-w-[200px] sm:max-w-[280px] md:max-w-[340px] drop-shadow-2xl"
           />
         </motion.div>
 
         {/* Text and CTA Wrapper */}
-        <div className="flex flex-col items-center gap-8 sm:gap-12">
-          {/* Tagline */}
-          <motion.div variants={fadeUpVariants} className="space-y-4 sm:space-y-6">
-            <h1 className="text-4xl sm:text-6xl lg:text-8xl font-extrabold tracking-tighter leading-[1.05]">
+        <div className="flex flex-col items-center gap-6 sm:gap-10">
+          {/* Main Headline */}
+          <motion.div variants={fadeUpVariants} className="space-y-3 sm:space-y-5">
+            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-display font-extrabold tracking-tight leading-[1.1] text-pretty">
               <span className="text-brand-gradient">AI Visual Studio</span>
-              <br />
-              <span className="text-foreground">for Fashion Commerce</span>
+              <span className="block text-foreground">for Fashion Commerce</span>
             </h1>
-            <p className="text-lg sm:text-2xl lg:text-3xl text-muted-foreground font-medium tracking-tight font-serif italic">
+            <motion.p 
+              variants={fadeUpVariants}
+              className="text-base sm:text-xl lg:text-2xl text-muted-foreground font-medium tracking-tight"
+            >
               Generate studio-quality fashion visuals instantly.
-            </p>
+            </motion.p>
           </motion.div>
 
           {/* Subtitle */}
           <motion.p
             variants={fadeUpVariants}
-            className="text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed font-body"
+            className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-2xl leading-relaxed px-2"
           >
-            Empowering Moroccan fashion brands with cutting-edge AI tools to transform concepts into commerce-ready imagery.
+            Empowering Moroccan fashion brands with cutting-edge AI tools to transform concepts into commerce-ready imagery in seconds.
           </motion.p>
 
           {/* CTA Group */}
-          <motion.div variants={fadeUpVariants} className="flex flex-col items-center gap-6">
-            <button
+          <motion.div variants={fadeUpVariants} className="flex flex-col items-center gap-5 pt-2">
+            <motion.button
               onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
               aria-label="Get Early Access to Anaqio"
-              className="group relative px-10 py-5 bg-aq-blue text-white rounded-full font-bold text-sm sm:text-base transition-all hover:scale-105 hover:shadow-[0_0_50px_rgba(37,99,235,0.4)] active:scale-95"
+              className="group relative px-8 sm:px-12 py-4 sm:py-5 bg-aq-blue text-white rounded-full font-bold text-sm sm:text-base transition-all hover:shadow-[0_0_60px_rgba(37,99,235,0.5)]"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               Get Early Access
-              <span className="absolute -top-px -left-px -right-px -bottom-px rounded-full border-white/20 pointer-events-none border-2" />
-            </button>
-            <div className="flex flex-col items-center gap-2">
-              <span className="text-aq-blue font-bold uppercase tracking-[0.4em] text-[10px]">The future of fashion is here</span>
-              <div className="h-px w-12 bg-aq-blue/30" />
-            </div>
+              <span className="absolute -inset-px rounded-full border border-white/20 pointer-events-none" />
+            </motion.button>
+            <motion.div 
+              variants={fadeUpVariants}
+              className="flex flex-col items-center gap-2 pt-1"
+            >
+              <span className="text-aq-blue font-bold uppercase tracking-wider text-[10px] sm:text-[11px]">The future of fashion</span>
+              <motion.div 
+                animate={{ scaleX: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="h-0.5 w-8 bg-aq-blue/40 origin-center"
+              />
+            </motion.div>
           </motion.div>
         </div>
 
         {/* Scroll indicator */}
         <motion.div
           variants={fadeUpVariants}
-          className="pt-4 sm:pt-8"
+          className="pt-6 sm:pt-10 absolute bottom-6 sm:bottom-10"
         >
           <motion.div
-            animate={{ y: [0, 10, 0] }}
+            animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-6 h-10 rounded-full border-2 border-aq-blue/30 flex items-start justify-center p-1.5"
+            className="w-5 h-8 rounded-full border-2 border-aq-blue/40 flex items-start justify-center p-1"
           >
-            <motion.div className="w-1.5 h-1.5 rounded-full bg-aq-blue" />
+            <motion.div className="w-1 h-1.5 rounded-full bg-aq-blue" />
           </motion.div>
         </motion.div>
       </motion.div>
-    </section >
+    </section>
   );
 }
