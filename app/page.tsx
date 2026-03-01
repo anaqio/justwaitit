@@ -11,13 +11,7 @@ import { Footer } from "@/components/layout/Footer";
 export default function Home() {
   return (
     <main className="relative bg-background text-foreground selection:bg-aq-blue/20">
-      {
-        /**
-         *
-         * 
-      <Header  />
-         * */
-      }
+      <Header />
       <div className="lg:h-screen lg:snap-y lg:snap-mandatory overflow-y-auto scroll-smooth">
         <div className="lg:snap-start">
           <HeroSection />
