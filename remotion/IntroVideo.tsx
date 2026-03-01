@@ -158,7 +158,7 @@ const SolutionScene = () => {
         transform: `scale(${bgScale})`,
       }}>
         <img
-          src="https://images.unsplash.com/photo-1548013146-72479768bbaa?auto=format&fit=crop&q=80&w=1200"
+          src="https://images.unsplash.com/photo-1597212618440-806262de4f6b?w=1200&q=80"
           style={{ 
             width: '100%', 
             height: '100%', 

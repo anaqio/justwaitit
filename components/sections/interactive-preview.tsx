@@ -11,26 +11,26 @@ const vibes = [
     id: "sahara",
     name: "Sahara Sunset",
     location: "Merzouga, Morocco",
-    image: "https://images.unsplash.com/photo-1509060408203-06d398642e97?auto=format&fit=crop&q=80&w=1200",
+    image: "https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=1200&q=80",
     color: "#ea580c",
   },
   {
     id: "marrakech",
     name: "Marrakech Riad",
     location: "Medina, Marrakech",
-    image: "https://images.unsplash.com/photo-1548013146-72479768bbaa?auto=format&fit=crop&q=80&w=1200",
+    image: "https://images.unsplash.com/photo-1597212618440-806262de4f6b?w=1200&q=80",
     color: "#c9a96e",
   },
   {
     id: "atlas",
     name: "Atlas Morning",
     location: "High Atlas Mountains",
-    image: "https://images.unsplash.com/photo-1539181912690-41aa51ee58ba?auto=format&fit=crop&q=80&w=1200",
+    image: "https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=1200&q=80",
     color: "#3b82f6",
   },
 ];
 
-const garmentImage = "https://images.unsplash.com/photo-1539109132314-d4a8c77ee8c8?auto=format&fit=crop&q=80&w=1000";
+const garmentImage = "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=1000&q=80";
 
 export function InteractivePreview() {
   const [selectedVibe, setSelectedVibe] = useState(vibes[0]);
