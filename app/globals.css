@@ -223,6 +223,24 @@
 .hero-gradient {
   background: radial-gradient(
       ellipse 80% 50% at 50% -20%,
+      rgba(37, 99, 235, 0.1),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 80% 50%,
+      rgba(124, 58, 237, 0.05),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 20% 80%,
+      rgba(63, 87, 175, 0.05),
+      transparent
+    );
+}
+
+.dark .hero-gradient {
+  background: radial-gradient(
+      ellipse 80% 50% at 50% -20%,
       rgba(37, 99, 235, 0.15),
       transparent
     ),

@@ -3,8 +3,17 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { TypoLogo } from "@/components/ui/TypoLogo";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export function Header() {
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  const currentTheme = (resolvedTheme || theme) as "light" | "dark";
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
@@ -15,28 +24,18 @@ export function Header() {
       <nav aria-label="Main Navigation" className="glass-strong mx-auto max-w-5xl rounded-2xl px-6 py-3 flex items-center justify-between pointer-events-auto">
         <Link
           href="/"
-          className="text-2xl font-extrabold tracking-tighter text-brand-gradient font-display"
+          className="flex items-center"
           aria-label="Anaqio Home"
         >
-          anaqio
+          <TypoLogo
+            className="h-6 w-auto"
+            theme={mounted ? currentTheme : "dark"}
+            animate={false}
+          />
+          <span className="sr-only">anaqio</span>
         </Link>
 
         <div className="flex items-center gap-8">
-          <div className="hidden sm:flex items-center gap-6">
-            <Link
-              href="/terms"
-              className="text-[10px] font-bold text-muted-foreground hover:text-foreground transition-colors duration-200 uppercase tracking-[0.2em]"
-            >
-              Terms
-            </Link>
-            <Link
-              href="/privacy"
-              className="text-[10px] font-bold text-muted-foreground hover:text-foreground transition-colors duration-200 uppercase tracking-[0.2em]"
-            >
-              Privacy
-            </Link>
-          </div>
-          
           <button
             onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
             aria-label="Scroll to Waitlist Section"
