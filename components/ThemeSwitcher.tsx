@@ -1,11 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ThemeOverlay } from "@/components/ThemeOverlay";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
@@ -13,10 +12,24 @@ const ThemeSwitcher = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
   const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const updateWindowSize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    updateWindowSize();
+    window.addEventListener("resize", updateWindowSize);
+    return () => window.removeEventListener("resize", updateWindowSize);
   }, []);
 
   if (!mounted) {
@@ -27,7 +40,6 @@ const ThemeSwitcher = () => {
   const isDark = currentTheme === "dark";
 
   const handleToggle = () => {
-    // Get button position
     if (buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
       setButtonPosition({
@@ -39,28 +51,65 @@ const ThemeSwitcher = () => {
     setShowOverlay(true);
     setIsAnimating(true);
 
-    // Change theme at the halfway point of the overlay animation
+    // Change theme after overlay starts expanding
     setTimeout(() => {
       setTheme(isDark ? "light" : "dark");
     }, 350);
 
-    // Reset animation state when overlay completes
+    // Close overlay after animation completes
     setTimeout(() => {
+      setShowOverlay(false);
       setIsAnimating(false);
-    }, 1200);
+    }, 900);
   };
 
-  const handleOverlayComplete = () => {
-    setShowOverlay(false);
-  };
+  // Calculate distance from button to farthest corner
+  const maxDistance = Math.sqrt(
+    Math.max(
+      Math.pow(buttonPosition.x, 2) + Math.pow(buttonPosition.y, 2),
+      Math.pow(windowSize.width - buttonPosition.x, 2) + Math.pow(buttonPosition.y, 2),
+      Math.pow(buttonPosition.x, 2) + Math.pow(windowSize.height - buttonPosition.y, 2),
+      Math.pow(windowSize.width - buttonPosition.x, 2) + Math.pow(windowSize.height - buttonPosition.y, 2)
+    )
+  );
+
+  const overlayColor = isDark ? "rgb(248, 250, 252)" : "rgb(15, 23, 42)";
 
   return (
     <>
-      <ThemeOverlay
-        isActive={showOverlay}
-        position={buttonPosition}
-        onComplete={handleOverlayComplete}
-      />
+      <AnimatePresence>
+        {showOverlay && (
+          <motion.div
+            className="fixed inset-0 pointer-events-none z-[999]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.05 }}
+          >
+            <motion.div
+              style={{
+                left: buttonPosition.x,
+                top: buttonPosition.y,
+                width: 1,
+                height: 1,
+                borderRadius: "50%",
+                transformOrigin: "center",
+                backgroundColor: overlayColor,
+                position: "absolute",
+              }}
+              initial={{ scale: 0 }}
+              animate={{ scale: maxDistance * 3 }}
+              exit={{ scale: maxDistance * 3 }}
+              transition={{
+                scale: {
+                  duration: 0.8,
+                  ease: [0.22, 1, 0.36, 1],
+                },
+              }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
       <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -76,7 +125,7 @@ const ThemeSwitcher = () => {
         >
           <motion.div
             animate={{ rotate: isAnimating ? 180 : 0 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
             className="absolute inset-0 flex items-center justify-center"
           >
             {isDark ? (
