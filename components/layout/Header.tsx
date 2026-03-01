@@ -24,7 +24,7 @@ export function Header() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}
-      className="fixed top-0 left-0 right-0 z-50 px-4 py-4 pointer-events-none"
+      className="fixed top-0 left-0 right-0 z-50 px-4 py-4 pointer-events-none relative"
     >
       <nav aria-label="Main Navigation" className="glass-strong mx-auto max-w-5xl rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between pointer-events-auto">
         <Link
