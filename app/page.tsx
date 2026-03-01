@@ -7,38 +7,35 @@ import { SocialProofSection } from "@/components/sections/SocialProofSection";
 import { WaitlistSection } from "@/components/sections/WaitlistSection";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { EntranceOrchestrator } from "@/components/entrance/EntranceOrchestrator";
 
 export default function Home() {
   return (
-    <EntranceOrchestrator>
-      <main className="relative bg-background text-foreground selection:bg-aq-blue/20 page-entrance">
-        <Header />
-        <div className="h-screen snap-y snap-mandatory overflow-y-auto scroll-smooth">
-          <div className="snap-start">
-            <HeroSection />
-          </div>
-          <div className="snap-start">
-            <ProblemSection />
-          </div>
-          <div className="snap-start">
-            <ProductPreviewSection />
-          </div>
-          <div className="snap-start">
-            <DemoSection />
-          </div>
-          <div className="snap-start">
-            <ComingSoonSection />
-          </div>
-          <div className="snap-start">
-            <SocialProofSection />
-          </div>
-          <div className="snap-start">
-            <WaitlistSection />
-          </div>
+    <main className="relative bg-background text-foreground selection:bg-aq-blue/20">
+      <Header />
+      <div className="h-screen snap-y snap-mandatory overflow-y-auto scroll-smooth">
+        <div className="snap-start">
+          <HeroSection />
         </div>
-        <Footer />
-      </main>
-    </EntranceOrchestrator>
+        <div className="snap-start">
+          <ProblemSection />
+        </div>
+        <div className="snap-start">
+          <ProductPreviewSection />
+        </div>
+        <div className="snap-start">
+          <DemoSection />
+        </div>
+        <div className="snap-start">
+          <ComingSoonSection />
+        </div>
+        <div className="snap-start">
+          <SocialProofSection />
+        </div>
+        <div className="snap-start">
+          <WaitlistSection />
+        </div>
+      </div>
+      <Footer />
+    </main>
   );
 }
