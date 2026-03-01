@@ -69,8 +69,8 @@ export function HeroSection() {
   const contentOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0.6]);
 
   return (
-    <section 
-      ref={containerRef} 
+    <section
+      ref={containerRef}
       className="relative h-screen flex flex-col items-center justify-center overflow-hidden hero-gradient snap-start px-4 sm:px-6"
     >
       {/* Depth layers for immersive effect */}
@@ -80,22 +80,22 @@ export function HeroSection() {
       </div>
 
       {/* Background Decorative Slices */}
-      <motion.div 
+      <motion.div
         style={{ y: sliceY1 }}
         variants={sliceVariants}
         initial="hidden"
         animate="visible"
-        className="absolute top-0 left-0 w-[250px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-auto pointer-events-none z-10 mix-blend-overlay dark:mix-blend-soft-light"
+        className="absolute top-0 left-0 w-[250px] sm:w-[260px] md:w-[360px] lg:w-[460px] h-auto pointer-events-none z-10"
       >
         <LiToSliMemo className="w-full h-auto" />
       </motion.div>
 
-      <motion.div 
+      <motion.div
         style={{ y: sliceY2 }}
         variants={sliceVariants}
         initial="hidden"
         animate="visible"
-        className="absolute bottom-0 right-0 w-[250px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-auto pointer-events-none z-10 mix-blend-overlay dark:mix-blend-soft-light"
+        className="absolute bottom-0 right-0 w-[250px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-auto pointer-events-none z-10"
       >
         <RiBoSliMemo className="w-full h-auto" />
       </motion.div>
@@ -110,7 +110,7 @@ export function HeroSection() {
         className="relative z-20 flex flex-col items-center gap-12 sm:gap-16 lg:gap-20 text-center w-full max-w-5xl px-4 sm:px-6 py-8"
       >
         {/* Logo with Parallax - Subtle positioning */}
-        <motion.div 
+        <motion.div
           variants={logoVariants}
           style={{ scale: logoScale }}
           className="w-full flex justify-center pt-8 sm:pt-12"
@@ -122,21 +122,21 @@ export function HeroSection() {
         </motion.div>
 
         {/* Core Message - Main Focus */}
-        <motion.div 
-          variants={fadeUpVariants} 
+        <motion.div
+          variants={fadeUpVariants}
           className="flex flex-col items-center gap-8 sm:gap-10"
         >
           {/* Primary Tagline - Emphasizes the core message */}
           <div className="flex flex-col items-center gap-6 sm:gap-8">
-            <motion.p 
+            <motion.p
               variants={fadeUpVariants}
               className="text-2xl sm:text-4xl lg:text-5xl font-display font-bold tracking-tight leading-[1.2] text-pretty max-w-3xl"
             >
               Generate <span className="text-brand-gradient">studio-quality</span> fashion visuals <span className="text-brand-gradient">instantly</span>
             </motion.p>
-            
+
             {/* Supporting Headline */}
-            <motion.h1 
+            <motion.h1
               variants={fadeUpVariants}
               className="text-lg sm:text-2xl lg:text-3xl font-display font-medium text-muted-foreground tracking-tight text-pretty max-w-3xl"
             >
@@ -153,8 +153,8 @@ export function HeroSection() {
           </motion.p>
 
           {/* CTA Section - Prominent positioning */}
-          <motion.div 
-            variants={fadeUpVariants} 
+          <motion.div
+            variants={fadeUpVariants}
             className="flex flex-col items-center gap-6 sm:gap-8 pt-4 sm:pt-6"
           >
             <motion.button
@@ -167,14 +167,14 @@ export function HeroSection() {
               Get Early Access
               <span className="absolute -inset-px rounded-full border border-white/20 pointer-events-none" />
             </motion.button>
-            
+
             {/* Tagline under CTA */}
-            <motion.div 
+            <motion.div
               variants={fadeUpVariants}
               className="flex flex-col items-center gap-3"
             >
               <span className="text-aq-blue font-bold uppercase tracking-widest text-xs sm:text-sm">The future of fashion</span>
-              <motion.div 
+              <motion.div
                 animate={{ scaleX: [1, 1.3, 1] }}
                 transition={{ duration: 2.5, repeat: Infinity }}
                 className="h-0.5 w-10 bg-aq-blue/30 origin-center"
