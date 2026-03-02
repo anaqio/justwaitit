@@ -90,7 +90,7 @@ export function WaitlistForm({ source, variant = "full", className }: WaitlistFo
   return (
     <form onSubmit={handleSubmit} className={cn("space-y-5 relative z-10", className)}>
       <input type="hidden" name="source" value={source} />
-      
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-2">
           <label htmlFor="full_name" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Name</label>
@@ -119,7 +119,7 @@ export function WaitlistForm({ source, variant = "full", className }: WaitlistFo
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="role" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Your Role</label>
+        <label htmlFor="role" className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">What Best Describes You?</label>
         <select
           id="role"
           name="role"
@@ -128,10 +128,10 @@ export function WaitlistForm({ source, variant = "full", className }: WaitlistFo
           disabled={isPending}
           className="flex h-12 w-full rounded-xl border border-white/10 bg-background/40 px-4 py-2 text-sm shadow-sm transition-colors focus:border-aq-blue/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 appearance-none text-foreground"
         >
-          <option value="" disabled>Select your professional role</option>
-          <option value="Brand">Brand Owner / Representative</option>
-          <option value="Stylist">Fashion Stylist</option>
-          <option value="Seller">E-commerce Seller</option>
+          <option value="" disabled>Select your role</option>
+          <option value="Brand">Fashion Brand / Retailer</option>
+          <option value="Stylist">Stylist / Creative</option>
+          <option value="Seller">E-Commerce Seller</option>
           <option value="Other">Other</option>
         </select>
       </div>
@@ -190,7 +190,7 @@ export function WaitlistForm({ source, variant = "full", className }: WaitlistFo
         disabled={isPending}
         className="w-full h-14 rounded-xl text-base font-bold shadow-lg shadow-aq-blue/20"
       >
-        {isPending ? "Securing your spot..." : "Join the Waitlist"}
+        {isPending ? "Securing your spot..." : "Secure My Early Access →"}
       </Button>
 
       {status === "error" && (

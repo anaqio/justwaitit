@@ -29,19 +29,19 @@ export function WaitlistSection() {
           <div className="lg:col-span-2 space-y-8 text-center lg:text-left">
             <div className="space-y-4">
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight font-display">
-                Exclusive <br />
-                <span className="text-brand-gradient">Incentives.</span>
+                Why Join <br />
+                <span className="text-brand-gradient">Early?</span>
               </h2>
               <p className="text-muted-foreground font-body text-sm sm:text-base max-w-md mx-auto lg:mx-0">
-                Join our private beta and help shape the future of fashion commerce.
+                Join 200+ Moroccan brands already on the list. Free to join. Cancel anytime.
               </p>
             </div>
 
             <div className="space-y-6 max-w-sm mx-auto lg:mx-0 text-left">
               {[
-                { title: "Early Access", desc: "Be the first to create with our AI studio." },
-                { title: "Lifetime Discount", desc: "Locked-in early supporter pricing in DH." },
-                { title: "Beta Testing Access", desc: "Direct input on features and roadmap." },
+                { title: "Launch in Minutes", desc: "Generate a full collection catalog without booking a studio or model." },
+                { title: "Locked-In Founding Price", desc: "Early supporters get lifetime pricing in DH before public launch." },
+                { title: "Shape the Product", desc: "Beta testers get direct input on features and the roadmap." },
               ].map((item) => (
                 <div key={item.title} className="flex gap-4">
                   <div className="flex-shrink-0 w-6 h-6 rounded-full bg-aq-blue/20 flex items-center justify-center mt-1">
@@ -60,10 +60,10 @@ export function WaitlistSection() {
           <div className="lg:col-span-3 glass-strong rounded-[2rem] border-white/5 p-6 sm:p-10 text-left space-y-8 noise-overlay w-full max-w-md mx-auto lg:max-w-none">
             <div className="space-y-2 relative z-10 text-center sm:text-left">
               <h3 className="text-2xl font-bold tracking-tight font-display">
-                Join the Waitlist
+                Secure My Early Access
               </h3>
               <p className="text-sm text-muted-foreground font-body">
-                Complete the form below to secure your spot.
+                Limited spots. Takes 30 seconds.
               </p>
             </div>
 

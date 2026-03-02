@@ -84,15 +84,15 @@ export function HeroSection() {
               variants={fadeUpVariants}
               className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-display font-bold tracking-tighter leading-[0.95] text-balance"
             >
-              Mastering the <br />
-              art of <span className="font-serif italic font-light tracking-normal bg-clip-text text-transparent bg-gradient-to-r from-aq-blue to-purple-400">digital<br />elegance.</span>
+              Your Studio. <br />
+              <span className="font-serif italic font-light tracking-normal bg-clip-text text-transparent bg-gradient-to-r from-aq-blue to-purple-400">No Studio<br />Required.</span>
             </motion.h1>
 
             <motion.p
               variants={fadeUpVariants}
               className="text-lg sm:text-xl md:text-2xl text-muted-foreground/80 leading-relaxed font-light max-w-xl"
             >
-              The definitive AI visual engine built exclusively for premium Moroccan fashion commerce. Transform singular garments into sprawling, commerce-ready editorial campaigns in milliseconds.
+              Stop paying 5,000–20,000 MAD for a photoshoot that takes weeks to schedule. Anaqio generates professional AI fashion visuals — catalogs, lookbooks, virtual try-ons — in minutes.
             </motion.p>
           </div>
 
@@ -105,15 +105,15 @@ export function HeroSection() {
               aria-label="Get Early Access to Anaqio"
               className="group flex items-center gap-4 px-10 py-5 bg-foreground text-background rounded-full font-bold text-sm tracking-[0.2em] uppercase transition-all duration-700 hover:bg-aq-blue hover:text-white"
             >
-              <span>Enter Alpha Space</span>
+              <span>Secure My Early Access</span>
               <div className="w-8 h-8 rounded-full bg-background/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
                 <ArrowDownRight className="w-4 h-4" />
               </div>
             </button>
 
             <div className="flex flex-col gap-2">
-              <span className="text-xs uppercase tracking-[0.3em] font-bold text-aq-blue">Aesthetic Core</span>
-              <span className="text-sm font-serif italic text-muted-foreground">Version 0.9.4 Beta</span>
+              <span className="text-xs uppercase tracking-[0.3em] font-bold text-aq-blue">Limited Spots</span>
+              <span className="text-sm font-serif italic text-muted-foreground">Free to join · Cancel anytime</span>
             </div>
           </motion.div>
         </motion.div>

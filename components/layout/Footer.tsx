@@ -8,7 +8,10 @@ export function Footer() {
         <div className="flex flex-col items-center sm:items-start gap-6">
           <div className="space-y-2 text-center sm:text-left">
             <p className="text-sm font-bold tracking-tighter font-display">ANAQIO™</p>
-            <p className="text-xs text-muted-foreground font-body">
+            <p className="text-xs text-muted-foreground/80 font-serif italic">
+              Your Digital Atelier. Create. Style. Launch.
+            </p>
+            <p className="text-[10px] text-muted-foreground/50 font-body">
               {"\u00A9"} 2026 Anaqio. All rights reserved.
             </p>
           </div>
