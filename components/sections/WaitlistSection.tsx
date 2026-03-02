@@ -33,15 +33,15 @@ export function WaitlistSection() {
                 <span className="text-brand-gradient">Early?</span>
               </h2>
               <p className="text-muted-foreground font-body text-sm sm:text-base max-w-md mx-auto lg:mx-0">
-                Join 200+ Moroccan brands already on the list. Free to join. Cancel anytime.
+                Join 200+ Moroccan brands upgrading their visual commerce.
               </p>
             </div>
 
             <div className="space-y-6 max-w-sm mx-auto lg:mx-0 text-left">
               {[
-                { title: "Launch in Minutes", desc: "Generate a full collection catalog without booking a studio or model." },
-                { title: "Locked-In Founding Price", desc: "Early supporters get lifetime pricing in DH before public launch." },
-                { title: "Shape the Product", desc: "Beta testers get direct input on features and the roadmap." },
+                { title: "30-Minute Turnarounds", desc: "Go from raw garment imagery to a 4K editorial lookbook before your morning espresso cools." },
+                { title: "Save 15,000+ MAD Per Campaign", desc: "Eliminate model fees, location scouting, and lighting rentals with 100% AI-generated sets." },
+                { title: "Casablanca's Private Beta", desc: "Limited to 200 early-access brands locking in pioneer DH pricing before our public launch." },
               ].map((item) => (
                 <div key={item.title} className="flex gap-4">
                   <div className="flex-shrink-0 w-6 h-6 rounded-full bg-aq-blue/20 flex items-center justify-center mt-1">
@@ -60,10 +60,10 @@ export function WaitlistSection() {
           <div className="lg:col-span-3 glass-strong rounded-[2rem] border-white/5 p-6 sm:p-10 text-left space-y-8 noise-overlay w-full max-w-md mx-auto lg:max-w-none">
             <div className="space-y-2 relative z-10 text-center sm:text-left">
               <h3 className="text-2xl font-bold tracking-tight font-display">
-                Secure My Early Access
+                Request an invitation to the atelier.
               </h3>
               <p className="text-sm text-muted-foreground font-body">
-                Limited spots. Takes 30 seconds.
+                Only 200 early-access spots available. Takes 30 seconds.
               </p>
             </div>
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
+
 
 export function Footer() {
   return (
@@ -15,7 +15,7 @@ export function Footer() {
               {"\u00A9"} 2026 Anaqio. All rights reserved.
             </p>
           </div>
-          <ThemeSwitcher />
+
         </div>
 
         <nav aria-label="Footer Navigation" className="grid grid-cols-2 sm:flex items-center gap-x-10 gap-y-6 text-center sm:text-left">

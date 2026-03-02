@@ -84,15 +84,15 @@ export function HeroSection() {
               variants={fadeUpVariants}
               className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-display font-bold tracking-tighter leading-[0.95] text-balance"
             >
-              Your Studio. <br />
-              <span className="font-serif italic font-light tracking-normal bg-clip-text text-transparent bg-gradient-to-r from-aq-blue to-purple-400">No Studio<br />Required.</span>
+              Skip the Studio. <br />
+              <span className="font-serif italic font-light tracking-normal bg-clip-text text-transparent bg-gradient-to-r from-aq-blue to-purple-400">Ship the Collection.</span>
             </motion.h1>
 
             <motion.p
               variants={fadeUpVariants}
               className="text-lg sm:text-xl md:text-2xl text-muted-foreground/80 leading-relaxed font-light max-w-xl"
             >
-              Stop paying 5,000–20,000 MAD for a photoshoot that takes weeks to schedule. Anaqio generates professional AI fashion visuals — catalogs, lookbooks, virtual try-ons — in minutes.
+              Stop paying 5,000–20,000 MAD for unpredictable photoshoots. Anaqio's AI replaces expensive sets and models so you can style and launch your next campaign today.
             </motion.p>
           </div>
 
@@ -105,15 +105,15 @@ export function HeroSection() {
               aria-label="Get Early Access to Anaqio"
               className="group flex items-center gap-4 px-10 py-5 bg-foreground text-background rounded-full font-bold text-sm tracking-[0.2em] uppercase transition-all duration-700 hover:bg-aq-blue hover:text-white"
             >
-              <span>Secure My Early Access</span>
+              <span>Secure Beta Access</span>
               <div className="w-8 h-8 rounded-full bg-background/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
                 <ArrowDownRight className="w-4 h-4" />
               </div>
             </button>
 
             <div className="flex flex-col gap-2">
-              <span className="text-xs uppercase tracking-[0.3em] font-bold text-aq-blue">Limited Spots</span>
-              <span className="text-sm font-serif italic text-muted-foreground">Free to join · Cancel anytime</span>
+              <span className="text-xs uppercase tracking-[0.3em] font-bold text-aq-blue">Only 200 Spots</span>
+              <span className="text-sm font-serif italic text-muted-foreground">Takes 30 seconds</span>
             </div>
           </motion.div>
         </motion.div>

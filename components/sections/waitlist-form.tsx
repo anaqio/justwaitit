@@ -190,7 +190,7 @@ export function WaitlistForm({ source, variant = "full", className }: WaitlistFo
         disabled={isPending}
         className="w-full h-14 rounded-xl text-base font-bold shadow-lg shadow-aq-blue/20"
       >
-        {isPending ? "Securing your spot..." : "Secure My Early Access →"}
+        {isPending ? "Securing your spot..." : "Secure Beta Access →"}
       </Button>
 
       {status === "error" && (
