@@ -46,28 +46,6 @@
     --font-editorial: var(--font-instrument-serif);
     --font-wordmark: 'Bodoni Moda', Georgia, serif;
   }
-
-  .dark {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
-    --card: 222 47% 13%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 47% 13%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 221 83% 53%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 222 47% 15%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 222 47% 20%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 263 83% 58%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 222 47% 20%;
-    --input: 222 47% 20%;
-    --ring: 221 83% 53%;
-  }
 }
 
 @layer base {
@@ -314,30 +292,6 @@
     radial-gradient(
       ellipse 120% 80% at 50% 50%,
       rgba(37, 99, 235, 0.02),
-      transparent
-    );
-}
-
-.dark .hero-gradient {
-  background: 
-    radial-gradient(
-      ellipse 100% 60% at 50% 0%,
-      rgba(37, 99, 235, 0.2),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 70% 50% at 80% 60%,
-      rgba(124, 58, 237, 0.1),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 70% 50% at 20% 70%,
-      rgba(63, 87, 175, 0.1),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 120% 80% at 50% 50%,
-      rgba(37, 99, 235, 0.04),
       transparent
     );
 }

@@ -8,7 +8,7 @@ interface TypoLogoProps {
   animate?: boolean;
 }
 
-export function TypoLogo({ className = "", theme = "dark", animate = true }: TypoLogoProps) {
+export function TypoLogo({ className = "", theme = "light", animate = true }: TypoLogoProps) {
   const isDark = theme === "dark";
 
   // SVG paths extracted from logo.svg

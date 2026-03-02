@@ -1,51 +1,51 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion } from "framer-motion";
 import { TypoLogo } from "@/components/ui/TypoLogo";
 import { Button } from "@/components/ui/button";
-import { useTheme } from "next-themes";
 import { useEffect, useState, useRef } from "react";
 
 export function Header() {
-  const { theme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
-  const { scrollY } = useScroll();
-
-  useEffect(() => setMounted(true), []);
-
-  useMotionValueEvent(scrollY, "change", (current) => {
-    const prev = lastScrollY;
-    const isScrollingDown = current > prev && current > 80;
-
-    setIsHidden(isScrollingDown);
-    setLastScrollY(current);
-
-    // Clear existing timeout
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current);
-    }
-
-    // Show header after scroll stops
-    if (isScrollingDown) {
-      scrollTimeoutRef.current = setTimeout(() => {
-        setIsHidden(false);
-      }, 1000);
-    }
-  });
 
   useEffect(() => {
+    const scrollContainer = document.querySelector('.lg\\:h-screen.lg\\:snap-y') as HTMLElement;
+    
+    if (!scrollContainer) return;
+
+    const handleScroll = () => {
+      const current = scrollContainer.scrollTop;
+      const prev = lastScrollY;
+      const isScrollingDown = current > prev && current > 80;
+
+      setIsHidden(isScrollingDown);
+      setLastScrollY(current);
+
+      // Clear existing timeout
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      // Show header after scroll stops
+      if (isScrollingDown) {
+        scrollTimeoutRef.current = setTimeout(() => {
+          setIsHidden(false);
+        }, 1000);
+      }
+    };
+
+    scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
+
     return () => {
+      scrollContainer.removeEventListener('scroll', handleScroll);
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current);
       }
     };
-  }, []);
-
-  const currentTheme = (resolvedTheme || theme) as "light" | "dark";
+  }, [lastScrollY]);
 
   return (
     <motion.header
@@ -62,7 +62,7 @@ export function Header() {
         >
           <TypoLogo
             className="h-5 sm:h-6 w-auto"
-            theme={mounted ? currentTheme : "dark"}
+            theme="light"
             animate={false}
           />
           <span className="sr-only">anaqio</span>

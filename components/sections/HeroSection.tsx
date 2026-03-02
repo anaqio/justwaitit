@@ -2,7 +2,6 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import { useTheme } from "next-themes";
 import { ArrowDownRight } from "lucide-react";
 
 // Refined, slower cinematic animations
@@ -37,14 +36,12 @@ const logoVariants = {
 };
 
 export function HeroSection() {
-  const { theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const containerRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => setMounted(true), []);
 
-  const currentTheme = (resolvedTheme || theme) as "light" | "dark";
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end center"],

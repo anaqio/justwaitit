@@ -6,7 +6,6 @@ import {
   JetBrains_Mono,
 } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -169,14 +168,7 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} ${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} antialiased bg-grain`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        {children}
       </body>
       <GoogleAnalytics gaId="G-32QQVBGQN1" />
     </html>

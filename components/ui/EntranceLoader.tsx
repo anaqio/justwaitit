@@ -3,20 +3,12 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HeroLogoComposition } from "./HeroLogoComposition";
-import { useTheme } from "next-themes";
 
 export function EntranceLoader() {
   const [loading, setLoading] = useState(true);
-  const { setTheme } = useTheme();
-
-  useEffect(() => {
-    // Force dark theme for the entrance loader
-    setTheme("dark");
-  }, [setTheme]);
 
   const handleAnimationComplete = () => {
     setLoading(false);
-    setTheme("light"); // Transition to light theme after intro
   };
 
   return (

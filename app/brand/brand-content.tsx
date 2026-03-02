@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 export function BrandIdentityContent() {
   const [password, setPassword] = useState("");
@@ -788,9 +787,6 @@ export function BrandIdentityContent() {
             <a href="#components">Components</a>
             <a href="#tokens">Tokens</a>
             <a href="#trademark">Trademark</a>
-            <div className="ml-auto">
-              <ThemeSwitcher />
-            </div>
           </div>
         </nav>
 

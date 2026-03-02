@@ -1,4 +1,3 @@
-import ThemeSwitcher from "@/components/ThemeSwitcher";
 import Link from "next/link";
 
 export default function AuthLayout({
@@ -12,7 +11,6 @@ export default function AuthLayout({
         <Link href="/" className="text-xl font-bold font-display tracking-tighter text-brand-gradient">
           anaqio
         </Link>
-        <ThemeSwitcher />
       </nav>
       
       <main className="flex-1 flex items-center justify-center p-6 relative z-10">

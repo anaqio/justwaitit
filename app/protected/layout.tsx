@@ -1,5 +1,4 @@
 import { AuthButton } from "@/components/auth-button";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -19,8 +18,6 @@ export default function ProtectedLayout({
             <Suspense fallback={<div className="w-20 h-8 bg-secondary/50 rounded-lg animate-pulse" />}>
               <AuthButton />
             </Suspense>
-            <div className="h-4 w-px bg-border/50" />
-            <ThemeSwitcher />
           </div>
         </div>
       </nav>

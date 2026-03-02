@@ -19,7 +19,8 @@ export default function Home() {
         <div className="lg:snap-start">
           <ProblemSection />
         </div>
-        {/* <div className="lg:snap-start">
+        {/*
+        <div className="lg:snap-start">
           <ProductPreviewSection />
         </div>
         <div className="lg:snap-start">
@@ -30,7 +31,8 @@ export default function Home() {
         </div>
         <div className="lg:snap-start">
           <SocialProofSection />
-        </div> */}
+        </div> 
+        */}
         <div className="lg:snap-start">
           <WaitlistSection />
         </div>
