@@ -36,7 +36,7 @@ export default function AuthErrorPage({
   return (
     <Card className="noise-overlay border-white/5">
       <CardHeader>
-        <CardTitle className="text-3xl font-extrabold font-display tracking-tight">System Error</CardTitle>
+        <CardTitle className="text-3xl font-bold font-display tracking-tight">System Error</CardTitle>
         <CardDescription className="font-body pt-2">
           An issue occurred during authentication.
         </CardDescription>

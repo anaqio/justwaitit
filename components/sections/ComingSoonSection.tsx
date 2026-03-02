@@ -1,10 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Zap, Layers, PlayCircle, Eye } from "lucide-react";
-import { Player } from "@remotion/player";
-import { IntroVideo } from "@/remotion/IntroVideo";
+import { motion } from "framer-motion";
+import { Sparkles, Layers, Eye } from "lucide-react";
 
 const features = [
   {
@@ -18,156 +15,140 @@ const features = [
     desc: "Hyper-realistic garment draping on AI models.",
     icon: Sparkles,
     status: "Q2 2026",
-  },
-  {
-    title: "Lookbook Automator",
-    desc: "Generate entire editorial campaigns in one click.",
-    icon: Zap,
-    status: "Phase 3",
-  },
+  }
 ];
 
 export function ComingSoonSection() {
-  const [view, setView] = useState<"video" | "preview">("video");
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 snap-start overflow-hidden py-20">
-      <div className="max-w-6xl mx-auto w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <section className="relative min-h-screen flex items-center justify-center px-4 snap-start overflow-hidden py-24 sm:py-32">
+      <div className="max-w-7xl mx-auto w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8 text-center lg:text-left order-2 lg:order-1"
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="space-y-12 text-center lg:text-left order-2 lg:order-1"
           >
-            <div className="space-y-4">
-              <h2 className="text-xs sm:text-sm font-bold text-aq-blue uppercase tracking-[0.3em]">Coming Soon</h2>
-              <h3 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display leading-tight">
+            <div className="space-y-6">
+              <h2 className="text-xs sm:text-sm font-bold text-aq-blue uppercase tracking-[0.4em] opacity-80">Coming Soon</h2>
+              <h3 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tighter font-display leading-[1.1]">
                 The Future of <br />
-                <span className="text-brand-gradient italic">Moroccan Fashion</span>
+                <span className="text-brand-gradient italic font-light">Moroccan Fashion</span>
               </h3>
-              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed font-body max-w-md mx-auto lg:mx-0">
-                We are building the first professional AI Visual Studio tailored for the unique aesthetic and scale of modern fashion commerce in Morocco.
+              <p className="text-lg sm:text-xl text-muted-foreground/80 leading-relaxed font-light max-w-lg mx-auto lg:mx-0">
+                Building the first professional AI Visual Studio tailored for the unique aesthetic and scale of modern fashion commerce in Morocco.
               </p>
             </div>
 
-            <div className="space-y-4 max-w-md mx-auto lg:mx-0 text-left">
-              {features.map((f) => (
-                <div key={f.title} className="flex items-start gap-4 p-4 rounded-2xl border border-white/5 bg-secondary/5 hover:bg-secondary/10 transition-colors">
-                  <div className="w-10 h-10 rounded-xl bg-aq-blue/10 flex items-center justify-center shrink-0">
-                    <f.icon className="w-5 h-5 text-aq-blue" />
+            <div className="space-y-4 max-w-lg mx-auto lg:mx-0 text-left">
+              {features.map((f, i) => (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 + i * 0.1 }}
+                  key={f.title}
+                  className="flex items-start gap-6 p-6 rounded-3xl border border-white/5 bg-secondary/5 hover:bg-secondary/10 transition-all duration-500 group"
+                >
+                  <div className="w-12 h-12 rounded-2xl bg-aq-blue/5 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-aq-blue/10 transition-all duration-500">
+                    <f.icon className="w-6 h-6 text-aq-blue/80" />
                   </div>
-                  <div>
-                    <div className="flex items-center gap-3">
-                      <h4 className="font-bold text-foreground text-sm sm:text-base">{f.title}</h4>
-                      <span className="text-[8px] uppercase tracking-widest px-2 py-0.5 rounded-full bg-aq-blue/20 text-aq-blue font-bold border border-aq-blue/20">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center gap-4">
+                      <h4 className="font-medium text-foreground text-lg tracking-tight">{f.title}</h4>
+                      <span className="text-[9px] uppercase tracking-widest px-2.5 py-1 rounded-full bg-aq-blue/10 text-aq-blue font-semibold border border-aq-blue/20">
                         {f.status}
                       </span>
                     </div>
-                    <p className="text-xs sm:text-sm text-muted-foreground">{f.desc}</p>
+                    <p className="text-sm text-muted-foreground/70 font-light leading-relaxed">{f.desc}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
 
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-              <button 
-                onClick={() => setView("video")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all ${view === 'video' ? 'bg-aq-blue text-white shadow-lg shadow-aq-blue/20' : 'bg-secondary/10 text-muted-foreground hover:text-foreground'}`}
+            <div className="flex flex-wrap justify-center lg:justify-start pt-4">
+              <button
+                onClick={() => document.getElementById('product-preview')?.scrollIntoView({ behavior: 'smooth' })}
+                className="group flex items-center gap-3 px-8 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] bg-aq-blue text-white shadow-lg shadow-aq-blue/20 hover:shadow-aq-blue/40 transition-all duration-500 hover:-translate-y-1"
               >
-                <PlayCircle className="w-4 h-4" /> Intro Video
-              </button>
-              <button 
-                onClick={() => setView("preview")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all ${view === 'preview' ? 'bg-aq-blue text-white shadow-lg shadow-aq-blue/20' : 'bg-secondary/10 text-muted-foreground hover:text-foreground'}`}
-              >
-                <Eye className="w-4 h-4" /> Interactive Preview
+                <Eye className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <span>Explore Interactive Preview</span>
               </button>
             </div>
           </motion.div>
 
-          {/* Media Container */}
+          {/* Typographic Art Media Container */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+            whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
             viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="relative order-1 lg:order-2 w-full max-w-sm mx-auto lg:max-w-none"
+            transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+            className="relative order-1 lg:order-2 w-full max-w-md mx-auto lg:max-w-none"
           >
-            <div className="aspect-[4/5] rounded-[2rem] sm:rounded-[3rem] overflow-hidden glass-strong border-white/10 shadow-2xl relative">
-              <AnimatePresence mode="wait">
-                {view === "video" ? (
-                  <motion.div
-                    key="video"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="absolute inset-0"
-                  >
-                    <Player
-                      component={IntroVideo}
-                      durationInFrames={270}
-                      compositionWidth={1080}
-                      compositionHeight={1920}
-                      fps={30}
-                      controls
-                      autoPlay
-                      loop
-                      acknowledgeRemotionLicense
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                      }}
-                    />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="preview"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="absolute inset-0 flex flex-col items-center justify-center p-6 sm:p-8 text-center space-y-4 sm:space-y-6"
-                  >
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-aq-blue/10 rounded-2xl sm:rounded-3xl flex items-center justify-center mb-2">
-                      <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 text-aq-blue" />
-                    </div>
-                    <h4 className="text-xl sm:text-2xl font-bold font-display italic">Interactive Experience</h4>
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-xs">
-                      The alpha version of our interactive engine is now available for testing.
-                    </p>
-                    <button 
-                      onClick={() => document.getElementById('product-preview')?.scrollIntoView({ behavior: 'smooth' })}
-                      className="mt-4 sm:mt-6 px-6 py-3 bg-aq-blue text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-all shadow-lg shadow-aq-blue/20"
-                    >
-                      Explore Studio Engine
-                    </button>
-                    <div className="grid grid-cols-3 gap-2 w-full max-w-[200px] sm:max-w-xs mt-4 sm:mt-8 opacity-20">
-                      {[1, 2, 3].map(i => (
-                        <div key={i} className="aspect-square rounded-lg sm:rounded-xl bg-white/5 border border-white/5" />
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+            <div className="aspect-[4/5] rounded-[3rem] sm:rounded-[4rem] overflow-hidden glass-strong border-white/5 shadow-2xl relative flex flex-col items-center justify-center p-8 sm:p-12 text-center group">
 
-              {/* Timeline Indicator */}
-              <div className="absolute bottom-8 sm:bottom-12 left-0 right-0 px-8 sm:px-12 z-10">
-                <div className="h-1 w-full bg-white/10 rounded-full relative">
-                  <div className="absolute top-0 left-0 h-full w-2/3 bg-aq-blue shadow-[0_0_15px_rgba(37,99,235,0.5)]" />
-                  <div className="absolute top-1/2 -translate-y-1/2 left-2/3 w-3 h-3 rounded-full bg-aq-blue border-4 border-background" />
+              {/* Subtle background glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-aq-blue/5 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-1000" />
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.3 }}
+                className="relative z-10 space-y-8 mt-12"
+              >
+                <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-aq-blue/20 to-aq-blue/5 rounded-[2rem] flex items-center justify-center mx-auto mb-8 shadow-inner border border-white/10 group-hover:scale-105 transition-transform duration-700">
+                  <Sparkles className="w-10 h-10 sm:w-12 sm:h-12 text-aq-blue" strokeWidth={1.5} />
                 </div>
-                <div className="flex justify-between mt-4">
-                  <span className="text-[6px] sm:text-[8px] font-bold text-aq-blue uppercase tracking-widest">Phase 1: Brand</span>
-                  <span className="text-[6px] sm:text-[8px] font-bold text-aq-blue uppercase tracking-widest">Phase 2: Preview</span>
-                  <span className="text-[6px] sm:text-[8px] font-bold text-muted-foreground uppercase tracking-widest">Phase 3: Studio</span>
+
+                <div className="space-y-4">
+                  <h4 className="text-3xl sm:text-4xl font-light font-display italic tracking-tight text-white/90">
+                    Phase Three
+                  </h4>
+                  <h5 className="text-xl sm:text-2xl font-bold font-display tracking-tight bg-clip-text text-transparent bg-brand-gradient">
+                    Studio Engine
+                  </h5>
+                </div>
+
+                <p className="text-sm sm:text-base text-muted-foreground/60 leading-relaxed max-w-[280px] mx-auto font-light">
+                  A revolutionary workspace designed exclusively for high-end fashion commerce.
+                </p>
+              </motion.div>
+
+              {/* Minimalist Grid Pattern */}
+              <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+                style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}
+              />
+
+              {/* Timeline Indicator - Redesigned for elegance */}
+              <div className="absolute bottom-12 left-0 right-0 px-12 z-10">
+                <div className="h-[2px] w-full bg-white/5 rounded-full relative overflow-hidden">
+                  <motion.div
+                    initial={{ width: "0%" }}
+                    whileInView={{ width: "66%" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
+                    className="absolute top-0 left-0 h-full bg-aq-blue shadow-[0_0_10px_rgba(37,99,235,0.8)]"
+                  />
+                </div>
+                <div className="flex justify-between mt-6 px-1">
+                  <span className="text-[9px] font-bold text-aq-blue uppercase tracking-[0.2em] opacity-80">Phase 1</span>
+                  <span className="text-[9px] font-bold text-aq-blue uppercase tracking-[0.2em] opacity-80">Phase 2</span>
+                  <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-[0.2em] opacity-50">Phase 3</span>
                 </div>
               </div>
             </div>
-            
-            <div className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-aq-ink border border-white/10 flex items-center justify-center shadow-xl animate-float z-20">
-              <span className="font-display font-extrabold text-aq-blue text-[10px] sm:text-xs tracking-tighter uppercase">{view}</span>
-            </div>
+
+            {/* Floating accent badge */}
+            <motion.div
+              animate={{ y: [-10, 10, -10] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-6 -right-6 sm:-top-8 sm:-right-8 w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-background/80 backdrop-blur-xl border border-white/10 flex flex-col items-center justify-center shadow-2xl z-20"
+            >
+              <span className="font-display font-medium text-muted-foreground text-[10px] sm:text-xs tracking-widest uppercase mb-1">Status</span>
+              <span className="font-display font-bold text-aq-blue text-sm sm:text-base tracking-tighter uppercase">Alpha</span>
+            </motion.div>
           </motion.div>
         </div>
       </div>

@@ -38,7 +38,7 @@ export function ProblemSection() {
           className="text-center mb-16 space-y-4"
         >
           <h2 className="text-xs sm:text-sm font-bold text-aq-blue uppercase tracking-[0.3em]">The Problem</h2>
-          <h3 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display">
+          <h3 className="text-3xl sm:text-5xl font-bold tracking-tight font-display">
             Fashion imagery is <span className="text-muted-foreground italic">hard.</span>
           </h3>
         </motion.div>

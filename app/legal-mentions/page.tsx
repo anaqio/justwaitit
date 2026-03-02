@@ -21,7 +21,7 @@ export default function LegalMentionsPage() {
                 Corporate Identity
               </span>
             </div>
-            <h1 className="text-5xl sm:text-6xl font-extrabold font-display tracking-tight mb-4">
+            <h1 className="text-5xl sm:text-6xl font-bold font-display tracking-tight mb-4">
               Legal Mentions
             </h1>
             <p className="text-xl font-display italic text-muted-foreground mb-6">Mentions Légales</p>

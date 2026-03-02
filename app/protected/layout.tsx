@@ -12,7 +12,7 @@ export default function ProtectedLayout({
     <div className="min-h-screen bg-background text-foreground font-body noise-overlay selection:bg-aq-blue/20 flex flex-col">
       <nav className="border-b border-border/50 bg-background/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="text-xl font-extrabold font-display tracking-tighter text-brand-gradient">
+          <Link href="/" className="text-xl font-bold font-display tracking-tighter text-brand-gradient">
             anaqio
           </Link>
           <div className="flex items-center gap-6">

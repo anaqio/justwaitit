@@ -60,7 +60,7 @@ export function SignUpForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="noise-overlay border-white/5">
         <CardHeader>
-          <CardTitle className="text-3xl font-extrabold font-display">Join anaqio</CardTitle>
+          <CardTitle className="text-3xl font-bold font-display">Join anaqio</CardTitle>
           <CardDescription className="font-body">Create your studio account to get started</CardDescription>
         </CardHeader>
         <CardContent>

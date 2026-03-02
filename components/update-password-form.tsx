@@ -46,7 +46,7 @@ export function UpdatePasswordForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="noise-overlay border-white/5">
         <CardHeader>
-          <CardTitle className="text-3xl font-extrabold font-display tracking-tight">Security Update</CardTitle>
+          <CardTitle className="text-3xl font-bold font-display tracking-tight">Security Update</CardTitle>
           <CardDescription className="font-body pt-2">
             Configure your new studio access credentials
           </CardDescription>

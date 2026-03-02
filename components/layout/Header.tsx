@@ -6,18 +6,13 @@ import { TypoLogo } from "@/components/ui/TypoLogo";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { useEffect, useState, useRef } from "react";
-import dynamic from 'next/dynamic';
-
-const DynamicThemeSwitcher = dynamic(() => import('../ThemeSwitcher'), {
-  ssr: false,
-});
 
 export function Header() {
   const { theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout>();
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const { scrollY } = useScroll();
 
   useEffect(() => setMounted(true), []);
@@ -57,7 +52,7 @@ export function Header() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: isHidden ? -120 : 0, opacity: isHidden ? 0 : 1 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="fixed top-0 left-0 right-0 z-50 px-4 py-4 pointer-events-none relative"
+      className="fixed top-0 left-0 right-0 z-50 px-4 py-4 pointer-events-none"
     >
       <nav aria-label="Main Navigation" className="glass-strong mx-auto max-w-5xl rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between pointer-events-auto">
         <Link
@@ -82,7 +77,7 @@ export function Header() {
           >
             Join Waitlist
           </Button>
-          <DynamicThemeSwitcher />
+
         </div>
       </nav>
     </motion.header>

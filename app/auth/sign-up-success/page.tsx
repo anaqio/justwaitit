@@ -17,7 +17,7 @@ export default function SignUpSuccessPage() {
   return (
     <Card className="noise-overlay border-white/5">
       <CardHeader>
-        <CardTitle className="text-3xl font-extrabold font-display tracking-tight text-brand-gradient">
+        <CardTitle className="text-3xl font-bold font-display tracking-tight text-brand-gradient">
           Registration Success
         </CardTitle>
         <CardDescription className="font-body pt-2">Check your email to confirm</CardDescription>

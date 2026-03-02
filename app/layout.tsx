@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import {
-  Cormorant_Garamond,
-  Syne,
-  Plus_Jakarta_Sans,
+  Space_Grotesk,
+  Inter,
+  Instrument_Serif,
   JetBrains_Mono,
 } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
@@ -85,24 +85,25 @@ export const metadata: Metadata = {
   },
 };
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
-  weight: ["300", "400", "600"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const syne = Syne({
-  variable: "--font-syne",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta",
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["400"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -166,7 +167,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${cormorant.variable} ${syne.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} antialiased bg-grain`}
+        className={`${spaceGrotesk.variable} ${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} antialiased bg-grain`}
       >
         <ThemeProvider
           attribute="class"

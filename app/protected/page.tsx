@@ -31,7 +31,7 @@ export default function ProtectedPage() {
             Workspace Dashboard
           </span>
         </div>
-        <h1 className="text-4xl font-extrabold font-display tracking-tight">Studio Overview</h1>
+        <h1 className="text-4xl font-bold font-display tracking-tight">Studio Overview</h1>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

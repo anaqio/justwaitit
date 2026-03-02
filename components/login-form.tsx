@@ -51,7 +51,7 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="noise-overlay border-white/5">
         <CardHeader>
-          <CardTitle className="text-3xl font-extrabold font-display">Welcome back</CardTitle>
+          <CardTitle className="text-3xl font-bold font-display">Welcome back</CardTitle>
           <CardDescription className="font-body">
             Sign in to your anaqio studio account
           </CardDescription>

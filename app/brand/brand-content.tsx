@@ -56,7 +56,7 @@ export function BrandIdentityContent() {
             pointer-events: none;
           }
           .gate-logo {
-            font-family: var(--font-cormorant), serif;
+            font-family: var(--font-instrument-serif), serif;
             font-size: 28px;
             font-weight: 600;
             letter-spacing: 0.14em;
@@ -65,14 +65,14 @@ export function BrandIdentityContent() {
             margin-bottom: 32px;
           }
           .gate-title {
-            font-family: var(--font-cormorant), serif;
+            font-family: var(--font-instrument-serif), serif;
             font-size: 20px;
             font-style: italic;
             color: #faf7f2;
             margin-bottom: 12px;
           }
           .gate-desc {
-            font-family: var(--font-plus-jakarta), sans-serif;
+            font-family: var(--font-inter), sans-serif;
             font-size: 13px;
             color: #5a5950;
             margin-bottom: 32px;
@@ -85,7 +85,7 @@ export function BrandIdentityContent() {
             border-radius: 12px;
             padding: 14px 18px;
             color: #faf7f2;
-            font-family: var(--font-plus-jakarta), sans-serif;
+            font-family: var(--font-inter), sans-serif;
             font-size: 14px;
             outline: none;
             transition: all 0.2s;
@@ -104,7 +104,7 @@ export function BrandIdentityContent() {
             border: none;
             padding: 14px;
             border-radius: 12px;
-            font-family: var(--font-plus-jakarta), sans-serif;
+            font-family: var(--font-inter), sans-serif;
             font-size: 12px;
             font-weight: 600;
             letter-spacing: 0.1em;
@@ -120,7 +120,7 @@ export function BrandIdentityContent() {
             color: #EF4444;
             font-size: 12px;
             margin-top: 12px;
-            font-family: var(--font-plus-jakarta), sans-serif;
+            font-family: var(--font-inter), sans-serif;
           }
         `,
           }}
@@ -192,8 +192,8 @@ export function BrandIdentityContent() {
           --aq-gradient-light:  linear-gradient(135deg, #DBEAFE 0%, #EDE9FE 100%);
 
           /* ─── TYPOGRAPHY ─── */
-          --font-display: var(--font-syne), sans-serif;
-          --font-body:    var(--font-plus-jakarta), sans-serif;
+          --font-display: var(--font-space-grotesk), sans-serif;
+          --font-body:    var(--font-inter), sans-serif;
           --font-mono:    var(--font-mono), monospace;
 
           /* ─── SPACING ─── */
@@ -769,8 +769,8 @@ export function BrandIdentityContent() {
                   <line x1="35" y1="88" x2="85" y2="88" stroke="url(#cg2)" strokeWidth={2} strokeOpacity="0.4" />
                   <line x1="35" y1="101" x2="65" y2="101" stroke="url(#cg2)" strokeWidth={2} strokeOpacity="0.4" />
                 </g>
-                <text x="400" y="220" fontFamily="Syne, sans-serif" fontSize="72" fontWeight="800" fill="url(#cg)" textAnchor="middle" letterSpacing="-1">ANAQIO</text>
-                <text x="400" y="252" fontFamily="Plus Jakarta Sans, sans-serif" fontSize="14" fontWeight="400" fill="rgba(255,255,255,0.4)" textAnchor="middle" letterSpacing="3">AI VIRTUAL STUDIO</text>
+                <text x="400" y="220" fontFamily="Space Grotesk, sans-serif" fontSize="72" fontWeight="700" fill="url(#cg)" textAnchor="middle" letterSpacing="-1">ANAQIO</text>
+                <text x="400" y="252" fontFamily="Inter, sans-serif" fontSize="14" fontWeight="400" fill="rgba(255,255,255,0.4)" textAnchor="middle" letterSpacing="3">AI VIRTUAL STUDIO</text>
               </svg>
             </div>
           </div>

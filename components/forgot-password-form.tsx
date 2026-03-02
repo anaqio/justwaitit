@@ -49,7 +49,7 @@ export function ForgotPasswordForm({
       {success ? (
         <Card className="noise-overlay border-white/5">
           <CardHeader>
-            <CardTitle className="text-3xl font-extrabold font-display tracking-tight">Check Your Inbox</CardTitle>
+            <CardTitle className="text-3xl font-bold font-display tracking-tight">Check Your Inbox</CardTitle>
             <CardDescription className="font-body pt-2">Password reset instructions sent</CardDescription>
           </CardHeader>
           <CardContent>
@@ -62,7 +62,7 @@ export function ForgotPasswordForm({
       ) : (
         <Card className="noise-overlay border-white/5">
           <CardHeader>
-            <CardTitle className="text-3xl font-extrabold font-display tracking-tight">Recover Access</CardTitle>
+            <CardTitle className="text-3xl font-bold font-display tracking-tight">Recover Access</CardTitle>
             <CardDescription className="font-body pt-2">
               Enter your email to receive recovery instructions
             </CardDescription>

@@ -14,11 +14,11 @@ export function SocialProofSection() {
           className="space-y-4"
         >
           <h2 className="text-xs sm:text-sm font-bold text-aq-blue uppercase tracking-[0.3em]">Coming Soon</h2>
-          <h3 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-display">
+          <h3 className="text-3xl sm:text-5xl font-bold tracking-tight font-display">
             Trusted by the <span className="text-brand-gradient">avant-garde.</span>
           </h3>
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto font-body">
-            We are currently in private beta with selected fashion houses and independent stylists. 
+            We are currently in private beta with selected fashion houses and independent stylists.
             Official testimonials and case studies are launching soon.
           </p>
         </motion.div>
@@ -27,11 +27,11 @@ export function SocialProofSection() {
           {/* Logo Placeholders with brand-like feel */}
           {["VOGUE", "HARPER'S", "ELLE", "LOOFFICIEL"].map((brand) => (
             <div key={brand} className="h-12 sm:h-16 flex items-center justify-center">
-              <span className="font-display font-black text-xl sm:text-2xl tracking-[0.4em] text-foreground/40">{brand}</span>
+              <span className="font-display font-bold text-xl sm:text-2xl tracking-[0.4em] text-foreground/40">{brand}</span>
             </div>
           ))}
         </div>
-        
+
         <div className="pt-8 sm:pt-12">
           <p className="text-[10px] uppercase tracking-[0.5em] font-bold text-aq-blue/40">Selected Partners Only</p>
         </div>

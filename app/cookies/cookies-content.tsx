@@ -34,7 +34,7 @@ export function CookiePolicyContent() {
                 Transparency
               </span>
             </div>
-            <h1 className="text-5xl sm:text-6xl font-extrabold font-display tracking-tight mb-6">
+            <h1 className="text-5xl sm:text-6xl font-bold font-display tracking-tight mb-6">
               Cookie Policy
             </h1>
             <div className="flex flex-wrap gap-x-8 gap-y-2 text-xs text-muted-foreground uppercase tracking-wider font-semibold">

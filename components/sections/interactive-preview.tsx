@@ -39,7 +39,7 @@ export function InteractivePreview() {
 
   const handleVibeChange = (vibe: typeof vibes[0]) => {
     if (vibe.id === selectedVibe.id) return;
-    
+
     setIsProcessing(true);
     setShowResult(false);
     setSelectedVibe(vibe);
@@ -91,7 +91,7 @@ export function InteractivePreview() {
                 showResult ? "brightness-110 contrast-110" : "brightness-90"
               )}
             />
-            
+
             {/* AI Lighting Effect */}
             <AnimatePresence>
               {showResult && (
@@ -154,7 +154,7 @@ export function InteractivePreview() {
         <div className="absolute top-6 right-6 z-10">
           <div className="glass-strong px-3 py-1.5 rounded-full border-white/10 flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-[8px] font-black uppercase tracking-tighter">Visual Engine v1.0</span>
+            <span className="text-[8px] font-bold uppercase tracking-tighter">Visual Engine v1.0</span>
           </div>
         </div>
       </div>
@@ -177,8 +177,8 @@ export function InteractivePreview() {
               aria-label={`Switch to ${vibe.name} environment`}
               className={cn(
                 "relative h-24 rounded-2xl overflow-hidden border-2 transition-all group disabled:opacity-50",
-                selectedVibe.id === vibe.id 
-                  ? "border-aq-blue ring-4 ring-aq-blue/10 scale-[0.98]" 
+                selectedVibe.id === vibe.id
+                  ? "border-aq-blue ring-4 ring-aq-blue/10 scale-[0.98]"
                   : "border-transparent opacity-60 hover:opacity-100 hover:scale-[1.02]"
               )}
             >
@@ -187,7 +187,7 @@ export function InteractivePreview() {
               <div className="absolute inset-0 flex flex-col items-center justify-center p-2 text-center">
                 <span className="text-[10px] font-bold uppercase tracking-tight text-white">{vibe.name}</span>
               </div>
-              
+
               {selectedVibe.id === vibe.id && (
                 <div className="absolute top-2 right-2">
                   <div className="w-4 h-4 rounded-full bg-aq-blue flex items-center justify-center shadow-lg">

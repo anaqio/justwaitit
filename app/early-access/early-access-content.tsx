@@ -22,7 +22,7 @@ export function EarlyAccessContent() {
                 </span>
               </div>
               
-              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-extrabold font-display tracking-tight leading-[0.9]">
+              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold font-display tracking-tight leading-[0.9]">
                 Fashion&apos;s <br />
                 <span className="text-brand-gradient">Virtual Studio</span> <br />
                 <span className="italic font-normal">powered by AI.</span>
@@ -57,7 +57,7 @@ export function EarlyAccessContent() {
                 </div>
               </div>
               <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-aq-ink border border-white/10 flex items-center justify-center shadow-xl animate-float">
-                <span className="font-display font-extrabold text-aq-blue text-xs tracking-tighter">AI-D</span>
+                <span className="font-display font-bold text-aq-blue text-xs tracking-tighter">AI-D</span>
               </div>
             </div>
           </div>
@@ -73,7 +73,7 @@ export function EarlyAccessContent() {
               ["01", "Unified Studio Platform"],
             ].map(([num, label]) => (
               <div key={label} className="space-y-2">
-                <div className="text-5xl font-extrabold font-display tracking-tighter text-foreground">{num}</div>
+                <div className="text-5xl font-bold font-display tracking-tighter text-foreground">{num}</div>
                 <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-aq-blue">{label}</div>
               </div>
             ))}
@@ -84,7 +84,7 @@ export function EarlyAccessContent() {
         <section className="py-32 px-6">
           <div className="max-w-5xl mx-auto bg-aq-ink rounded-[3rem] p-12 lg:p-24 border border-white/5 shadow-2xl relative overflow-hidden text-center space-y-12">
             <div className="absolute inset-0 bg-brand-gradient opacity-5 pointer-events-none" />
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display tracking-tight leading-tight relative z-10">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-display tracking-tight leading-tight relative z-10">
               Be first to enter <br />
               the <span className="text-brand-gradient">future of fashion</span>.
             </h2>

@@ -9,7 +9,7 @@ export default function AuthLayout({
   return (
     <div className="relative min-h-screen bg-background flex flex-col noise-overlay">
       <nav className="absolute top-0 left-0 right-0 p-8 flex justify-between items-center z-50">
-        <Link href="/" className="text-xl font-extrabold font-display tracking-tighter text-brand-gradient">
+        <Link href="/" className="text-xl font-bold font-display tracking-tighter text-brand-gradient">
           anaqio
         </Link>
         <ThemeSwitcher />
