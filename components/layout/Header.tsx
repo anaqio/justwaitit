@@ -52,16 +52,16 @@ export function Header() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: isHidden ? -120 : 0, opacity: isHidden ? 0 : 1 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="fixed top-0 left-0 right-0 z-50 px-4 py-4 pointer-events-none"
+      className="top-0 right-0 left-0 z-50 fixed px-4 py-4 pointer-events-none"
     >
-      <nav aria-label="Main Navigation" className="glass-strong mx-auto max-w-5xl rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between pointer-events-auto">
+      <nav aria-label="Main Navigation" className="flex justify-between items-center bg-neutral-100/25 backdrop-blur-sm mx-auto px-4 sm:px-6 py-3 rounded-2xl max-w-5xl pointer-events-auto glass-strong">
         <Link
           href="/"
           className="flex items-center"
           aria-label="Anaqio Home"
         >
           <TypoLogo
-            className="h-5 sm:h-6 w-auto"
+            className="w-auto h-5 sm:h-6"
             theme="light"
             animate={false}
           />
@@ -70,10 +70,11 @@ export function Header() {
 
         <div className="flex items-center gap-3 sm:gap-8">
           <Button
-            variant="outline"
+            variant="ghost"
+            className="backdrop-blur-xl"
             onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
             aria-label="Scroll to Waitlist Section"
-            className="text-[9px] sm:text-[10px] font-bold bg-aq-blue text-white px-3 sm:px-4 py-2 rounded-lg uppercase tracking-[0.2em] hover:bg-aq-blue/90 transition-colors whitespace-nowrap"
+            
           >
             Join Waitlist
           </Button>

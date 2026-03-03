@@ -142,7 +142,12 @@ export default function RootLayout({
     offers: {
       "@type": "Offer",
       price: "0",
-      priceCurrency: "USD",
+      priceCurrency: "MAD",
+    },
+    author: {
+      "@type": "Organization",
+      name: "Anaqio",
+      url: defaultUrl,
     },
     aggregateRating: {
       "@type": "AggregateRating",
@@ -166,7 +171,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} antialiased bg-grain`}
+        className={`${spaceGrotesk.variable} ${inter.variable} ${instrumentSerif.variable}  antialiased`}
       >
         {children}
       </body>

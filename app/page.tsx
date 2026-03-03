@@ -7,12 +7,14 @@ import { SocialProofSection } from "@/components/sections/SocialProofSection";
 import { WaitlistSection } from "@/components/sections/WaitlistSection";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import AbstractBackground from "@/components/ui/AbstractBackground";
 
 export default function Home() {
   return (
-    <main className="relative bg-background text-foreground selection:bg-aq-blue/20">
+    <main className="relative bg-background selection:bg-aq-blue/20 text-foreground">
+      <AbstractBackground />
       <Header />
-      <div className="lg:h-screen lg:snap-y lg:snap-mandatory overflow-y-auto scroll-smooth">
+      <div className="lg:h-screen overflow-y-auto scroll-smooth lg:snap-mandatory lg:snap-y">
         <div className="lg:snap-start">
           <HeroSection />
         </div>

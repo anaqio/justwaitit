@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { ArrowDownRight } from "lucide-react";
+import { Button } from "../ui/button";
 
 // Refined, slower cinematic animations
 const containerVariants = {
@@ -55,13 +56,13 @@ export function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden hero-gradient snap-start px-6 sm:px-12 lg:px-20 py-24"
+      className="relative flex flex-col justify-center px-6 sm:px-12 lg:px-20 py-24 min-h-screen overflow-hidden snap-start hero-gradient"
     >
       {/* Immersive background effects */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      <div className="z-0 absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-background/50" />
-        <div className="absolute top-0 right-0 w-[80vw] h-[80vh] bg-aq-blue/5 rounded-full blur-[120px] mix-blend-screen opacity-50" />
-        <div className="absolute bottom-0 left-0 w-[50vw] h-[50vh] bg-purple-500/5 rounded-full blur-[100px] mix-blend-screen opacity-30" />
+        <div className="top-0 right-0 absolute bg-aq-blue/5 opacity-50 blur-[120px] rounded-full w-[80vw] h-[80vh] mix-blend-screen" />
+        <div className="bottom-0 left-0 absolute bg-purple-500/5 opacity-30 blur-[100px] rounded-full w-[50vw] h-[50vh] mix-blend-screen" />
       </div>
 
       {/* Main Content Container - Golden Grid Layout */}
@@ -71,7 +72,7 @@ export function HeroSection() {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-20 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1.618fr_1fr] gap-16 lg:gap-24 items-center"
+        className="z-20 relative items-center gap-16 lg:gap-24 grid grid-cols-1 lg:grid-cols-[1.618fr_1fr] mx-auto w-full max-w-[1400px]"
       >
         {/* Primary Fraction (1.618) - Core Messaging */}
         <motion.div style={{ y: textY }} className="flex flex-col items-start gap-12 lg:gap-16">
@@ -79,15 +80,15 @@ export function HeroSection() {
           <div className="flex flex-col gap-8 w-full">
             <motion.h1
               variants={fadeUpVariants}
-              className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-display font-bold tracking-tighter leading-[0.95] text-balance"
+              className="font-display font-bold lg:text-[5.5rem] text-4xl sm:text-6xl md:text-7xl text-balance leading-[0.95] tracking-tighter"
             >
               Skip the Studio. <br />
-              <span className="font-serif italic font-light tracking-normal bg-clip-text text-transparent bg-gradient-to-r from-aq-blue to-purple-400">Ship the Collection.</span>
+              <span className="bg-clip-text bg-gradient-to-r from-aq-blue to-purple-400 font-serif font-light text-transparent italic tracking-normal">Ship the Collection.</span>
             </motion.h1>
 
             <motion.p
               variants={fadeUpVariants}
-              className="text-lg sm:text-xl md:text-2xl text-muted-foreground/80 leading-relaxed font-light max-w-xl"
+              className="max-w-xl font-light text-muted-foreground/80 text-lg sm:text-xl md:text-2xl leading-relaxed"
             >
               Stop paying 5,000–20,000 MAD for unpredictable photoshoots. Anaqio's AI replaces expensive sets and models so you can style and launch your next campaign today.
             </motion.p>
@@ -95,22 +96,45 @@ export function HeroSection() {
 
           <motion.div
             variants={fadeUpVariants}
-            className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-10 pt-4"
+            className="flex sm:flex-row flex-col items-start sm:items-center gap-6 sm:gap-10 pt-4"
           >
-            <button
-              onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
-              aria-label="Get Early Access to Anaqio"
-              className="group flex items-center gap-4 px-10 py-5 bg-foreground text-background rounded-full font-bold text-sm tracking-[0.2em] uppercase transition-all duration-700 hover:bg-aq-blue hover:text-white"
+            <motion.div
+              whileHover="hover"
+              initial="initial"
+              animate="initial"
             >
-              <span>Secure Beta Access</span>
-              <div className="w-8 h-8 rounded-full bg-background/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                <ArrowDownRight className="w-4 h-4" />
-              </div>
-            </button>
+              <Button
+                variant={"brand"}
+                onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
+                aria-label="Get Early Access to Anaqio"
+                className="group flex items-center gap-4 hover:bg-aq-blue py-8 rounded-tr-3xl rounded-bl-3xl font-bold text-background hover:text-white text-sm uppercase tracking-[0.2em] transition-all duration-700"
+              >
+                <span>Secure Beta Access</span>
+                <div className="relative flex justify-center items-center bg-background/10 group-hover:bg-white/20 rounded-full w-8 h-8 overflow-hidden transition-colors">
+                  <motion.div
+                    variants={{
+                      initial: { x: 0, y: 0, opacity: 1 },
+                      hover: {
+                        x: [0, 12, -12, 0],
+                        y: [0, 12, -12, 0],
+                        opacity: [1, 0, 0, 1],
+                        transition: {
+                          duration: 0.5,
+                          times: [0, 0.4, 0.4, 1],
+                          ease: "easeInOut"
+                        }
+                      }
+                    }}
+                  >
+                    <ArrowDownRight className="w-4 h-4" />
+                  </motion.div>
+                </div>
+              </Button>
+            </motion.div>
 
             <div className="flex flex-col gap-2">
-              <span className="text-xs uppercase tracking-[0.3em] font-bold text-aq-blue">Only 200 Spots</span>
-              <span className="text-sm font-serif italic text-muted-foreground">Takes 30 seconds</span>
+              <span className="font-bold text-aq-blue text-xs uppercase tracking-[0.3em]">Only 200 Spots</span>
+              <span className="font-serif text-muted-foreground text-sm italic">Takes 30 seconds</span>
             </div>
           </motion.div>
         </motion.div>
@@ -119,26 +143,26 @@ export function HeroSection() {
         <motion.div
           style={{ y: elementY }}
           variants={fadeUpVariants}
-          className="hidden lg:flex flex-col items-end justify-center h-full relative"
+          className="hidden relative lg:flex flex-col justify-center items-end h-full"
         >
           {/* Typographic Art & Negative Space */}
-          <div className="glass-strong border border-white/5 rounded-[3rem] p-12 aspect-[3/4] w-full max-w-[400px] flex flex-col justify-between shadow-2xl overflow-hidden relative group">
+          <div className="group relative flex flex-col justify-between shadow-2xl p-12 border border-white/5 rounded-[3rem] w-full max-w-[400px] aspect-[3/4] overflow-hidden glass-strong">
 
             <div className="absolute inset-0 bg-gradient-to-br from-aq-blue/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
 
-            <div className="flex justify-between items-start z-10 w-full">
-              <span className="text-xs font-mono text-muted-foreground/50">SYS.01</span>
-              <span className="text-xs font-mono text-muted-foreground/50">AQ-CORE</span>
+            <div className="z-10 flex justify-between items-start w-full">
+              <span className="font-mono text-muted-foreground/50 text-xs">SYS.01</span>
+              <span className="font-mono text-muted-foreground/50 text-xs">AQ-CORE</span>
             </div>
 
-            <div className="space-y-4 z-10">
-              <h3 className="text-5xl font-serif italic text-white/90 leading-none">
+            <div className="z-10 space-y-4">
+              <h3 className="font-serif text-white/90 text-5xl italic leading-none">
                 Fluid
                 <br />
-                <span className="font-display not-italic font-bold text-4xl uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-white/50">Reality</span>
+                <span className="bg-clip-text bg-gradient-to-r from-white to-white/50 font-display font-bold text-transparent text-4xl not-italic uppercase tracking-tighter">Reality</span>
               </h3>
-              <div className="w-12 h-[1px] bg-aq-blue shadow-[0_0_10px_rgba(37,99,235,0.5)]" />
-              <p className="text-sm font-light text-muted-foreground/70 tracking-wide max-w-[200px]">
+              <div className="bg-aq-blue shadow-[0_0_10px_rgba(37,99,235,0.5)] w-12 h-[1px]" />
+              <p className="max-w-[200px] font-light text-muted-foreground/70 text-sm tracking-wide">
                 Physics-based lighting and structural fabric AI simulations.
               </p>
             </div>
