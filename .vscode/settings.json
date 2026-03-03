@@ -1,5 +1,5 @@
 {
-    "kiroAgent.configureMCP": "Disabled",
+    "kiroAgent.configureMCP": "Enabled",
     "piny.project_settings": {
         "open-pages": [
             "pinyfakepage.html"
