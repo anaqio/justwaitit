@@ -4,6 +4,7 @@ import {
   Inter,
   Instrument_Serif,
   JetBrains_Mono,
+  Bodoni_Moda,
 } from 'next/font/google';
 
 import type { Metadata } from 'next';
@@ -116,6 +117,14 @@ const jetbrainsMono = JetBrains_Mono({
   preload: false,
 });
 
+const bodoniModa = Bodoni_Moda({
+  variable: '--font-bodoni-moda',
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  preload: false,
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -169,17 +178,25 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <script
+          id="org-jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <script
+          id="software-jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }}
         />
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} antialiased`}
+        className={`${spaceGrotesk.variable} ${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${bodoniModa.variable} antialiased`}
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-background focus:px-4 focus:py-2 focus:text-foreground focus:shadow-lg focus:ring-2 focus:ring-ring"
+        >
+          Skip to main content
+        </a>
         {children}
       </body>
       <GoogleAnalytics gaId="G-32QQVBGQN1" />

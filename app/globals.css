@@ -1,5 +1,4 @@
-/* Google Fonts Import — Bodoni Moda (wordmark only, loaded via CSS) */
-@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,300;0,6..96,400;1,6..96,300&display=swap");
+/* Bodoni Moda now loaded via next/font in layout.tsx for non-render-blocking loading */
 
 @tailwind base;
 @tailwind components;
@@ -18,7 +17,7 @@
     --secondary: 210 40% 96%;
     --secondary-foreground: 222 47% 11%;
     --muted: 214 32% 91%;
-    --muted-foreground: 215 25% 40%;
+    --muted-foreground: 215 25% 35%;
     --accent: 263 83% 58%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 84.2% 60.2%;
@@ -50,7 +49,7 @@
     --font-body: var(--font-inter);
     --font-label: var(--font-inter);
     --font-editorial: var(--font-instrument-serif);
-    --font-wordmark: "Bodoni Moda", Georgia, serif;
+    --font-wordmark: var(--font-bodoni-moda), Georgia, serif;
   }
 }
 
@@ -172,41 +171,41 @@
 
 @layer components {
   .glass {
-    @apply relative backdrop-blur-[20px] overflow-hidden;
+    @apply relative overflow-hidden backdrop-blur-[20px];
     background: hsla(var(--card), 0.6);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     border: 1px solid hsla(var(--border), 0.3);
   }
 
   .glass::after {
-    @apply z-0 absolute inset-0 pointer-events-none;
-    content: "";
+    @apply pointer-events-none absolute inset-0 z-0;
+    content: '';
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
   }
 
   .glass-strong {
-    @apply relative backdrop-blur-[30px] overflow-hidden;
+    @apply relative overflow-hidden backdrop-blur-[30px];
     background: hsla(var(--card), 0.8);
-    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
     border: 1px solid hsla(var(--border), 0.2);
   }
 
   .glass-strong::after {
-    @apply z-0 absolute inset-0 pointer-events-none;
-    content: "";
+    @apply pointer-events-none absolute inset-0 z-0;
+    content: '';
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
   }
 
   .glass-card {
-    @apply relative backdrop-blur-[16px] overflow-hidden;
+    @apply relative overflow-hidden backdrop-blur-[16px];
     background: hsla(var(--card), 0.4);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
     border: 1px solid hsla(var(--border), 0.1);
   }
 
   .glass-card::after {
-    @apply z-0 absolute inset-0 pointer-events-none;
-    content: "";
+    @apply pointer-events-none absolute inset-0 z-0;
+    content: '';
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
   }
 
@@ -246,8 +245,8 @@
   }
 
   .noise-overlay::after {
-    @apply z-0 absolute inset-0 pointer-events-none;
-    content: "";
+    @apply pointer-events-none absolute inset-0 z-0;
+    content: '';
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
   }
 
@@ -256,8 +255,8 @@
   }
 
   .bg-grain::before {
-    @apply top-0 left-0 z-50 fixed opacity-[0.03] w-screen h-screen pointer-events-none;
-    content: "";
+    @apply pointer-events-none fixed left-0 top-0 z-50 h-screen w-screen opacity-[0.03];
+    content: '';
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 
@@ -335,15 +334,176 @@
 
 /* Scroll Snap */
 .snap-container {
-  @apply min-h-screen overflow-y-auto scroll-smooth snap-mandatory snap-y;
+  @apply min-h-screen snap-y snap-mandatory overflow-y-auto scroll-smooth;
 }
 
 .snap-section {
-  @apply w-full min-h-screen snap-always snap-start;
+  @apply min-h-screen w-full snap-start snap-always;
 }
 
 .page-entrance {
   animation: entrance 1s ease-out forwards;
+}
+
+/* ==============================
+   AbstractBackground Blob System
+   ============================== */
+
+/* Autonomous drift keyframes — each blob gets a unique organic path */
+@keyframes blob-drift-0 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  25% {
+    transform: translate3d(60px, -40px, 0);
+  }
+  50% {
+    transform: translate3d(-30px, 50px, 0);
+  }
+  75% {
+    transform: translate3d(40px, 20px, 0);
+  }
+}
+
+@keyframes blob-drift-1 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  25% {
+    transform: translate3d(-50px, 30px, 0);
+  }
+  50% {
+    transform: translate3d(40px, -60px, 0);
+  }
+  75% {
+    transform: translate3d(-20px, -30px, 0);
+  }
+}
+
+@keyframes blob-drift-2 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  33% {
+    transform: translate3d(70px, 30px, 0);
+  }
+  66% {
+    transform: translate3d(-40px, -50px, 0);
+  }
+}
+
+@keyframes blob-drift-3 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  25% {
+    transform: translate3d(-30px, -60px, 0);
+  }
+  50% {
+    transform: translate3d(50px, 20px, 0);
+  }
+  75% {
+    transform: translate3d(-60px, 40px, 0);
+  }
+}
+
+@keyframes blob-drift-4 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  30% {
+    transform: translate3d(45px, 55px, 0);
+  }
+  60% {
+    transform: translate3d(-55px, -25px, 0);
+  }
+}
+
+@keyframes blob-drift-5 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  20% {
+    transform: translate3d(-40px, 35px, 0);
+  }
+  50% {
+    transform: translate3d(55px, -45px, 0);
+  }
+  80% {
+    transform: translate3d(-25px, 50px, 0);
+  }
+}
+
+.abstract-blob {
+  position: absolute;
+  left: var(--blob-x);
+  top: var(--blob-y);
+  width: var(--blob-size);
+  height: var(--blob-size);
+  border-radius: 40% 60% 55% 45% / 55% 40% 60% 45%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    var(--blob-color),
+    transparent 70%
+  );
+  opacity: 0.7;
+  will-change: transform;
+  /* Mouse + gyro parallax via CSS custom properties:
+     calc() maps normalized [0,1] mouse coords to px offset via parallax factor */
+  translate: calc(
+      (var(--mouse-x, 0.5) - 0.5) * var(--blob-parallax) * 600px +
+        (var(--gyro-x, 0) * var(--blob-parallax) * 300px)
+    )
+    calc(
+      (var(--mouse-y, 0.5) - 0.5) * var(--blob-parallax) * 600px +
+        (var(--gyro-y, 0) * var(--blob-parallax) * 300px)
+    );
+  transition:
+    border-radius 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.8s ease,
+    scale 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Each blob gets a unique drift animation */
+.abstract-blob:nth-child(1) {
+  animation: blob-drift-0 var(--blob-drift-dur) ease-in-out infinite;
+}
+.abstract-blob:nth-child(2) {
+  animation: blob-drift-1 var(--blob-drift-dur) ease-in-out infinite;
+}
+.abstract-blob:nth-child(3) {
+  animation: blob-drift-2 var(--blob-drift-dur) ease-in-out infinite;
+}
+.abstract-blob:nth-child(4) {
+  animation: blob-drift-3 var(--blob-drift-dur) ease-in-out infinite;
+}
+.abstract-blob:nth-child(5) {
+  animation: blob-drift-4 var(--blob-drift-dur) ease-in-out infinite;
+}
+.abstract-blob:nth-child(6) {
+  animation: blob-drift-5 var(--blob-drift-dur) ease-in-out infinite;
+}
+
+/* Scroll-triggered morph state — blobs deform and dim when scrolled */
+.abstract-blob--morphed {
+  border-radius: 60% 40% 45% 55% / 40% 60% 45% 55%;
+  opacity: 0.4;
+  scale: 1.15;
+}
+
+/* Reduced motion — freeze drift, keep static gradient blobs */
+@media (prefers-reduced-motion: reduce) {
+  .abstract-blob {
+    animation: none !important;
+    translate: 0 0;
+    transition: none;
+  }
 }
 
 /* ==============================
@@ -374,13 +534,13 @@
   }
 
   .text-caption {
-    @apply font-light text-[0.72rem] tracking-wider;
+    @apply text-[0.72rem] font-light tracking-wider;
     font-family: var(--font-body);
     letter-spacing: 0.05em;
   }
 
   .text-cta {
-    @apply font-medium text-[0.65rem] uppercase;
+    @apply text-[0.65rem] font-medium uppercase;
     font-family: var(--font-label);
     letter-spacing: 0.3em;
   }

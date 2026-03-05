@@ -6,7 +6,7 @@ export function WaitlistSection() {
   return (
     <section
       id="waitlist"
-      className="relative flex min-h-screen snap-start items-center justify-center overflow-hidden px-4 py-20"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-20"
     >
       <div className="animate-glow pointer-events-none absolute left-1/2 top-1/2 h-[800px] w-full max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-aq-blue/10 blur-[160px]" />
       <div className="relative z-10 mx-auto w-full max-w-4xl duration-1000 animate-in fade-in slide-in-from-bottom-8 fill-mode-both">
@@ -68,7 +68,7 @@ export function WaitlistSection() {
 
             <WaitlistForm source="home" />
 
-            <p className="relative z-10 text-center font-body text-[10px] text-muted-foreground/50">
+            <p className="relative z-10 text-center font-body text-xs text-muted-foreground">
               By joining you agree to our{' '}
               <Link
                 href="/terms"

@@ -32,7 +32,7 @@ export function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="hero-gradient relative flex min-h-screen snap-start flex-col justify-center overflow-hidden px-6 py-24 sm:px-12 lg:px-20"
+      className="relative z-40 flex min-h-screen flex-col justify-center overflow-hidden bg-background/60 px-6 py-24 sm:px-12 lg:px-20"
       style={{ transform: 'translateZ(0)' }} // GPU Acceleration
     >
       {/* Immersive background effects */}
@@ -51,14 +51,17 @@ export function HeroSection() {
         {/* Primary Fraction (1.618) - Core Messaging */}
         <div className="flex flex-col items-start gap-12 lg:gap-16">
           <div className="flex w-full flex-col gap-8">
-            <h1 className="text-balance font-display text-4xl font-bold leading-[0.95] tracking-tighter sm:text-6xl md:text-7xl lg:text-[5.5rem]">
+            <h1
+              className="text-balance font-display text-4xl font-bold leading-[0.95] tracking-tighter sm:text-6xl md:text-7xl lg:text-[5.5rem]"
+              style={{ textWrap: 'balance' }}
+            >
               Skip the Studio. <br />
               <span className="bg-gradient-to-r from-aq-blue to-purple-400 bg-clip-text font-serif font-light italic tracking-normal text-transparent">
                 Ship the Collection.
               </span>
             </h1>
 
-            <p className="max-w-xl text-lg font-light leading-relaxed text-muted-foreground/80 sm:text-xl md:text-2xl">
+            <p className="max-w-xl text-lg font-light leading-relaxed text-muted-foreground sm:text-xl md:text-2xl">
               Stop paying 5,000–20,000 MAD for unpredictable photoshoots.
               Anaqio's AI replaces expensive sets and models so you can style
               and launch your next campaign today.
@@ -100,14 +103,17 @@ export function HeroSection() {
         {/* Golden Fraction (1) - Structured Negative Space / Interactive Element */}
         <div className="relative hidden h-full flex-col items-end justify-center delay-500 duration-1000 animate-in fade-in slide-in-from-bottom-8 fill-mode-both lg:flex">
           {/* Typographic Art & Negative Space */}
-          <div className="glass-strong group relative flex aspect-[3/4] w-full max-w-[400px] flex-col justify-between overflow-hidden rounded-[3rem] border border-white/5 p-12 shadow-2xl">
+          <div
+            id="main-content"
+            className="glass-strong group relative flex aspect-[3/4] w-full max-w-[400px] flex-col justify-between overflow-hidden rounded-[3rem] border border-white/5 p-12 shadow-2xl"
+          >
             <div className="absolute inset-0 bg-gradient-to-br from-aq-blue/10 to-transparent opacity-0 transition-opacity duration-1000 group-hover:opacity-100" />
 
             <div className="z-10 flex w-full items-start justify-between">
-              <span className="font-mono text-xs text-muted-foreground/50">
+              <span className="font-mono text-xs text-muted-foreground">
                 SYS.01
               </span>
-              <span className="font-mono text-xs text-muted-foreground/50">
+              <span className="font-mono text-xs text-muted-foreground">
                 AQ-CORE
               </span>
             </div>
@@ -121,7 +127,7 @@ export function HeroSection() {
                 </span>
               </h3>
               <div className="h-[1px] w-12 bg-aq-blue shadow-[0_0_10px_rgba(37,99,235,0.5)]" />
-              <p className="max-w-[200px] text-sm font-light tracking-wide text-muted-foreground/70">
+              <p className="max-w-[200px] text-sm font-light tracking-wide text-muted-foreground">
                 Physics-based lighting and structural fabric AI simulations.
               </p>
             </div>
