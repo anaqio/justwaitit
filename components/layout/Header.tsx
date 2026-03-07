@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { AnaqioTypographyLogo } from '@/components/ui/anaqio-typography-logo';
 import { Button } from '@/components/ui/button';
+import PerspectiveGrid from '@/components/ui/PerspectiveGrid';
 import { cn } from '@/lib/utils';
 
 export function Header() {
@@ -66,10 +67,11 @@ export function Header() {
         isScrolled ? 'py-2' : 'py-4'
       )}
     >
+      <PerspectiveGrid />
       <nav
         aria-label="Main Navigation"
         className={cn(
-          'ease-[cubic-bezier(0.22\,1\,0.36\,1)] pointer-events-auto mx-auto flex max-w-5xl items-center justify-between rounded-2xl bg-white/25 backdrop-blur-sm transition-all duration-500',
+          'ease-[cubic-bezier(0.22\,1\,0.36\,1)] pointer-events-auto mx-auto flex max-w-5xl items-center justify-between rounded-2xl border border-white/20 bg-white/30 shadow-[inset_0_1px_0_rgba(255,255,255,.4),0_10px_30px_rgba(2,6,23,.08)] backdrop-blur-xl transition-all duration-500',
           isScrolled ? 'px-3 py-2 sm:px-5' : 'px-4 py-3 sm:px-6'
         )}
         style={{ touchAction: 'manipulation' }}

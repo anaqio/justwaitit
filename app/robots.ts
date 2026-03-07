@@ -6,11 +6,30 @@ export default function robots(): MetadataRoute.Robots {
     : 'https://anaqio.com';
 
   return {
-    rules: {
-      userAgent: '*',
-      allow: '/',
-      disallow: ['/auth/', '/protected/', '/playground'],
-    },
-    sitemap: `${baseUrl}/sitemap.xml`,
+    host: baseUrl.replace(/^https?:\/\//, ''),
+    rules: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: [
+          '/auth/',
+          '/protected/',
+          '/playground',
+          '/api/',
+          '/_next/',
+          '/legal-mentions',
+        ],
+      },
+      {
+        userAgent: ['Googlebot', 'Bingbot'],
+        allow: ['/', '/brand', '/early-access', '/terms', '/privacy'],
+        disallow: ['/auth/', '/protected/', '/legal-mentions'],
+      },
+      {
+        userAgent: ['Twitterbot', 'FacebookExternalHit', 'LinkedInBot'],
+        allow: '/',
+      },
+    ],
+    sitemap: [`${baseUrl}/sitemap.xml`],
   };
 }

@@ -7,6 +7,18 @@ export const metadata: Metadata = {
   title: 'Legal Mentions — Anaqio',
   description:
     'Legal Mentions for Anaqio, a virtual studio for fashion commerce.',
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      'max-image-preview': 'none',
+      'max-snippet': 0,
+      'max-video-preview': 0,
+    },
+  },
 };
 
 export default function LegalMentionsPage() {
