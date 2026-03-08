@@ -1,11 +1,5 @@
 import { GoogleAnalytics } from '@next/third-parties/google';
-import {
-  Space_Grotesk,
-  Inter,
-  Instrument_Serif,
-  JetBrains_Mono,
-  Bodoni_Moda,
-} from 'next/font/google';
+import { Space_Grotesk, Inter, Instrument_Serif } from 'next/font/google';
 
 import type { Metadata } from 'next';
 import './globals.css';
@@ -109,28 +103,12 @@ const instrumentSerif = Instrument_Serif({
   preload: false,
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: '--font-mono',
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  display: 'swap',
-  preload: false,
-});
-
-const bodoniModa = Bodoni_Moda({
-  variable: '--font-bodoni-moda',
-  subsets: ['latin'],
-  style: ['normal', 'italic'],
-  display: 'swap',
-  preload: false,
-});
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
+  const orgLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Anaqio',
@@ -142,6 +120,21 @@ export default function RootLayout({
       'https://twitter.com/anaqio',
       'https://www.linkedin.com/company/anaqio',
       'https://www.instagram.com/anaqio',
+    ],
+    legalName: 'Anaqio',
+    founders: [
+      { '@type': 'Person', name: 'Amal AIT OUKHARAZ' },
+      { '@type': 'Person', name: 'Mohamed MOUGHAMIR' },
+    ],
+    foundingDate: '2026-02',
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        contactType: 'customer support',
+        url: `${defaultUrl}/contact`,
+        availableLanguage: ['en'],
+        areaServed: 'MA',
+      },
     ],
   };
 
@@ -168,6 +161,27 @@ export default function RootLayout({
     },
   };
 
+  const websiteLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Anaqio',
+    url: defaultUrl,
+    inLanguage: 'en',
+    publisher: { '@type': 'Organization', name: 'Anaqio' },
+  };
+
+  const webpageLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Anaqio — AI Visual Studio for Fashion Commerce',
+    url: defaultUrl,
+    isPartOf: { '@type': 'WebSite', url: defaultUrl },
+    about: { '@type': 'Organization', name: 'Anaqio' },
+    description:
+      "Generate studio-quality fashion imagery instantly with Anaqio's AI Visual Studio.",
+    inLanguage: 'en',
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -180,16 +194,26 @@ export default function RootLayout({
         <script
           id="org-jsonld"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }}
         />
         <script
           id="software-jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }}
         />
+        <script
+          id="website-jsonld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }}
+        />
+        <script
+          id="webpage-jsonld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webpageLd) }}
+        />
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} ${bodoniModa.variable} antialiased`}
+        className={`${spaceGrotesk.variable} ${inter.variable} ${instrumentSerif.variable} antialiased`}
         suppressHydrationWarning
       >
         <a
@@ -198,6 +222,40 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
+        {/* Schema.org microdata (Organization) for additional enrichment */}
+        <div
+          className="sr-only"
+          aria-hidden
+          itemScope
+          itemType="https://schema.org/Organization"
+        >
+          <meta itemProp="name" content="Anaqio" />
+          <meta itemProp="url" content={defaultUrl} />
+          <meta itemProp="foundingDate" content="2026-02" />
+          <div
+            itemProp="founder"
+            itemScope
+            itemType="https://schema.org/Person"
+          >
+            <meta itemProp="name" content="Amal AIT OUKHARAZ" />
+          </div>
+          <div
+            itemProp="founder"
+            itemScope
+            itemType="https://schema.org/Person"
+          >
+            <meta itemProp="name" content="Mohamed MOUGHAMIR" />
+          </div>
+          <div
+            itemProp="contactPoint"
+            itemScope
+            itemType="https://schema.org/ContactPoint"
+          >
+            <meta itemProp="contactType" content="customer support" />
+            <link itemProp="url" href={`${defaultUrl}/contact`} />
+          </div>
+        </div>
+
         {children}
       </body>
       <GoogleAnalytics gaId="G-32QQVBGQN1" />

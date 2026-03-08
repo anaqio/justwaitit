@@ -2,6 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ==============================
+   View Transition API
+   @see https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API
+   ============================== */
+
+/* Slide-up + crossfade transition keyframes */
+@keyframes vt-slide-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+}
+
+@keyframes vt-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply custom transition animations when the API is supported */
+@supports (view-transition-name: test) {
+  /* Root page transition: old content slides up and fades out */
+  ::view-transition-old(root) {
+    animation: vt-slide-out 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  /* Root page transition: new content slides up and fades in */
+  ::view-transition-new(root) {
+    animation: vt-slide-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  /* Named elements transition independently with a smooth morph */
+  ::view-transition-group(site-header) {
+    animation-duration: 0.35s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  ::view-transition-group(site-logo) {
+    animation-duration: 0.35s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Prevent named elements from participating in the root crossfade */
+  ::view-transition-old(site-header),
+  ::view-transition-new(site-header) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-old(site-logo),
+  ::view-transition-new(site-logo) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+}
+
+/* Disable view transition animations for users preferring reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
 @layer base {
   :root {
     color-scheme: light;
@@ -32,8 +106,50 @@
     --font-body: var(--font-inter);
     --font-label: var(--font-inter);
     --font-editorial: var(--font-instrument-serif);
-    --font-wordmark: var(--font-bodoni-moda), Georgia, serif;
+    --font-wordmark: Georgia, serif;
+
+    /* 60-30-10 tone mapping (dominant-secondary-accent) */
+    --tone-dominant: var(--background);
+    --tone-dominant-foreground: var(--foreground);
+    --tone-secondary: var(--secondary);
+    --tone-secondary-foreground: var(--secondary-foreground);
+    /* Use primary as accent by default; swap to --accent if preferred */
+    --tone-accent: var(--primary);
+    --tone-accent-foreground: var(--primary-foreground);
   }
+}
+
+/* Subtle animated grid for hero media */
+@keyframes aq-grid-move {
+  0% {
+    background-position:
+      0 0,
+      0 0;
+  }
+  100% {
+    background-position:
+      40px 0,
+      0 40px;
+  }
+}
+
+.animated-grid {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(15, 23, 42, 0.06) 0,
+      rgba(15, 23, 42, 0.06) 1px,
+      transparent 1px,
+      transparent 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(15, 23, 42, 0.06) 0,
+      rgba(15, 23, 42, 0.06) 1px,
+      transparent 1px,
+      transparent 40px
+    );
+  animation: aq-grid-move 18s linear infinite;
 }
 
 @layer base {
@@ -42,6 +158,10 @@
   }
   ::selection {
     @apply bg-aq-blue/20 text-aq-blue;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
   }
   body {
     font-family: var(--font-body);
@@ -54,6 +174,11 @@
   h5,
   h6 {
     @apply font-display tracking-tight;
+  }
+  section,
+  footer {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 }
 
@@ -152,6 +277,53 @@
    ============================== */
 
 @layer components {
+  /* Perspective grid for header */
+  .perspective-grid {
+    @apply relative w-full opacity-70 will-change-transform;
+    background-image:
+      linear-gradient(rgba(250, 250, 250, 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(250, 250, 250, 0.12) 1px, transparent 1px);
+    background-size:
+      40px 40px,
+      40px 40px;
+    background-position:
+      0 0,
+      0 0;
+    transform: perspective(800px) rotateX(60deg) scale(1.2);
+    transform-origin: top center;
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.9),
+      rgba(0, 0, 0, 0)
+    );
+    animation: grid-pan 30s linear infinite;
+  }
+
+  .grid-shimmer {
+    @apply pointer-events-none absolute inset-0 -z-10 opacity-30;
+    background: linear-gradient(
+      100deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.5) 20%,
+      transparent 40%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 6s infinite;
+  }
+
+  @keyframes grid-pan {
+    0% {
+      background-position:
+        0 0,
+        0 0;
+    }
+    100% {
+      background-position:
+        80px 0,
+        0 80px;
+    }
+  }
+
   /* Shared Noise Pattern Base */
   .noise-base {
     @apply pointer-events-none absolute inset-0 z-0 content-[''];
@@ -239,6 +411,17 @@
     animation: hero-glow 3s ease-in-out infinite;
   }
 
+  /* Gravitate wrapper uses mouse-based offsets */
+  .gravitate {
+    transform: translate3d(
+      calc(var(--grav-x, 0) * 30px),
+      calc(var(--grav-y, 0) * 30px),
+      0
+    );
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
   .hero-gradient {
     background:
       radial-gradient(
@@ -266,6 +449,33 @@
 
 /* Scroll Snap */
 @layer utilities {
+  /* Easing helpers to avoid ambiguous arbitrary classes */
+  .ease-smooth {
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* 60-30-10 helpers */
+  .bg-dominant {
+    @apply bg-background;
+  }
+  .text-dominant {
+    @apply text-foreground;
+  }
+
+  .bg-secondary-surface {
+    @apply bg-secondary;
+  }
+  .text-secondary-surface {
+    @apply text-secondary-foreground;
+  }
+
+  .bg-accent-surface {
+    @apply bg-primary;
+  }
+  .text-accent-surface {
+    @apply text-primary-foreground;
+  }
+
   .snap-container {
     @apply min-h-screen snap-y snap-mandatory overflow-y-auto scroll-smooth;
   }
@@ -420,6 +630,20 @@
 .abstract-blob--morphed {
   @apply scale-[1.15] opacity-40;
   border-radius: 60% 40% 45% 55% / 40% 60% 45% 55%;
+}
+
+/* Glass bubbles layer (Apple-style) */
+.glass-bubble {
+  @apply absolute rounded-full border border-white/20 bg-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,.35),0_16px_40px_rgba(2,6,23,.08)] backdrop-blur-2xl will-change-transform;
+}
+.glass-bubble::before {
+  content: '';
+  @apply absolute left-1/2 top-1/2 h-[140%] w-[140%] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-10;
+  background: radial-gradient(circle at 50% 30%, white 0%, transparent 60%);
+}
+.glass-bubble {
+  translate: calc((var(--mouse-x, 0.5) - 0.5) * 40px)
+    calc((var(--mouse-y, 0.5) - 0.5) * 40px);
 }
 
 @media (prefers-reduced-motion: reduce) {
