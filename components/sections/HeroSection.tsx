@@ -95,12 +95,12 @@ export function HeroSection() {
           >
             <h1
               suppressHydrationWarning
-              className="leading font-display text-5xl font-bold tracking-tight text-white drop-shadow-md sm:text-6xl md:text-7xl lg:text-[5rem] xl:text-[6rem]"
+              className="leading font-display text-5xl font-bold tracking-tight text-foreground drop-shadow-md sm:text-6xl md:text-7xl lg:text-[5rem] xl:text-[6rem]"
             >
               {headlineA}
             </h1>
 
-            <p className="max-w-xl text-lg font-light leading-relaxed text-slate-300 drop-shadow sm:text-xl md:text-2xl">
+            <p className="max-w-xl text-lg font-light leading-relaxed text-muted-foreground drop-shadow sm:text-xl md:text-2xl">
               {content.subheadline.lineA}
               <br />
               {content.subheadline.libeB}
@@ -140,7 +140,7 @@ export function HeroSection() {
             </Button>
           </motion.div>
 
-          <div className="text-shadow max-w-[85vw] text-justify text-xs font-bold leading-relaxed tracking-[0.2em] text-neutral-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] sm:max-w-2xl sm:text-xs">
+          <div className="max-w-[85vw] text-justify text-xs font-bold leading-relaxed tracking-[0.2em] text-muted-foreground sm:max-w-2xl sm:text-xs">
             Built for{' '}
             <span className="relative inline-flex justify-center text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]">
               <span className="invisible">designers</span>
@@ -224,7 +224,7 @@ export function HeroSection() {
           </div>
         </motion.div>
       </div>
-      <div className="bg-brand-diag pointer-events-none absolute inset-x-0 bottom-0 z-10 h-64 w-full bg-purple-500 font-semibold text-white shadow-md hover:shadow-lg">
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-64 w-full">
         <PerspectiveGrid />
       </div>
     </section>

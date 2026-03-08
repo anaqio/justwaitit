@@ -95,7 +95,7 @@ export function Header() {
         </Link>
 
         <div className="flex items-center gap-3 sm:gap-6">
-          <div className="hidden items-center gap-4 text-sm font-medium text-slate-800 md:flex">
+          <div className="hidden items-center gap-4 text-sm font-medium text-foreground/70 md:flex">
             <Link
               href="/about"
               className={cn(

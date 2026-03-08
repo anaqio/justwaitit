@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button';
 
 const FinalCTA = () => {
   return (
-    <section className="bg-gradient-dark relative overflow-hidden py-32">
+    <section className="bg-secondary-surface relative overflow-hidden py-32">
       {/* Background glow */}
-      <div className="bg-primary/8 absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]" />
+      <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-aq-blue/10 blur-[100px]" />
 
       <div className="container relative z-10 mx-auto px-6">
         <div className="mx-auto max-w-3xl text-center">
@@ -22,15 +22,31 @@ const FinalCTA = () => {
             <h2 className="text-4xl font-bold leading-tight text-foreground md:text-5xl lg:text-6xl">
               Join the Evolution of
               <br />
-              <span className="text-gradient-primary">Fashion Production</span>
+              <span className="text-brand-gradient">Fashion Production</span>
             </h2>
 
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
-              <Button variant="hero" size="xl">
-                Start Creating
+              <Button
+                variant="hero"
+                size="xl"
+                onClick={() =>
+                  document
+                    .getElementById('waitlist')
+                    ?.scrollIntoView({ behavior: 'smooth' })
+                }
+              >
+                Join the Waitlist
               </Button>
-              <Button variant="heroOutline" size="xl">
-                Request a Demo
+              <Button
+                variant="heroOutline"
+                size="xl"
+                onClick={() =>
+                  document
+                    .getElementById('how-it-works')
+                    ?.scrollIntoView({ behavior: 'smooth' })
+                }
+              >
+                See How It Works
               </Button>
             </div>
           </motion.div>

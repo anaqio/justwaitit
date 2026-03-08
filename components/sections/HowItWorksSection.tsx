@@ -31,7 +31,7 @@ export function HowItWorksSection() {
   return (
     <section
       id="how-it-works"
-      className="flex w-full flex-col justify-center bg-background px-4 py-24 sm:px-8 lg:px-12"
+      className="bg-secondary-surface flex min-h-screen w-full flex-col justify-center px-4 py-24 sm:px-8 lg:px-12"
     >
       <div className="mx-auto w-full max-w-[1200px]">
         <motion.h2
@@ -63,7 +63,7 @@ export function HowItWorksSection() {
                 delay: i * 0.12,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="group cursor-pointer rounded-xl border border-border/60 bg-white/50 p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-aq-blue/25 hover:shadow-[0_8px_30px_rgba(37,99,235,0.1)]"
+              className="group cursor-pointer rounded-xl border border-white/[0.08] bg-white/[0.04] p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-aq-blue/25 hover:shadow-[0_8px_30px_rgba(37,99,235,0.1)]"
             >
               <span className="text-brand-gradient mb-3 inline-block font-display text-2xl font-bold">
                 {s.num}

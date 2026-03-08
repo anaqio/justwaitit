@@ -16,7 +16,7 @@ export function ProblemSection() {
   return (
     <section
       id="problem"
-      className="bg-secondary-surface text-secondary-surface flex w-full flex-col justify-center px-4 py-24 sm:px-8 lg:px-12"
+      className="bg-secondary-surface flex min-h-screen w-full flex-col justify-center px-4 py-24 sm:px-8 lg:px-12"
     >
       <div className="mx-auto w-full max-w-[1200px]">
         <motion.h2
@@ -64,7 +64,7 @@ export function ProblemSection() {
                       delay: i * 0.08,
                       ease: [0.16, 1, 0.3, 1],
                     }}
-                    className="flex items-center gap-3 rounded-lg border border-border/40 bg-white/30 px-4 py-3 backdrop-blur-sm transition-all duration-300 hover:border-aq-blue/20 hover:bg-white/50"
+                    className="flex items-center gap-3 rounded-lg border border-white/[0.08] bg-white/[0.04] px-4 py-3 backdrop-blur-sm transition-all duration-300 hover:border-aq-blue/20 hover:bg-white/[0.07]"
                   >
                     <Icon
                       className="h-4 w-4 flex-shrink-0 text-aq-blue"
