@@ -3,50 +3,83 @@ import dynamic from 'next/dynamic';
 import { Header } from '@/components/layout/Header';
 import { HeroSection } from '@/components/sections/HeroSection';
 
-const AbstractBackground = dynamic(
-  () => import('@/components/ui/AbstractBackground').then((mod) => mod.default),
-  {
-    ssr: true,
-  }
-);
-
-const LookbookSection = dynamic(
+// Below-fold sections: dynamic imports for code-splitting (ssr: true for SEO)
+const ProblemSection = dynamic(
   () =>
-    import('@/components/sections/LookbookSection').then(
-      (mod) => mod.LookbookSection
+    import('@/components/sections/ProblemSection').then(
+      (mod) => mod.ProblemSection
     ),
-  {
-    ssr: true,
-  }
+  { ssr: true }
+);
+const SolutionSection = dynamic(
+  () =>
+    import('@/components/sections/SolutionSection').then(
+      (mod) => mod.SolutionSection
+    ),
+  { ssr: true }
+);
+const HowItWorksSection = dynamic(
+  () =>
+    import('@/components/sections/HowItWorksSection').then(
+      (mod) => mod.HowItWorksSection
+    ),
+  { ssr: true }
+);
+const WhyAnaqioSection = dynamic(
+  () =>
+    import('@/components/sections/WhyAnaqioSection').then(
+      (mod) => mod.WhyAnaqioSection
+    ),
+  { ssr: true }
+);
+const WhoItsForSection = dynamic(
+  () =>
+    import('@/components/sections/WhoItsForSection').then(
+      (mod) => mod.WhoItsForSection
+    ),
+  { ssr: true }
+);
+const PhilosophySection = dynamic(
+  () =>
+    import('@/components/sections/PhilosophySection').then(
+      (mod) => mod.PhilosophySection
+    ),
+  { ssr: true }
+);
+const VisionSection = dynamic(
+  () =>
+    import('@/components/sections/VisionSection').then(
+      (mod) => mod.VisionSection
+    ),
+  { ssr: true }
 );
 const WaitlistSection = dynamic(
   () =>
     import('@/components/sections/WaitlistSection').then(
       (mod) => mod.WaitlistSection
     ),
-  {
-    ssr: true,
-  }
+  { ssr: true }
 );
 const Footer = dynamic(
   () => import('@/components/layout/Footer').then((mod) => mod.Footer),
-  {
-    ssr: true,
-  }
+  { ssr: true }
 );
 
 export default function Home() {
   return (
-    <main
-      id="main-content"
-      className="relative scroll-smooth bg-background text-foreground selection:bg-aq-blue/20"
-    >
-      <AbstractBackground />
+    <main id="main-content" className="relative">
       <Header />
       <HeroSection />
-      <LookbookSection />
+      <ProblemSection />
+      <SolutionSection />
+      <HowItWorksSection />
+      <WhyAnaqioSection />
+      <WhoItsForSection />
+      <PhilosophySection />
+      <VisionSection />
       <WaitlistSection />
       <Footer />
+      {/* <AbstractBackground /> */}
     </main>
   );
 }

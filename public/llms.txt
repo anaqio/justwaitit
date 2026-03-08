@@ -1,0 +1,29 @@
+# LLM Crawling Policy and Startup Overview
+
+# About Anaqio
+# Anaqio is an AI-powered virtual studio for fashion commerce.
+# We help brands generate studio-quality imagery and lookbooks quickly.
+
+User-agent: *
+Allow: /
+Disallow: /auth/
+Disallow: /protected/
+Disallow: /playground
+Disallow: /legal-mentions
+Disallow: /terms
+Disallow: /privacy
+
+# Key Pages
+Page: https://anaqio.com/
+Page: https://anaqio.com/brand
+Page: https://anaqio.com/early-access
+Page: https://anaqio.com/contact
+Page: https://anaqio.com/terms
+Page: https://anaqio.com/privacy
+
+# Usage Notes
+# Public marketing pages may be used for indexing/summarization.
+# Do not store, retain, or train on legal/incorporation or user-submitted data.
+
+# Sitemaps
+Sitemap: https://anaqio.com/sitemap.xml

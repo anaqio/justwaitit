@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 export type LogoAnimationVariant =
   | 'none'
   | 'stagger'
+  | 'outline'
   | 'outline-fill'
   | 'spin'
   | 'spring-hover'
@@ -201,6 +202,35 @@ function OutlineFillLetters({ instanceId }: { instanceId: string }) {
   );
 }
 
+// ─── Variant: Outline Only ─────────────────────────────────────────────────
+function OutlineLetters({ instanceId }: { instanceId: string }) {
+  return (
+    <>
+      {letterPaths.map((l, i) => (
+        <motion.path
+          key={`outline-only-${l.id}`}
+          d={l.d}
+          transform="matrix(1 0 0 -1 0 794)"
+          fill="none"
+          stroke="currentColor"
+          strokeOpacity={0.9}
+          strokeWidth="1.6"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{
+            pathLength: {
+              duration: 0.9,
+              ease: [0.22, 1, 0.36, 1],
+              delay: i * 0.05,
+            },
+            opacity: { duration: 0.3, delay: i * 0.05 },
+          }}
+        />
+      ))}
+    </>
+  );
+}
+
 // ─── Variant: Slow Continuous Spin ──────────────────────────────────────────
 function SpinLetters({ instanceId }: { instanceId: string }) {
   return (
@@ -330,6 +360,8 @@ export function AnaqioTypographyLogo({
     switch (resolvedVariant) {
       case 'stagger':
         return <StaggerLetters instanceId={instanceId} />;
+      case 'outline':
+        return <OutlineLetters instanceId={instanceId} />;
       case 'outline-fill':
         return <OutlineFillLetters instanceId={instanceId} />;
       case 'spin':
