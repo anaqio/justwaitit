@@ -136,12 +136,12 @@ export function Footer() {
         </div>
 
         {/* ── Giant Outlined Brand Text ───────────────────────── */}
-        <div className="relative">
+        <div className="relative flex w-full justify-center">
           <div className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-full max-h-64 w-full max-w-3xl rounded-full bg-aq-blue/5 blur-[100px]" />
 
           <AnaqioTypographyLogo
             variant="outline"
-            className="mt-0 w-full text-center font-display font-extrabold leading-[0.7] text-transparent [-webkit-text-stroke:1px_#D4D4D4] [font-size:clamp(3rem,15vw,15rem)]"
+            className="absolute -bottom-5 mx-auto mt-0 w-1/2"
           />
         </div>
       </footer>
