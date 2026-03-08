@@ -11,7 +11,7 @@ export function PerspectiveGrid({ className }: Props) {
     <div
       aria-hidden
       className={cn(
-        'pointer-events-none absolute inset-x-0 top-0 z-[-1] h-[260px] overflow-hidden',
+        'pointer-events-none absolute inset-x-0 bottom-0 h-[260px] overflow-hidden',
         className
       )}
     >

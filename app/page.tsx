@@ -37,9 +37,8 @@ export default function Home() {
   return (
     <main
       id="main-content"
-      className="relative scroll-smooth bg-background text-foreground selection:bg-aq-blue/20"
+      className="relative scroll-smooth text-foreground selection:bg-aq-blue/20"
     >
-      <AbstractBackground />
       <Header />
       <HeroSection />
       <ProblemSection />
@@ -51,6 +50,7 @@ export default function Home() {
       <VisionSection />
       <WaitlistSection />
       <Footer />
+      {/* <AbstractBackground /> */}
     </main>
   );
 }

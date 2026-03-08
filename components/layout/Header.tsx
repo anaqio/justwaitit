@@ -5,7 +5,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { AnaqioTypographyLogo } from '@/components/ui/anaqio-typography-logo';
 import { Button } from '@/components/ui/button';
-import PerspectiveGrid from '@/components/ui/PerspectiveGrid';
 import { cn } from '@/lib/utils';
 
 export function Header() {
@@ -59,7 +58,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        'ease-smooth pointer-events-none fixed left-0 right-0 top-0 z-50 px-4 transition-all duration-500',
+        'ease-smooth pointer-events-none fixed left-0 right-0 top-0 z-50 p-8 transition-all duration-500',
         'animate-in fade-in slide-in-from-top-full fill-mode-both',
         isHidden
           ? '-translate-y-[120px] opacity-0'
@@ -67,7 +66,6 @@ export function Header() {
         isScrolled ? 'py-2' : 'py-4'
       )}
     >
-      <PerspectiveGrid />
       <nav
         aria-label="Main Navigation"
         className={cn(

@@ -63,14 +63,18 @@ const footerColumns = [
 
 export function Footer() {
   return (
-    <div className="bg-aq-ink px-4 pt-20">
-      <footer className="mx-auto w-full max-w-[1350px] overflow-hidden rounded-tl-3xl rounded-tr-3xl bg-white px-4 pt-8 text-aq-ink sm:px-8 md:px-16 lg:px-28 lg:pt-12">
+    <div className="bg-brand-gradient px-4 pt-20">
+      <footer className="mx-auto w-full max-w-[1350px] overflow-hidden rounded-tl-3xl rounded-tr-3xl bg-white/70 px-4 pt-8 text-aq-ink backdrop-blur-sm sm:px-8 md:px-16 lg:px-28 lg:pt-12">
         {/* ── Top Section ─────────────────────────────────────── */}
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 md:gap-12 lg:grid-cols-6">
           {/* Brand Column */}
           <div className="space-y-6 lg:col-span-3">
             <Link href="/" aria-label="Anaqio Home" className="block">
               <AnaqioTypographyLogo className="w-40" />
+              {/* 
+              @TODO
+              Replace Anaqio Typographic logo with Full view logo
+               */}
             </Link>
 
             <p className="max-w-96 font-serif text-sm/6 text-neutral-600">
@@ -134,12 +138,11 @@ export function Footer() {
         {/* ── Giant Outlined Brand Text ───────────────────────── */}
         <div className="relative">
           <div className="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-full max-h-64 w-full max-w-3xl rounded-full bg-aq-blue/5 blur-[100px]" />
-          <h2
-            aria-hidden="true"
-            className="mt-6 text-center font-display font-extrabold leading-[0.7] text-transparent [-webkit-text-stroke:1px_#D4D4D4] [font-size:clamp(3rem,15vw,15rem)]"
-          >
-            ANAQIO
-          </h2>
+
+          <AnaqioTypographyLogo
+            variant="outline"
+            className="mt-0 w-full text-center font-display font-extrabold leading-[0.7] text-transparent [-webkit-text-stroke:1px_#D4D4D4] [font-size:clamp(3rem,15vw,15rem)]"
+          />
         </div>
       </footer>
     </div>
