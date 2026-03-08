@@ -78,8 +78,8 @@
 
 @layer base {
   :root {
-    color-scheme: dark;
-    --background: 222 47% 11%;
+    color-scheme: light;
+    --background: 35 24.6% 86.5%;
     --foreground: 210 40% 98%;
     --card: 222 47% 11%;
     --card-foreground: 210 40% 98%;
@@ -101,10 +101,10 @@
     --radius: 0.75rem;
 
     /* Typography System Variables */
-    --font-display: var(--font-space-grotesk);
-    --font-ui: var(--font-inter);
-    --font-body: var(--font-inter);
-    --font-label: var(--font-inter);
+    --font-display: var(--font-cormorant);
+    --font-ui: var(--font-dm-sans);
+    --font-body: var(--font-dm-sans);
+    --font-label: var(--font-dm-sans);
     --font-editorial: var(--font-instrument-serif);
     --font-wordmark: Georgia, serif;
 
@@ -666,7 +666,7 @@
 
 @layer components {
   .text-display {
-    @apply font-display font-bold leading-[0.95] tracking-display;
+    @apply font-display font-semibold leading-[1.05] tracking-display;
   }
 
   .text-headline {

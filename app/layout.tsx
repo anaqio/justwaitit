@@ -1,5 +1,9 @@
 import { GoogleAnalytics } from '@next/third-parties/google';
-import { Space_Grotesk, Inter, Instrument_Serif } from 'next/font/google';
+import {
+  Cormorant_Garamond,
+  DM_Sans,
+  Instrument_Serif,
+} from 'next/font/google';
 
 import type { Metadata } from 'next';
 import './globals.css';
@@ -80,15 +84,16 @@ export const metadata: Metadata = {
   },
 };
 
-const spaceGrotesk = Space_Grotesk({
-  variable: '--font-space-grotesk',
+const cormorant = Cormorant_Garamond({
+  variable: '--font-cormorant',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
   display: 'swap',
 });
 
-const inter = Inter({
-  variable: '--font-inter',
+const dmSans = DM_Sans({
+  variable: '--font-dm-sans',
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
   display: 'swap',
@@ -213,7 +218,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${inter.variable} ${instrumentSerif.variable} antialiased`}
+        className={`${cormorant.variable} ${dmSans.variable} ${instrumentSerif.variable} antialiased`}
         suppressHydrationWarning
       >
         <a
