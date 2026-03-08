@@ -2,6 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ==============================
+   View Transition API
+   @see https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API
+   ============================== */
+
+/* Slide-up + crossfade transition keyframes */
+@keyframes vt-slide-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+}
+
+@keyframes vt-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply custom transition animations when the API is supported */
+@supports (view-transition-name: test) {
+  /* Root page transition: old content slides up and fades out */
+  ::view-transition-old(root) {
+    animation: vt-slide-out 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  /* Root page transition: new content slides up and fades in */
+  ::view-transition-new(root) {
+    animation: vt-slide-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  /* Named elements transition independently with a smooth morph */
+  ::view-transition-group(site-header) {
+    animation-duration: 0.35s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  ::view-transition-group(site-logo) {
+    animation-duration: 0.35s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Prevent named elements from participating in the root crossfade */
+  ::view-transition-old(site-header),
+  ::view-transition-new(site-header) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-old(site-logo),
+  ::view-transition-new(site-logo) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+}
+
+/* Disable view transition animations for users preferring reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
 @layer base {
   :root {
     color-scheme: light;

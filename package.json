@@ -22,6 +22,11 @@
     ],
     "*.{json,md,css}": [
       "prettier --write"
+    ],
+    "ignore": [
+      ".agents/**",
+      ".agent/**",
+      "test-results/**"
     ]
   },
   "dependencies": {

@@ -65,6 +65,7 @@ export function Header() {
           : 'translate-y-0 opacity-100',
         isScrolled ? 'py-2' : 'py-4'
       )}
+      style={{ viewTransitionName: 'site-header' }}
     >
       <nav
         aria-label="Main Navigation"
@@ -80,6 +81,7 @@ export function Header() {
           aria-label="Anaqio Home"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          style={{ viewTransitionName: 'site-logo' }}
         >
           <AnaqioTypographyLogo
             key={hoverKey}

@@ -69,6 +69,7 @@ const nextConfig = {
   experimental: {
     cssChunking: true,
     inlineCss: true,
+    viewTransition: true,
   },
 } satisfies NextConfig;
 
