@@ -1,5 +1,7 @@
 import { Move3D, Ruler, ShieldCheck, Sun, Zap } from 'lucide-react';
 
+import type { FeatureItem } from '@/lib/content/types';
+
 export const WhyAnaqioSectionText = {
   eyebrow: 'Product Benefits',
   headline: { pre: 'Why', gradient: 'Anaqio', post: 'is Better?' },
@@ -30,5 +32,5 @@ export const WhyAnaqioSectionText = {
       body: 'Structured AI pipelines designed for fashion brands — not experimental image generation.',
       icon: ShieldCheck,
     },
-  ],
+  ] satisfies FeatureItem[],
 } as const;

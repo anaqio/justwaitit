@@ -1,5 +1,7 @@
 import { Globe, RefreshCw, Rocket } from 'lucide-react';
 
+import type { IconItem } from '@/lib/content/types';
+
 export const VisionSectionText = {
   eyebrow: 'Our Vision',
   headline: { pre: 'The Future of', gradient: 'Fashion Production' },
@@ -11,5 +13,5 @@ export const VisionSectionText = {
     { text: 'Collections launch faster.', icon: Rocket },
     { text: 'Content cycles move quicker.', icon: RefreshCw },
     { text: 'Brands reach global audiences instantly.', icon: Globe },
-  ],
+  ] satisfies IconItem[],
 } as const;

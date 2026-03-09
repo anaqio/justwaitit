@@ -1,3 +1,5 @@
+// Server Component — no 'use client' needed.
+// Animation is handled by FeatureCard (a Client Component) internally.
 import { FeatureCard } from '@/components/ui/feature-card';
 import { Section, SectionContainer } from '@/components/ui/section';
 import { GradientText, SectionHeader } from '@/components/ui/section-header';

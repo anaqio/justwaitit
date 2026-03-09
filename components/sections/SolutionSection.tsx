@@ -36,10 +36,10 @@ const cardInitial = [
 interface AnimatedArrowProps {
   color: keyof typeof arrowColors;
   delay?: number;
+  reduced: boolean | null;
 }
 
-function AnimatedArrow({ color, delay = 0 }: AnimatedArrowProps) {
-  const reduced = useReducedMotion();
+function AnimatedArrow({ color, delay = 0, reduced }: AnimatedArrowProps) {
   const transition = {
     duration: 1.5,
     repeat: Infinity,
@@ -122,6 +122,7 @@ export function SolutionSection() {
                 <AnimatedArrow
                   color={i === 0 ? 'purple' : 'amber'}
                   delay={i === 1 ? 0.2 : 0}
+                  reduced={reduced}
                 />
               )}
             </Fragment>

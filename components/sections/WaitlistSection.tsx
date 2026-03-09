@@ -11,7 +11,11 @@ const WaitlistForm = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="space-y-3">
+      <div
+        className="space-y-3"
+        aria-busy="true"
+        aria-label="Loading registration form"
+      >
         <div className="h-2 w-1/3 animate-pulse rounded bg-white/10" />
         <div className="h-14 w-full animate-pulse rounded-xl bg-white/10" />
         <div className="h-14 w-full animate-pulse rounded-xl bg-white/10" />

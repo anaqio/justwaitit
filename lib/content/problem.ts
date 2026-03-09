@@ -1,5 +1,7 @@
 import { Camera, LayoutList, Share2, ShoppingBag } from 'lucide-react';
 
+import type { IconItem } from '@/lib/content/types';
+
 export const ProblemSectionText = {
   eyebrow: 'The Challenge',
   headline: { pre: 'Fashion Content Demand.', gradient: 'Exploding' },
@@ -15,5 +17,5 @@ export const ProblemSectionText = {
     { text: 'Social media campaigns.', icon: Share2 },
     { text: 'E-commerce catalogs.', icon: ShoppingBag },
     { text: 'Marketplace listings.', icon: LayoutList },
-  ],
+  ] satisfies IconItem[],
 } as const;

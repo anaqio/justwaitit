@@ -11,6 +11,7 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { ScrollLink } from '@/components/ui/scroll-link';
 import { HeroSectionText } from '@/lib/content/hero';
 import heroModelImage from '@/public/images/model-t.png';
 
@@ -136,28 +137,24 @@ export function HeroSection() {
           >
             <Button
               variant="brand"
-              onClick={() =>
-                document
-                  .getElementById('waitlist')
-                  ?.scrollIntoView({ behavior: 'smooth' })
-              }
+              asChild
               className="group flex h-11 items-center gap-2.5 rounded-full px-7 text-[0.68rem] font-bold uppercase tracking-[0.2em]"
             >
-              <span>{HeroSectionText.cta.act}</span>
-              <ArrowDownRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
+              <ScrollLink targetId="waitlist">
+                <span>{HeroSectionText.cta.act}</span>
+                <ArrowDownRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
+              </ScrollLink>
             </Button>
             <Button
-              variant={'ghost'}
-              onClick={() =>
-                document
-                  .getElementById('lookbook')
-                  ?.scrollIntoView({ behavior: 'smooth' })
-              }
+              variant="ghost"
+              asChild
               className="group flex h-11 items-center text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
             >
-              <span className="border-b border-current pb-px transition-colors">
-                {HeroSectionText.cta.learn}
-              </span>
+              <ScrollLink targetId="how-it-works">
+                <span className="border-b border-current pb-px transition-colors">
+                  {HeroSectionText.cta.learn}
+                </span>
+              </ScrollLink>
             </Button>
           </motion.div>
 

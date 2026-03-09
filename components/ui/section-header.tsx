@@ -38,7 +38,7 @@ export function SectionHeader({
         className
       )}
     >
-      <span className="mb-2 block w-full text-center text-sm font-normal uppercase tracking-[0.2em] text-muted-foreground">
+      <span className="mb-2 block w-full text-sm font-normal uppercase tracking-[0.2em] text-muted-foreground">
         {eyebrow}
       </span>
       {children}

@@ -1,5 +1,7 @@
 import { Briefcase, LayoutGrid, Palette, Store } from 'lucide-react';
 
+import type { FeatureItem } from '@/lib/content/types';
+
 export const WhoItsForSectionText = {
   eyebrow: "Who It's For",
   headline: { pre: 'Built for the Fashion', gradient: 'Ecosystem' },
@@ -25,5 +27,5 @@ export const WhoItsForSectionText = {
       body: 'Standardize visual quality across large product inventories.',
       icon: LayoutGrid,
     },
-  ],
+  ] satisfies FeatureItem[],
 } as const;
