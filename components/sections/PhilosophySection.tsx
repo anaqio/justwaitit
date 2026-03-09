@@ -34,7 +34,7 @@ export function PhilosophySection() {
   return (
     <section
       id="philosophy"
-      className="bg-secondary-surface text-secondary-surface flex min-h-screen w-full flex-col justify-center px-4 py-24 sm:px-8 lg:px-12"
+      className="text-secondary-surface flex min-h-screen w-full flex-col justify-center px-4 py-24 sm:px-8 lg:px-12"
     >
       <div className="mx-auto w-full max-w-[1200px]">
         <motion.h2
@@ -42,7 +42,7 @@ export function PhilosophySection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl"
+          className="font-display text-4xl font-bold tracking-tight text-neutral-950 sm:text-5xl md:text-6xl"
         >
           <span className="block w-full text-center text-sm uppercase tracking-[0.2em] text-muted-foreground">
             Our Philosophy

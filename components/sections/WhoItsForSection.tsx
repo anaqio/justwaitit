@@ -32,7 +32,7 @@ export function WhoItsForSection() {
   return (
     <section
       id="who-its-for"
-      className="bg-secondary-surface flex min-h-screen w-full flex-col justify-center px-4 py-24 sm:px-8 lg:px-12"
+      className="flex min-h-screen w-full flex-col justify-center px-4 py-24 sm:px-8 lg:px-12"
     >
       <div className="mx-auto w-full max-w-[1200px]">
         <motion.h2

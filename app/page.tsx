@@ -83,7 +83,7 @@ export default function Home() {
     <main id="main-content" className="relative">
       <Header />
       <HeroSection />
-      <LookbookSection />
+      {/* <LookbookSection /> */}
       <ProblemSection />
       <SolutionSection />
       <HowItWorksSection />
