@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { Fragment } from 'react';
 
 import { Section, SectionContainer } from '@/components/ui/section';
 import { GradientText, SectionHeader } from '@/components/ui/section-header';
@@ -25,6 +26,12 @@ const arrowColors = {
   purple: 'text-aq-purple',
   amber: 'text-amber-500',
 } as const;
+
+const cardInitial = [
+  { opacity: 0, x: -20, y: 0 },
+  { opacity: 0, x: 0, y: 20 },
+  { opacity: 0, x: 20, y: 0 },
+] as const;
 
 interface AnimatedArrowProps {
   color: keyof typeof arrowColors;
@@ -90,18 +97,9 @@ export function SolutionSection() {
 
         <div className="mt-16 flex flex-col items-center justify-center gap-4 sm:mt-24 md:flex-row md:gap-8">
           {pipeline.map((step, i) => (
-            <>
+            <Fragment key={step.stage}>
               <motion.div
-                key={step.stage}
-                initial={
-                  reduced
-                    ? false
-                    : {
-                        opacity: 0,
-                        x: i === 0 ? -20 : i === 2 ? 20 : 0,
-                        y: i === 1 ? 20 : 0,
-                      }
-                }
+                initial={reduced ? false : cardInitial[i]}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
                 viewport={{ once: true, margin: '-80px' }}
                 transition={{
@@ -122,12 +120,11 @@ export function SolutionSection() {
               </motion.div>
               {i < pipeline.length - 1 && (
                 <AnimatedArrow
-                  key={`arrow-${i}`}
                   color={i === 0 ? 'purple' : 'amber'}
                   delay={i === 1 ? 0.2 : 0}
                 />
               )}
-            </>
+            </Fragment>
           ))}
         </div>
 

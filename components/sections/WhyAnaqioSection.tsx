@@ -1,15 +1,11 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
-
 import { FeatureCard } from '@/components/ui/feature-card';
 import { Section, SectionContainer } from '@/components/ui/section';
 import { GradientText, SectionHeader } from '@/components/ui/section-header';
 import { WhyAnaqioSectionText } from '@/lib/content/why-anaqio';
-import { fadeIn } from '@/lib/motion';
 
 export function WhyAnaqioSection() {
-  const reduced = useReducedMotion();
   const { eyebrow, headline, footer, points } = WhyAnaqioSectionText;
 
   return (
@@ -32,12 +28,7 @@ export function WhyAnaqioSection() {
           ))}
         </div>
 
-        <motion.p
-          {...fadeIn(reduced, 0.5)}
-          className="mt-8 text-sm text-muted-foreground"
-        >
-          {footer}
-        </motion.p>
+        <p className="mt-8 text-sm text-muted-foreground">{footer}</p>
       </SectionContainer>
     </Section>
   );

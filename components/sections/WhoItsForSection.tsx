@@ -1,15 +1,11 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
-
 import { FeatureCard } from '@/components/ui/feature-card';
 import { Section, SectionContainer } from '@/components/ui/section';
 import { GradientText, SectionHeader } from '@/components/ui/section-header';
 import { WhoItsForSectionText } from '@/lib/content/who-its-for';
-import { fadeIn } from '@/lib/motion';
 
 export function WhoItsForSection() {
-  const reduced = useReducedMotion();
   const { eyebrow, headline, footer, audiences } = WhoItsForSectionText;
 
   return (
@@ -31,12 +27,7 @@ export function WhoItsForSection() {
           ))}
         </div>
 
-        <motion.p
-          {...fadeIn(reduced, 0.4)}
-          className="mt-8 text-sm text-muted-foreground"
-        >
-          {footer}
-        </motion.p>
+        <p className="mt-8 text-sm text-muted-foreground">{footer}</p>
       </SectionContainer>
     </Section>
   );

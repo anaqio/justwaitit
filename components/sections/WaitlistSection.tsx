@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
+import { Section } from '@/components/ui/section';
 import { WaitlistSectionText } from '@/lib/content/waitlist';
 
 const WaitlistForm = dynamic(
@@ -24,9 +25,9 @@ export function WaitlistSection() {
     WaitlistSectionText;
 
   return (
-    <section
+    <Section
       id="waitlist"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-20"
+      className="items-center overflow-hidden py-20"
       style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 1200px' }}
     >
       <div className="animate-glow pointer-events-none absolute left-1/2 top-1/2 h-[800px] w-full max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-aq-blue/10 blur-[160px]" />
@@ -96,6 +97,6 @@ export function WaitlistSection() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
