@@ -70,7 +70,7 @@ export function Header() {
       <nav
         aria-label="Main Navigation"
         className={cn(
-          'ease-smooth pointer-events-auto mx-auto flex max-w-5xl items-center justify-between rounded-xl border border-border/40 bg-background/60 shadow-md backdrop-blur-md transition-all duration-500',
+          'ease-smooth pointer-events-auto mx-auto flex max-w-5xl items-center justify-between rounded-xl border border-border/40 bg-background/40 shadow-md backdrop-blur-xl backdrop-saturate-150 transition-[padding,opacity,transform,box-shadow] duration-500',
           isScrolled ? 'px-3 py-2 sm:px-5' : 'px-4 py-3 sm:px-6'
         )}
         style={{ touchAction: 'manipulation' }}
