@@ -59,18 +59,20 @@ export function HeroSection() {
       ref={sectionRef}
       className="relative flex h-screen flex-col overflow-hidden bg-background"
     >
+      {/* ── Atmospheric background ── */}
+      <div className="hero-gradient pointer-events-none absolute inset-0 z-0" />
+      <div className="animated-grid pointer-events-none absolute inset-0 z-0 opacity-25" />
+
       {/* ── Model — absolute background layer, behind text ── */}
-      {/* Outer: parallax transform only — never animates opacity on the same layer */}
       <motion.div
         style={{ y: imageY }}
-        className="pointer-events-none absolute inset-y-0 bottom-0 right-0 z-0 w-[52%] select-none"
+        className="pointer-events-none absolute inset-y-0 bottom-0 right-0 z-0 w-[57%] select-none"
         aria-hidden
       >
-        {/* Inner: fade-in isolated to its own element, no transform */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
           className="absolute inset-0"
         >
           <Image
@@ -82,61 +84,90 @@ export function HeroSection() {
             priority
             placeholder="blur"
             quality={75}
-            sizes="52vw"
+            sizes="57vw"
           />
-          {/* Left edge fade — model blends into cream text area */}
-          <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-background/50 to-transparent" />
+          {/* Left-edge fade — model blends into text area */}
+          <div className="absolute inset-y-0 left-0 w-[65%] bg-gradient-to-r from-background via-background/70 to-transparent" />
+          {/* Bottom fade into grid band */}
+          <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-background/30 to-transparent" />
         </motion.div>
       </motion.div>
 
-      {/* ── Text content — in front of image ── */}
-      <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-center px-6 pt-24 sm:px-12 lg:px-16">
-        <div className="flex max-w-[640px] flex-col gap-8">
-          {/* Eyebrow badge */}
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-muted px-3 py-1 text-[0.62rem] font-medium uppercase tracking-[0.25em] text-muted-foreground"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-            {content.eyebrow}
-          </motion.span>
+      {/* ── Left editorial accent line (desktop only) ── */}
+      <motion.div
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 1 }}
+        transition={{ duration: 1.1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        style={{ originY: 0 }}
+        className="absolute left-6 top-[18%] z-10 hidden h-[40%] w-px bg-gradient-to-b from-transparent via-border to-transparent sm:left-12 lg:block"
+      />
 
-          {/* Headline — one line each via whitespace-nowrap + fluid size */}
-          <motion.h1
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display font-bold leading-[1.06] tracking-tight text-foreground"
-            style={{ fontSize: 'clamp(2.4rem, 4vw, 4.5rem)' }}
+      {/* ── Text content — in front of image ── */}
+      <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-center px-6 pt-24 sm:px-12 lg:pl-24 lg:pr-16">
+        <div className="flex max-w-[620px] flex-col gap-9">
+          {/* Eyebrow — editorial line + label */}
+          <motion.div
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-center gap-4"
           >
-            <span className="block whitespace-nowrap">
-              {content.headline.pre}
+            <div className="h-px w-10 bg-muted-foreground/40" />
+            <span className="text-[0.6rem] font-medium uppercase tracking-[0.3em] text-muted-foreground">
+              {content.eyebrow}
             </span>
-            <span className="text-brand-gradient animate-gradient block whitespace-nowrap font-serif font-light italic">
-              {content.headline.pro}.
-            </span>
-          </motion.h1>
+          </motion.div>
+
+          {/* Headline */}
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <h1
+              className="font-display leading-[1.04] tracking-tight text-foreground"
+              style={{ fontSize: 'clamp(2.9rem, 5.2vw, 5.8rem)' }}
+            >
+              <span className="block whitespace-nowrap font-semibold">
+                {content.headline.pre}
+              </span>
+              <span className="text-brand-gradient animate-gradient block whitespace-nowrap font-serif font-light italic">
+                {content.headline.pro}.
+              </span>
+            </h1>
+            {/* Decorative rule under headline */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.35,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              style={{ originX: 0 }}
+              className="mt-6 h-px w-20 bg-gradient-to-r from-border to-transparent"
+            />
+          </motion.div>
 
           {/* Subheadline */}
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-sm text-sm leading-relaxed text-muted-foreground sm:text-base"
+            transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-[370px] text-sm leading-[1.8] text-muted-foreground sm:text-[0.93rem]"
           >
             {content.subheadline.a}
-            <br />
-            {content.subheadline.b}
+            <span className="mt-1 block opacity-75">
+              {content.subheadline.b}
+            </span>
           </motion.p>
 
           {/* CTA row */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-wrap items-center gap-3"
+            transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-wrap items-center gap-4"
           >
             <Button
               variant="brand"
@@ -145,32 +176,31 @@ export function HeroSection() {
                   .getElementById('waitlist')
                   ?.scrollIntoView({ behavior: 'smooth' })
               }
-              className="group flex h-12 items-center gap-3 rounded-xl px-7 text-sm font-bold uppercase tracking-[0.15em]"
+              className="group flex h-11 items-center gap-2.5 rounded-full px-7 text-[0.68rem] font-bold uppercase tracking-[0.2em]"
             >
               <span>{content.cta.act}</span>
-              <span className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full bg-white/20 transition-colors group-hover:bg-white/30">
-                <ArrowDownRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
-              </span>
+              <ArrowDownRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
             </Button>
-            <Button
-              variant="outline"
+            <button
               onClick={() =>
                 document
                   .getElementById('lookbook')
                   ?.scrollIntoView({ behavior: 'smooth' })
               }
-              className="h-12 rounded-xl border-border px-7 text-sm font-semibold text-foreground hover:bg-muted"
+              className="group flex h-11 items-center text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
             >
-              {content.cta.learn}
-            </Button>
+              <span className="border-b border-current pb-px transition-colors">
+                {content.cta.learn}
+              </span>
+            </button>
           </motion.div>
 
           {/* Animated tagline */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.55 }}
-            className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground"
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="text-[0.62rem] font-medium uppercase tracking-[0.22em] text-muted-foreground/60"
           >
             Built for{' '}
             <span className="relative inline-flex justify-center">
@@ -180,10 +210,10 @@ export function HeroSection() {
               <AnimatePresence mode="wait">
                 <motion.span
                   key={currentWordIndex}
-                  initial={{ y: 10, opacity: 0, filter: 'blur(2px)' }}
+                  initial={{ y: 8, opacity: 0, filter: 'blur(2px)' }}
                   animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                  exit={{ y: -10, opacity: 0, filter: 'blur(2px)' }}
-                  transition={{ duration: 0.25, ease: 'easeInOut' }}
+                  exit={{ y: -8, opacity: 0, filter: 'blur(2px)' }}
+                  transition={{ duration: 0.22, ease: 'easeInOut' }}
                   className="text-brand-gradient absolute left-0 top-0 w-full text-center italic"
                 >
                   {content.supportLine.words[currentWordIndex]}
