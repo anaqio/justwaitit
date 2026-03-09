@@ -81,7 +81,7 @@ export function HeroSection() {
             draggable={false}
             priority
             placeholder="blur"
-            quality={90}
+            quality={75}
             sizes="52vw"
           />
           {/* Left edge fade — model blends into cream text area */}

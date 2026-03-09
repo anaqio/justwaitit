@@ -7,7 +7,7 @@ import lookbookImage1 from '@/public/images/lookbook-1.png';
 import lookbookImage2 from '@/public/images/lookbook-2.png';
 import lookbookImage3 from '@/public/images/lookbook-3.png';
 
-const fadeUpVariants = {
+const fadeUpVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
