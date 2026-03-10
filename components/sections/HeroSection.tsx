@@ -5,27 +5,31 @@ import {
   motion,
   useScroll,
   useTransform,
+  useReducedMotion,
 } from 'framer-motion';
-import { ArrowDownRight } from 'lucide-react';
-import Image from 'next/image';
+import { ArrowDownRight, ChevronDown } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { MagneticButton } from '@/components/ui/MagneticButton';
 import { ScrollLink } from '@/components/ui/scroll-link';
+import { useDeviceTier } from '@/hooks/use-device-tier';
 import { HeroSectionText } from '@/lib/content/hero';
-import heroModelImage from '@/public/images/model-t.png';
+import { charReveal, ease } from '@/lib/motion';
 
 export function HeroSection() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion();
+  const tier = useDeviceTier();
+  const animated = !reduced && tier !== 'low';
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
   });
 
-  // Image drifts up at ~60% of scroll speed → parallax depth
-  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '14%']);
+  const headlineY = useTransform(scrollYProgress, [0, 1], ['0px', '-40px']);
 
   useEffect(() => {
     const wordInterval = setInterval(() => {
@@ -36,165 +40,172 @@ export function HeroSection() {
     return () => clearInterval(wordInterval);
   }, []);
 
+  const subheadlineWords = HeroSectionText.subheadline.a.split(' ');
+  const proWords = HeroSectionText.headline.pro.split(' ');
+
   return (
     <section
       ref={sectionRef}
-      className="relative flex h-screen flex-col overflow-hidden bg-background"
+      aria-labelledby="hero-heading"
+      className="relative flex min-h-[100dvh] flex-col overflow-hidden bg-background"
     >
-      <div className="hero-gradient pointer-events-none absolute inset-0 z-0" />
-      <div className="animated-grid pointer-events-none absolute inset-0 z-0 opacity-25" />
+      {/* Semantic duplicate for screen readers / SEO */}
+      <h1 id="hero-heading" className="sr-only">
+        ANAQIO — {HeroSectionText.headline.pre} {HeroSectionText.headline.pro}
+      </h1>
 
-      <motion.div
-        style={{ y: imageY }}
-        className="pointer-events-none absolute inset-y-0 bottom-0 right-0 z-0 w-[57%] select-none"
-        aria-hidden
-      >
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={heroModelImage}
-            alt=""
-            fill
-            className="object-contain"
-            draggable={false}
-            sizes="57vw"
-          />
-        </motion.div>
-      </motion.div>
-
-      <motion.div
-        initial={{ scaleY: 0 }}
-        animate={{ scaleY: 1 }}
-        transition={{ duration: 1.1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        style={{ originY: 0 }}
-        className="absolute left-6 top-[18%] z-10 hidden h-[40%] w-px bg-gradient-to-b from-transparent via-border to-transparent sm:left-12 lg:block"
+      {/* Layer 0: Background */}
+      <div
+        data-atom
+        data-decorative
+        aria-hidden="true"
+        className="hero-gradient pointer-events-none absolute inset-0 z-0"
+      />
+      <div
+        data-atom
+        data-decorative
+        aria-hidden="true"
+        className="animated-grid pointer-events-none absolute inset-0 z-0 opacity-25"
       />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-center px-6 pt-24 sm:px-12 lg:pl-24 lg:pr-16">
-        <div className="flex max-w-[620px] flex-col gap-6">
-          <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-4"
-          >
-            <div className="h-px w-10 bg-muted-foreground/40" />
-            <span className="text-[0.6rem] font-medium uppercase tracking-[0.3em] text-muted-foreground">
-              {HeroSectionText.eyebrow}
-            </span>
-          </motion.div>
+      {/* Layer 1: Perspective Grid Overlay */}
+      <div
+        data-atom
+        data-decorative
+        aria-hidden="true"
+        className="absolute inset-0 z-10 overflow-hidden"
+      >
+        <div className="perspective-grid mx-auto h-[160%] w-[120%]" />
+      </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <h1
-              className="font-display leading-[1.04] tracking-tight text-foreground"
-              style={{ fontSize: 'clamp(2.9rem, 5.2vw, 5.8rem)' }}
-            >
-              <span className="block whitespace-nowrap font-semibold">
-                {HeroSectionText.headline.pre}
-              </span>
-              <span className="text-brand-gradient animate-gradient block whitespace-nowrap font-serif font-light italic">
-                {HeroSectionText.headline.pro}.
-              </span>
-            </h1>
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{
-                duration: 0.8,
-                delay: 0.35,
-                ease: [0.16, 1, 0.3, 1],
+      {/* Layer 2: Content Column */}
+      <div className="relative z-20 mx-auto flex w-full flex-1 flex-col items-center justify-center px-6 pt-24 text-center sm:px-12">
+        {/* Eyebrow atom: x: -24→0, opacity: 0→1 (0.6s, delay 0.15s) */}
+        <motion.div
+          data-atom
+          initial={animated ? { opacity: 0, x: -24 } : false}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.15, ease }}
+          className="flex items-center justify-center gap-4"
+        >
+          <div className="h-px w-10 bg-muted-foreground/40" />
+          <span className="font-label text-[0.65rem] font-medium uppercase tracking-label text-muted-foreground">
+            {HeroSectionText.eyebrow}
+          </span>
+          <div className="h-px w-10 bg-muted-foreground/40" />
+        </motion.div>
+
+        {/* Atom A: pre — charReveal per character */}
+        <motion.p
+          data-atom
+          aria-hidden="true"
+          style={animated ? { y: headlineY } : {}}
+          className="flex flex-wrap justify-center font-display font-light text-foreground"
+        >
+          {HeroSectionText.headline.pre.split('').map((char, i) => (
+            <motion.span
+              key={`pre-${char}-${i}`}
+              data-atom
+              aria-hidden="true"
+              {...(animated ? charReveal(reduced, i) : {})}
+              className="inline-block"
+              style={{
+                fontSize: 'clamp(3.5rem, 8vw, 9rem)',
+                letterSpacing: '-0.02em',
               }}
-              style={{ originX: 0 }}
-              className="mt-4 h-px w-20 bg-gradient-to-r from-border to-transparent"
-            />
-          </motion.div>
+            >
+              {char === ' ' ? '\u00A0' : char}
+            </motion.span>
+          ))}
+        </motion.p>
+        {/* Atom B: pro — word-by-word y: 20→0, gradient italic */}
+        <p
+          data-atom
+          aria-hidden="true"
+          className="flex flex-wrap justify-center font-display font-light italic"
+        >
+          {proWords.map((word, i) => (
+            <motion.span
+              key={`pro-${word}-${i}`}
+              data-atom
+              aria-hidden="true"
+              initial={animated ? { y: 20, opacity: 0 } : false}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.55, delay: 0.72 + i * 0.07, ease }}
+              className="text-brand-gradient mr-[0.25em] inline-block"
+              style={{
+                fontSize: 'clamp(2rem, 4vw, 4.5rem)',
+                letterSpacing: '-0.01em',
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-[370px] text-sm leading-[1.8] text-muted-foreground sm:text-[0.93rem]"
-          >
-            {HeroSectionText.subheadline.a}
-            <span className="mt-1 block opacity-75">
-              {HeroSectionText.subheadline.b}
-            </span>
-          </motion.p>
+        <p
+          className="mt-8 text-sm leading-[1.8] text-muted-foreground sm:text-[0.93rem]"
+          aria-hidden="true"
+        >
+          {subheadlineWords.map((word, i) => (
+            <motion.span
+              key={`sub-${word}-${i}`}
+              data-atom
+              initial={animated ? { y: 16, opacity: 0 } : false}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.45, delay: 1.0 + i * 0.055, ease }}
+              className="mr-[0.3em] inline-block"
+            >
+              {word}
+            </motion.span>
+          ))}
+        </p>
+      </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-wrap items-center gap-4"
-          >
+      {/* Layer 3: Interactive atoms (Buttons) */}
+      <div className="relative z-30 mb-20 mt-8 flex w-full flex-col items-center justify-center gap-4 px-6 sm:mb-24">
+        <motion.div
+          data-atom
+          initial={animated ? { y: 20, opacity: 0 } : false}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.1, ease }}
+          className="flex flex-col items-center gap-4 sm:flex-row"
+        >
+          <MagneticButton strength={tier === 'high' ? 0.35 : 0}>
             <Button
-              variant="brand"
+              variant="hero"
               asChild
-              className="group flex h-11 items-center gap-2.5 rounded-full px-7 text-[0.68rem] font-bold uppercase tracking-[0.2em]"
+              className="group h-12 gap-3 rounded-xl px-8 text-[0.7rem] font-semibold uppercase tracking-[0.18em]"
             >
               <ScrollLink targetId="waitlist">
                 <span>{HeroSectionText.cta.act}</span>
-                <ArrowDownRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
+                <ArrowDownRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
               </ScrollLink>
             </Button>
-            <Button
-              variant="ghost"
-              asChild
-              className="group flex h-11 items-center text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <ScrollLink targetId="how-it-works">
-                <span className="border-b border-current pb-px transition-colors">
-                  {HeroSectionText.cta.learn}
-                </span>
-              </ScrollLink>
-            </Button>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="text-[0.62rem] font-medium uppercase tracking-[0.22em] text-muted-foreground/60"
+          </MagneticButton>
+          <Button
+            variant="heroOutline"
+            asChild
+            className="h-11 gap-2 rounded-xl px-7 text-[0.7rem] font-medium uppercase tracking-[0.18em]"
           >
-            Built for{' '}
-            <span className="relative inline-flex justify-center">
-              <span className="invisible" aria-hidden>
-                agencies
-              </span>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={currentWordIndex}
-                  initial={{ y: 8, opacity: 0, filter: 'blur(2px)' }}
-                  animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                  exit={{ y: -8, opacity: 0, filter: 'blur(2px)' }}
-                  transition={{ duration: 0.22, ease: 'easeInOut' }}
-                  className="text-brand-gradient absolute left-0 top-0 w-full text-center italic"
-                >
-                  {HeroSectionText.supportLine.words[currentWordIndex]}
-                </motion.span>
-              </AnimatePresence>
-            </span>{' '}
-            who need consistent, brand-safe visuals at scale.
-          </motion.p>
-        </div>
+            <ScrollLink targetId="how-it-works">
+              {HeroSectionText.cta.learn}
+            </ScrollLink>
+          </Button>
+        </motion.div>
       </div>
 
-      <aside className="relative z-20 h-40 w-full overflow-hidden sm:h-48">
-        <div className="absolute inset-0 bg-gradient-to-r from-aq-grad-start via-aq-grad-mid2 to-aq-grad-end" />
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="perspective-grid mx-auto h-[160%] w-[120%]" />
-        </div>
-        <div className="grid-shimmer pointer-events-none absolute inset-0 opacity-20" />
-        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-background to-transparent" />
-      </aside>
+      {/* Scroll indicator atom */}
+      <motion.div
+        data-atom
+        data-decorative
+        aria-hidden="true"
+        animate={{ y: [0, 6, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 text-muted-foreground/40"
+      >
+        <ChevronDown className="h-5 w-5" />
+      </motion.div>
     </section>
   );
 }

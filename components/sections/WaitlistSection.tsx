@@ -6,99 +6,93 @@ import Link from 'next/link';
 import { Section } from '@/components/ui/section';
 import { WaitlistSectionText } from '@/lib/content/waitlist';
 
-const WaitlistForm = dynamic(
-  () => import('./waitlist-form').then((mod) => mod.WaitlistForm),
-  {
-    ssr: false,
-    loading: () => (
-      <div
-        className="space-y-3"
-        aria-busy="true"
-        aria-label="Loading registration form"
-      >
-        <div className="h-2 w-1/3 animate-pulse rounded bg-white/10" />
-        <div className="h-14 w-full animate-pulse rounded-xl bg-white/10" />
-        <div className="h-14 w-full animate-pulse rounded-xl bg-white/10" />
-      </div>
-    ),
-  }
-);
-
 export function WaitlistSection() {
-  const { headline, socialProof, formHeadline, formSubline, incentives } =
-    WaitlistSectionText;
+  const { headline, formHeadline, formSubline } = WaitlistSectionText;
+
+  // Render client-only without showing loading flash
+  const WaitlistForm = dynamic(
+    () => import('./waitlist-form').then((mod) => mod.WaitlistForm),
+    {
+      ssr: false,
+      loading: () => (
+        <div
+          className="space-y-3"
+          aria-busy="true"
+          aria-label="Loading registration form"
+        >
+          <div className="h-2 w-1/3 animate-pulse rounded bg-foreground/5" />
+          <div className="h-14 w-full animate-pulse rounded-xl bg-foreground/5" />
+          <div className="h-14 w-full animate-pulse rounded-xl bg-foreground/5" />
+        </div>
+      ),
+    }
+  );
 
   return (
     <Section
       id="waitlist"
-      className="items-center overflow-hidden py-20"
+      aria-labelledby="waitlist-heading"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden py-24"
       style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 1200px' }}
     >
-      <div className="animate-glow pointer-events-none absolute left-1/2 top-1/2 h-[800px] w-full max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-aq-blue/10 blur-[160px]" />
-      <div className="relative z-10 mx-auto w-full max-w-4xl duration-1000 animate-in fade-in slide-in-from-bottom-8 fill-mode-both">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-5">
-          {/* Incentives */}
-          <div className="space-y-8 text-center lg:col-span-2 lg:text-left">
-            <div className="space-y-4">
-              <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
-                {headline.pre} <br />
-                <span className="text-brand-gradient">{headline.gradient}</span>
-              </h2>
-              <p className="mx-auto max-w-md font-body text-sm text-muted-foreground sm:text-base lg:mx-0">
-                {socialProof}
-              </p>
-            </div>
+      {/* Background Atmosphere */}
+      <div
+        data-atom
+        data-decorative
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-aq-purple/5 blur-[160px]"
+      />
 
-            <div className="mx-auto max-w-sm space-y-6 text-left lg:mx-0">
-              {incentives.map((item) => (
-                <div key={item.title} className="flex gap-4">
-                  <div className="mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-aq-blue/20">
-                    <div className="h-2 w-2 rounded-full bg-aq-blue" />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-foreground sm:text-base">
-                      {item.title}
-                    </h4>
-                    <p className="text-xs text-muted-foreground sm:text-sm">
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+      <div className="relative z-10 mx-auto w-full max-w-3xl px-4 text-center">
+        <h2
+          id="waitlist-heading"
+          data-atom
+          className="mb-16 font-display text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-tight text-foreground"
+        >
+          {headline.pre}{' '}
+          <em className="text-brand-gradient not-italic">
+            {headline.gradient}
+          </em>
+        </h2>
 
-          {/* Form Card */}
-          <div className="glass-strong noise-overlay mx-auto w-full max-w-md space-y-8 rounded-[2rem] border-border/40 p-6 text-left sm:p-10 lg:col-span-3 lg:max-w-none">
-            <div className="relative z-10 space-y-2 text-center sm:text-left">
-              <h3 className="font-display text-2xl font-bold tracking-tight">
-                {formHeadline}
-              </h3>
-              <p className="font-body text-sm text-muted-foreground">
-                {formSubline}
-              </p>
-            </div>
-
-            <WaitlistForm source="home" />
-
-            <p className="relative z-10 text-center font-body text-xs text-muted-foreground">
-              By joining you agree to our{' '}
-              <Link
-                href="/terms"
-                className="underline transition-colors hover:text-aq-blue"
-              >
-                Terms
-              </Link>{' '}
-              and{' '}
-              <Link
-                href="/privacy"
-                className="underline transition-colors hover:text-aq-blue"
-              >
-                Privacy Policy
-              </Link>
-              .
+        {/* The Stage */}
+        <div
+          data-atom
+          className="glass-strong noise-overlay relative mx-auto min-h-[400px] w-full rounded-3xl border border-border/10 bg-card/5 p-8 shadow-2xl backdrop-blur-xl sm:p-12"
+        >
+          <div className="mb-10 space-y-3">
+            <h3
+              className="font-display font-light tracking-wide text-foreground/90"
+              style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)' }}
+            >
+              {formHeadline}
+            </h3>
+            <p className="font-body text-sm font-light text-muted-foreground">
+              {formSubline}
             </p>
           </div>
+
+          <div className="relative text-left">
+            <WaitlistForm source="home" />
+          </div>
+
+          <p className="mt-12 text-center font-label text-[0.65rem] uppercase tracking-wider text-muted-foreground/60">
+            By joining you agree to our{' '}
+            <Link
+              href="/terms"
+              className="text-foreground/80 transition-colors hover:text-aq-blue"
+            >
+              Terms
+            </Link>{' '}
+            and{' '}
+            <Link
+              href="/privacy"
+              className="text-foreground/80 transition-colors hover:text-aq-blue"
+            >
+              Privacy
+            </Link>
+            .
+          </p>
         </div>
       </div>
     </Section>

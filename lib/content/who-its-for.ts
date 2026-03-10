@@ -28,4 +28,9 @@ export const WhoItsForSectionText = {
       icon: LayoutGrid,
     },
   ] satisfies FeatureItem[],
+  features: [
+    'Dedicated studio workspace',
+    'Lightning-fast asset rendering',
+    'Tailored brand parameters',
+  ],
 } as const;

@@ -7,7 +7,7 @@ export interface SelectOption {
 
 export interface FormField {
   name: string;
-  type: "text" | "email" | "select";
+  type: 'text' | 'email' | 'select';
   label: string;
   placeholder?: string;
   required: boolean;
@@ -36,7 +36,7 @@ export interface ValidationResult {
 
 export interface WaitlistFormProps {
   source: string;
-  variant?: "simple" | "full";
+  variant?: 'simple' | 'full';
   className?: string;
 }
 
@@ -59,82 +59,82 @@ export interface FormStepProps {
 export const FULL_VARIANT_STEPS: FormStep[] = [
   {
     id: 1,
-    title: "Identity",
+    title: 'Identity',
     description: "Let's start with the basics",
     fields: [
       {
-        name: "full_name",
-        type: "text",
-        label: "Name",
-        placeholder: "Your name",
+        name: 'full_name',
+        type: 'text',
+        label: 'Name',
+        placeholder: 'Your name',
         required: true,
       },
       {
-        name: "email",
-        type: "email",
-        label: "Email",
-        placeholder: "professional@email.com",
+        name: 'email',
+        type: 'email',
+        label: 'Email',
+        placeholder: 'professional@email.com',
         required: true,
       },
     ],
   },
   {
     id: 2,
-    title: "Profile",
-    description: "Tell us about yourself",
+    title: 'Profile',
+    description: 'Tell us about yourself',
     fields: [
       {
-        name: "role",
-        type: "select",
-        label: "What Best Describes You?",
-        placeholder: "Select your role",
+        name: 'role',
+        type: 'select',
+        label: 'What Best Describes You?',
+        placeholder: 'Select your role',
         required: true,
         options: [
-          { value: "Brand", label: "Fashion Brand / Retailer" },
-          { value: "Stylist", label: "Stylist / Creative" },
-          { value: "Seller", label: "E-Commerce Seller" },
-          { value: "Other", label: "Other" },
+          { value: 'Brand', label: 'Fashion Brand / Retailer' },
+          { value: 'Stylist', label: 'Stylist / Creative' },
+          { value: 'Seller', label: 'E-Commerce Seller' },
+          { value: 'Other', label: 'Other' },
         ],
       },
       {
-        name: "company",
-        type: "text",
-        label: "Company (Optional)",
-        placeholder: "Brand or Studio name",
+        name: 'company',
+        type: 'text',
+        label: 'Company (Optional)',
+        placeholder: 'Brand or Studio name',
         required: false,
       },
     ],
   },
   {
     id: 3,
-    title: "Preferences",
-    description: "Help us personalize your experience",
+    title: 'Preferences',
+    description: 'Help us personalize your experience',
     fields: [
       {
-        name: "revenue_range",
-        type: "select",
-        label: "Revenue (Optional)",
-        placeholder: "Monthly Revenue Range",
+        name: 'revenue_range',
+        type: 'select',
+        label: 'Revenue (Optional)',
+        placeholder: 'Monthly Revenue Range',
         required: false,
         options: [
-          { value: "0-10k", label: "0 - 10k DH" },
-          { value: "10k-50k", label: "10k - 50k DH" },
-          { value: "50k-250k", label: "50k - 250k DH" },
-          { value: "250k+", label: "250k DH+" },
+          { value: '0-10k', label: '0 - 10k DH' },
+          { value: '10k-50k', label: '10k - 50k DH' },
+          { value: '50k-250k', label: '50k - 250k DH' },
+          { value: '250k+', label: '250k DH+' },
         ],
       },
       {
-        name: "aesthetic",
-        type: "select",
-        label: "Desired Aesthetic (Optional)",
-        placeholder: "Select Aesthetic Preference",
+        name: 'aesthetic',
+        type: 'select',
+        label: 'Desired Aesthetic (Optional)',
+        placeholder: 'Select Aesthetic Preference',
         required: false,
         options: [
-          { value: "Modern Minimalist", label: "Modern Minimalist" },
-          { value: "Traditional Moroccan", label: "Traditional Moroccan" },
-          { value: "Luxury Editorial", label: "Luxury Editorial" },
-          { value: "Streetwear", label: "Streetwear" },
-          { value: "Avant-Garde", label: "Avant-Garde" },
+          { value: 'Modern Minimalist', label: 'Modern Minimalist' },
+          { value: 'Traditional Moroccan', label: 'Traditional Moroccan' },
+          { value: 'Luxury Editorial', label: 'Luxury Editorial' },
+          { value: 'Streetwear', label: 'Streetwear' },
+          { value: 'Avant-Garde', label: 'Avant-Garde' },
         ],
       },
     ],
@@ -145,14 +145,14 @@ export const FULL_VARIANT_STEPS: FormStep[] = [
 export const SIMPLE_VARIANT_STEPS: FormStep[] = [
   {
     id: 1,
-    title: "Join Waitlist",
-    description: "Get early access",
+    title: 'Join Waitlist',
+    description: 'Get early access',
     fields: [
       {
-        name: "email",
-        type: "email",
-        label: "Email",
-        placeholder: "professional@email.com",
+        name: 'email',
+        type: 'email',
+        label: 'Email',
+        placeholder: 'professional@email.com',
         required: true,
       },
     ],

@@ -93,8 +93,8 @@ function LogoGradientDefs({ instanceId }: { instanceId: string }) {
           gradientUnits="userSpaceOnUse"
           spreadMethod="pad"
         >
-          {gradientStops.map((s, i) => (
-            <stop key={i} offset={s.offset} stopColor={s.color} />
+          {gradientStops.map((s) => (
+            <stop key={s.offset} offset={s.offset} stopColor={s.color} />
           ))}
         </linearGradient>
       ))}

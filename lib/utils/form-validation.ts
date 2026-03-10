@@ -1,4 +1,4 @@
-import type { FormStep, ValidationResult } from "@/lib/types/waitlist-form";
+import type { FormStep, ValidationResult } from '@/lib/types/waitlist-form';
 
 /**
  * Validates an email address using standard email regex
@@ -36,26 +36,26 @@ export function validateStep(
     const value = formData[field.name];
 
     // Check required fields
-    if (field.required && (!value || value.trim() === "")) {
+    if (field.required && (!value || value.trim() === '')) {
       errors[field.name] = `${field.label} is required`;
       isValid = false;
       continue;
     }
 
     // Skip validation for empty optional fields
-    if (!value || value.trim() === "") {
+    if (!value || value.trim() === '') {
       continue;
     }
 
     // Type-specific validation
-    if (field.type === "email") {
+    if (field.type === 'email') {
       if (!validateEmail(value)) {
-        errors[field.name] = "Please enter a valid email address";
+        errors[field.name] = 'Please enter a valid email address';
         isValid = false;
       }
     }
 
-    if (field.type === "text") {
+    if (field.type === 'text') {
       if (value.length < 2) {
         errors[field.name] = `${field.label} is too short`;
         isValid = false;

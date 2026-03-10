@@ -10,8 +10,23 @@ export const SolutionSectionText = {
   footer:
     'No photoshoot. No production delays. Just scalable visual generation.',
   pipeline: [
-    { stage: 'Input', label: 'Flat Lay', color: 'default' as const },
-    { stage: 'Process', label: 'AI Pipeline', color: 'purple' as const },
-    { stage: 'Output', label: 'Campaign Visual', color: 'amber' as const },
+    {
+      stage: 'Input',
+      label: 'Flat Lay',
+      body: 'Upload your raw garment imagery and brand assets to begin.',
+      color: 'default' as const,
+    },
+    {
+      stage: 'Process',
+      label: 'AI Pipeline',
+      body: 'We orchestrate your asset generation using bleeding-edge pipelines.',
+      color: 'purple' as const,
+    },
+    {
+      stage: 'Output',
+      label: 'Campaign Visual',
+      body: 'Receive photorealistic campaign visuals ready for commerce.',
+      color: 'amber' as const,
+    },
   ],
 } as const;

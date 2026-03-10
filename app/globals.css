@@ -166,7 +166,6 @@
   }
   html {
     scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
   }
   body {
     font-family: var(--font-body);
@@ -179,11 +178,6 @@
   h5,
   h6 {
     @apply font-display tracking-tight;
-  }
-  section,
-  footer {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
   }
 }
 
@@ -454,7 +448,6 @@
   }
 }
 
-/* Scroll Snap */
 @layer utilities {
   /* Easing helpers to avoid ambiguous arbitrary classes */
   .ease-smooth {
@@ -481,13 +474,6 @@
   }
   .text-accent-surface {
     @apply text-primary-foreground;
-  }
-
-  .snap-container {
-    @apply min-h-screen snap-y snap-mandatory overflow-y-auto scroll-smooth;
-  }
-  .snap-section {
-    @apply min-h-screen w-full snap-start snap-always;
   }
 }
 

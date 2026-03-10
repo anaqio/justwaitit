@@ -5,6 +5,10 @@ import type { IconItem } from '@/lib/content/types';
 export const ProblemSectionText = {
   eyebrow: 'The Challenge',
   headline: { pre: 'Fashion Content Demand.', gradient: 'Exploding' },
+  visualHeadline: {
+    line1: 'Fashion moves fast.',
+    line2: "Production doesn't.",
+  },
   intro: {
     a: 'Fashion brands today need an enormous volume of visuals.',
     b: "But traditional production wasn't built for this speed.",

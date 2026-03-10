@@ -80,6 +80,8 @@
     "typescript-eslint": "^8.56.1"
   },
   "trustedDependencies": [
+    "canvas",
+    "sharp",
     "unrs-resolver"
   ]
 }

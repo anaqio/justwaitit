@@ -1,58 +1,95 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+} from 'framer-motion';
+import { useRef } from 'react';
 
-import { Section, SectionContainer } from '@/components/ui/section';
-import { GradientText, SectionHeader } from '@/components/ui/section-header';
-import { fadeUp } from '@/lib/motion';
+import { useDeviceTier } from '@/hooks/use-device-tier';
+import { PhilosophySectionText } from '@/lib/content/philosophy';
 
-const paragraphs = [
-  {
-    text: (
-      <>
-        Fashion has always been a form of artistic expression. Technology should
-        not replace creativity — it should <GradientText>empower</GradientText>{' '}
-        it.
-      </>
-    ),
-  },
-  {
-    text: (
-      <>
-        Anaqio was built with a simple belief: AI should{' '}
-        <GradientText>optimize</GradientText> the operational side of fashion
-        production so designers and brands can focus on creativity and
-        storytelling.
-      </>
-    ),
-  },
-  {
-    text: 'We are not replacing fashion art. We are building the infrastructure that allows it to scale.',
-  },
-];
+function ScrollWord({
+  word,
+  start,
+  end,
+  scrollYProgress,
+  animated,
+}: {
+  word: string;
+  start: number;
+  end: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  scrollYProgress: any;
+  animated: boolean;
+}) {
+  const opacity = useTransform(scrollYProgress, [start, end], [0.18, 1]);
+  return (
+    <motion.span
+      data-atom
+      style={animated ? { opacity } : {}}
+      className="mr-[0.28em] inline-block font-display text-[clamp(1.6rem,3.2vw,3.5rem)] font-light leading-tight text-foreground"
+    >
+      {word}
+    </motion.span>
+  );
+}
 
 export function PhilosophySection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
+  const tier = useDeviceTier();
+  const animated = !reduced && tier !== 'low';
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start center', 'end center'],
+  });
+
+  const words = PhilosophySectionText.body.split(' ');
+  const wordCount = words.length;
 
   return (
-    <Section id="philosophy" className="text-secondary-surface">
-      <SectionContainer>
-        <SectionHeader eyebrow="Our Philosophy" className="text-neutral-950">
-          AI Should <GradientText>Elevate</GradientText> Fashion Creativity
-        </SectionHeader>
+    <section
+      ref={sectionRef}
+      id="philosophy"
+      aria-labelledby="philosophy-heading"
+      className="relative flex min-h-[140vh] flex-col items-center justify-center overflow-hidden px-4 md:px-16"
+    >
+      <h2 id="philosophy-heading" className="sr-only">
+        {PhilosophySectionText.eyebrow}
+      </h2>
 
-        <div className="mt-8 max-w-3xl space-y-6">
-          {paragraphs.map((p, i) => (
-            <motion.p
-              key={i}
-              {...fadeUp(reduced, i * 0.12)}
-              className="border-l-2 border-aq-blue/20 pl-5 text-justify text-base leading-relaxed text-muted-foreground transition-colors duration-300 hover:border-aq-blue/40"
-            >
-              {p.text}
-            </motion.p>
-          ))}
-        </div>
-      </SectionContainer>
-    </Section>
+      {/* Atmospheric Atom */}
+      <span
+        data-atom
+        data-decorative
+        aria-hidden="true"
+        className="absolute right-[5%] top-[40%] select-none font-display font-light leading-none text-foreground opacity-[0.04]"
+        style={{ fontSize: 'clamp(8rem, 15vw, 15rem)' }}
+      >
+        .
+      </span>
+
+      <div className="relative z-10 mx-auto max-w-5xl text-left">
+        {words.map((word, i) => {
+          const start = i / wordCount;
+          const end = start + 3 / wordCount;
+
+          return (
+            <ScrollWord
+              key={`${word}-${i}`}
+              word={word}
+              start={start}
+              end={end}
+              scrollYProgress={scrollYProgress}
+              animated={animated}
+            />
+          );
+        })}
+      </div>
+    </section>
   );
 }

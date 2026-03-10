@@ -1,58 +1,115 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
+import { useRef } from 'react';
 
-import { Section, SectionContainer } from '@/components/ui/section';
-import { GradientText, SectionHeader } from '@/components/ui/section-header';
+import { useDeviceTier } from '@/hooks/use-device-tier';
 import { ProblemSectionText } from '@/lib/content/problem';
-import { fadeUp, fadeUpCard } from '@/lib/motion';
+import { clipReveal } from '@/lib/motion';
 
 export function ProblemSection() {
   const reduced = useReducedMotion();
-  const { eyebrow, headline, intro, painPoints } = ProblemSectionText;
+  const tier = useDeviceTier();
+  const animated = !reduced && tier !== 'low';
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const headlineY = useTransform(scrollYProgress, [0, 0.4], ['60px', '0px']);
+  const headlineOpacity = useTransform(scrollYProgress, [0, 0.35], [0, 1]);
+
+  const { eyebrow, visualHeadline, painPoints } = ProblemSectionText;
 
   return (
-    <Section id="problem">
-      <SectionContainer>
-        <SectionHeader eyebrow={eyebrow} className="text-center">
-          {headline.pre}
-          <br /> Is <GradientText>{headline.gradient}</GradientText>.
-        </SectionHeader>
+    <section
+      ref={sectionRef}
+      id="problem"
+      aria-labelledby="problem-heading"
+      className="relative min-h-[100dvh] w-full overflow-hidden"
+    >
+      <h2 id="problem-heading" className="sr-only">
+        {eyebrow}: {visualHeadline.line1} {visualHeadline.line2}
+      </h2>
 
-        <div className="mt-8 grid gap-8 text-muted-foreground sm:grid-cols-2">
-          <motion.div {...fadeUp(reduced)} className="space-y-4">
-            <p className="text-lg leading-relaxed">{intro.a}</p>
-            <div className="grid grid-cols-2 gap-3">
-              {painPoints.map((item, i) => {
-                const Icon = item.icon;
-                return (
-                  <motion.div
-                    key={item.text}
-                    {...fadeUpCard(reduced, i)}
-                    className="flex items-center gap-3 rounded-lg border border-white/[0.08] bg-white/[0.04] px-4 py-3 backdrop-blur-sm transition-all duration-300 hover:border-aq-blue/20 hover:bg-white/[0.07]"
-                  >
-                    <Icon
-                      className="h-4 w-4 flex-shrink-0 text-aq-blue"
-                      aria-hidden="true"
-                    />
-                    <span className="text-sm font-medium text-foreground">
-                      {item.text}
-                    </span>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
+      {/* Eyebrow [PINNED, top-10% left-8.33%] */}
+      <p
+        data-atom
+        className="absolute left-[8.33%] top-[10%] font-label text-[0.65rem] uppercase tracking-label text-muted-foreground"
+      >
+        {eyebrow}
+      </p>
 
-          <motion.div {...fadeUp(reduced, 0.15)} className="space-y-4">
-            <p className="text-lg leading-relaxed">{intro.b}</p>
-            <p className="text-sm leading-7">{intro.detail}</p>
-            <p className="border-l-2 border-aq-blue/25 pl-4 font-serif text-sm italic">
-              {intro.quote}
-            </p>
-          </motion.div>
-        </div>
-      </SectionContainer>
-    </Section>
+      {/* Large statement [ANCHORED at top-18% left-8.33%] */}
+      <motion.div
+        data-atom
+        aria-hidden="true"
+        style={
+          animated
+            ? {
+                y: headlineY,
+                opacity: headlineOpacity,
+                fontSize: 'clamp(2.8rem, 5.5vw, 7rem)',
+              }
+            : { fontSize: 'clamp(2.8rem, 5.5vw, 7rem)' }
+        }
+        className="absolute left-[8.33%] top-[18%] z-20 max-w-[14ch] font-display font-light leading-[0.95] text-foreground"
+      >
+        {visualHeadline.line1}
+        <br />
+        <em className="text-brand-gradient pt-2 not-italic">
+          {visualHeadline.line2}
+        </em>
+      </motion.div>
+
+      {/* Accent line [PINNED horizontal rule, top-42% left-8.33% w-1/4] */}
+      <div
+        data-atom
+        data-decorative
+        aria-hidden="true"
+        className="absolute left-[8.33%] top-[42%] h-px w-1/4 bg-border/40"
+      />
+
+      {/* Pain points [4 atoms, each DRIFTING, staggered clip-path reveals] */}
+      {painPoints.map((point, i) => (
+        <motion.div
+          key={point.text}
+          data-atom
+          {...(animated ? clipReveal(reduced, i * 0.12) : {})}
+          className="absolute z-20 flex items-start gap-4 border-l border-aq-blue/30 pl-4"
+          style={{
+            top: `${48 + i * 13}%`,
+            left: '8.33%',
+            maxWidth: '38ch',
+          }}
+        >
+          <point.icon
+            className="mt-0.5 h-3.5 w-3.5 shrink-0 text-aq-blue"
+            aria-hidden="true"
+          />
+          <span className="font-label text-xs uppercase tracking-label text-muted-foreground">
+            {point.text}
+          </span>
+        </motion.div>
+      ))}
+
+      {/* Atmospheric "?" [PINNED, right-5% top-15%] */}
+      <span
+        data-atom
+        data-decorative
+        aria-hidden="true"
+        className="absolute right-[5%] top-[15%] z-0 select-none font-display font-light leading-none text-foreground opacity-[0.03]"
+        style={{ fontSize: 'clamp(8rem, 20vw, 24rem)' }}
+      >
+        ?
+      </span>
+    </section>
   );
 }

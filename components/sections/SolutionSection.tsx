@@ -1,141 +1,157 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { Fragment } from 'react';
+import { Fragment, useRef } from 'react';
 
-import { Section, SectionContainer } from '@/components/ui/section';
-import { GradientText, SectionHeader } from '@/components/ui/section-header';
+import { useDeviceTier } from '@/hooks/use-device-tier';
 import { SolutionSectionText } from '@/lib/content/solution';
-import { fadeUp } from '@/lib/motion';
-
-const pipelineCardStyles = {
-  default: 'border-border/80 bg-white/50 dark:border-white/10 dark:bg-card/40',
-  purple: 'border-aq-purple/20 bg-aq-purple/5 dark:bg-aq-purple/10',
-  amber:
-    'border-amber-500/30 bg-amber-500/5 shadow-[0_0_30px_rgba(245,158,11,0.05)] dark:bg-amber-500/10 dark:shadow-[0_0_30px_rgba(245,158,11,0.1)]',
-} as const;
-
-const pipelineStageStyles = {
-  default: 'text-muted-foreground',
-  purple: 'text-aq-purple',
-  amber: 'text-amber-600 dark:text-amber-500',
-} as const;
-
-const arrowColors = {
-  purple: 'text-aq-purple',
-  amber: 'text-amber-500',
-} as const;
-
-const cardInitial = [
-  { opacity: 0, x: -20, y: 0 },
-  { opacity: 0, x: 0, y: 20 },
-  { opacity: 0, x: 20, y: 0 },
-] as const;
-
-interface AnimatedArrowProps {
-  color: keyof typeof arrowColors;
-  delay?: number;
-  reduced: boolean | null;
-}
-
-function AnimatedArrow({ color, delay = 0, reduced }: AnimatedArrowProps) {
-  const transition = {
-    duration: 1.5,
-    repeat: Infinity,
-    ease: 'easeInOut' as const,
-    delay,
-  };
-
-  return (
-    <motion.div
-      initial={reduced ? false : { opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.3, delay: delay > 0 ? 0.5 : 0.2 }}
-      className="flex items-center justify-center p-2"
-    >
-      <motion.div
-        className="hidden md:block"
-        animate={reduced ? undefined : { x: [0, 6, 0] }}
-        transition={transition}
-      >
-        <ArrowRight className={`h-6 w-6 opacity-80 ${arrowColors[color]}`} />
-      </motion.div>
-      <motion.div
-        className="md:hidden"
-        animate={reduced ? undefined : { y: [0, 6, 0] }}
-        transition={transition}
-      >
-        <ArrowRight
-          className={`h-6 w-6 rotate-90 opacity-80 ${arrowColors[color]}`}
-        />
-      </motion.div>
-    </motion.div>
-  );
-}
+import { flipReveal, scatterIn } from '@/lib/motion';
 
 export function SolutionSection() {
   const reduced = useReducedMotion();
-  const { eyebrow, headline, description, footer, pipeline } =
-    SolutionSectionText;
+  const tier = useDeviceTier();
+  const animated = !reduced && tier !== 'low';
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const { eyebrow, headline, pipeline } = SolutionSectionText;
+
+  const headerY = useTransform(scrollYProgress, [0, 0.3], ['60px', '0px']);
+  const headerOp = useTransform(scrollYProgress, [0, 0.25], [0, 1]);
 
   return (
-    <Section id="solution">
-      <SectionContainer>
-        <SectionHeader eyebrow={eyebrow} className="text-center">
-          {headline.pre} <GradientText>{headline.gradient}</GradientText>{' '}
+    <section
+      ref={sectionRef}
+      id="solution"
+      aria-labelledby="solution-heading"
+      className="relative flex min-h-[100dvh] flex-col items-center justify-center px-4 py-24"
+    >
+      <h2 id="solution-heading" className="sr-only">
+        {eyebrow}: {headline.pre} {headline.gradient} {headline.post}
+      </h2>
+
+      {/* Eyebrow [ANCHORED] */}
+      <motion.p
+        data-atom
+        style={animated ? { y: headerY, opacity: headerOp } : {}}
+        className="mb-8 text-center font-label text-[0.65rem] uppercase tracking-label text-muted-foreground"
+      >
+        {eyebrow}
+      </motion.p>
+
+      {/* Headline [ANCHORED] */}
+      <motion.div
+        data-atom
+        aria-hidden="true"
+        style={animated ? { y: headerY, opacity: headerOp } : {}}
+        className="mb-16 text-center font-display font-light leading-tight"
+      >
+        <span className="text-[clamp(2.5rem,5vw,6rem)]">
+          {headline.pre}{' '}
+          <em className="text-brand-gradient animate-gradient not-italic">
+            {headline.gradient}
+          </em>{' '}
           {headline.post}
-        </SectionHeader>
+        </span>
+      </motion.div>
 
-        <motion.p
-          {...fadeUp(reduced, 0.1)}
-          className="mx-auto mt-8 max-w-3xl text-center text-lg leading-relaxed text-muted-foreground"
+      {/* Stat contrast strip */}
+      <div className="mb-24 flex w-full max-w-4xl flex-col items-center justify-center gap-12 sm:flex-row sm:gap-24">
+        {/* Left: traditional */}
+        <motion.div
+          data-atom
+          {...(animated ? scatterIn(reduced, -40, 0, 0) : {})}
+          className="flex flex-col items-center text-center"
         >
-          {description}
-        </motion.p>
+          <span className="font-display text-[clamp(2rem,4vw,4.5rem)] text-muted-foreground/30 line-through">
+            14 days
+          </span>
+          <span className="mt-2 font-label text-xs uppercase tracking-label text-muted-foreground/40">
+            Traditional shoot
+          </span>
+        </motion.div>
 
-        <div className="mt-16 flex flex-col items-center justify-center gap-4 sm:mt-24 md:flex-row md:gap-8">
-          {pipeline.map((step, i) => (
-            <Fragment key={step.stage}>
-              <motion.div
-                initial={reduced ? false : cardInitial[i]}
-                whileInView={{ opacity: 1, x: 0, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{
-                  duration: 0.5,
-                  delay: i * 0.3,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className={`flex h-[140px] w-full flex-col items-center justify-center rounded-2xl border shadow-sm backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1 md:w-[260px] ${pipelineCardStyles[step.color]}`}
+        {/* Right: ANAQIO */}
+        <motion.div
+          data-atom
+          {...(animated ? scatterIn(reduced, 40, 0, 0.1) : {})}
+          className="flex flex-col items-center text-center"
+        >
+          <span className="font-display text-[clamp(2rem,4vw,4.5rem)] text-aq-blue">
+            2 hours
+          </span>
+          <span className="mt-2 font-label text-xs uppercase tracking-label text-aq-blue/60">
+            With ANAQIO
+          </span>
+        </motion.div>
+      </div>
+
+      {/* Pipeline atom clusters */}
+      <div className="flex w-full max-w-6xl flex-col items-center justify-center gap-8 md:flex-row md:items-start md:gap-12">
+        {pipeline.map((stage, i) => (
+          <Fragment key={stage.label}>
+            <motion.article
+              data-atom
+              aria-label={stage.label}
+              {...(animated ? flipReveal(reduced, i) : {})}
+              className="relative flex w-full max-w-[280px] flex-col gap-3 text-center md:text-left"
+            >
+              <span
+                aria-hidden="true"
+                className="font-display font-light text-aq-blue/20"
+                style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
               >
-                <span
-                  className={`mb-2 text-sm font-medium ${pipelineStageStyles[step.color]}`}
-                >
-                  {step.stage}
-                </span>
-                <span className="font-display text-2xl font-bold text-foreground">
-                  {step.label}
-                </span>
-              </motion.div>
-              {i < pipeline.length - 1 && (
-                <AnimatedArrow
-                  color={i === 0 ? 'purple' : 'amber'}
-                  delay={i === 1 ? 0.2 : 0}
-                  reduced={reduced}
-                />
-              )}
-            </Fragment>
-          ))}
-        </div>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 className="font-display text-[clamp(1.4rem,2.5vw,2.2rem)] font-light text-foreground/90">
+                {stage.label}
+              </h3>
+              <p className="font-body text-sm leading-relaxed text-muted-foreground">
+                {stage.body}
+              </p>
+            </motion.article>
 
-        <motion.p
-          {...fadeUp(reduced, 0.8)}
-          className="mt-16 text-center text-muted-foreground sm:mt-24 sm:text-lg"
-        >
-          {footer}
-        </motion.p>
-      </SectionContainer>
-    </Section>
+            {i < pipeline.length - 1 && (
+              <motion.div
+                data-atom
+                data-decorative
+                aria-hidden="true"
+                animate={animated ? { x: [0, 8, 0] } : {}}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: i * 0.2,
+                }}
+                className="hidden pt-6 text-aq-blue/40 md:block"
+              >
+                <ArrowRight className="h-6 w-6" />
+              </motion.div>
+            )}
+          </Fragment>
+        ))}
+      </div>
+
+      {/* Background Pipeline Atmospheric Atom */}
+      <span
+        data-atom
+        data-decorative
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-[60%] z-0 -translate-x-1/2 -translate-y-1/2 select-none text-center font-display font-light text-foreground opacity-[0.02]"
+        style={{ fontSize: 'clamp(10rem, 20vw, 24rem)' }}
+      >
+        FLOW
+      </span>
+    </section>
   );
 }
