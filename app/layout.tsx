@@ -56,7 +56,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${appFonts.cormorant.variable} ${appFonts.dmSans.variable} ${appFonts.instrumentSerif.variable} antialiased`}
+        className={`${appFonts.cormorant.variable} ${appFonts.dmSans.variable} ${appFonts.instrumentSerif.variable} relative antialiased`}
         suppressHydrationWarning
       >
         <a

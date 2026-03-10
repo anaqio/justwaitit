@@ -203,7 +203,7 @@ function OutlineFillLetters({ instanceId }: { instanceId: string }) {
 }
 
 // ─── Variant: Outline Only ─────────────────────────────────────────────────
-function OutlineLetters({ instanceId }: { instanceId: string }) {
+function OutlineLetters({ instanceId: _instanceId }: { instanceId: string }) {
   return (
     <>
       {letterPaths.map((l, i) => (

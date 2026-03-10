@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-export function VerticaLine() {
+export function VerticalLine() {
   return (
     <motion.div
       initial={{ scaleY: 0 }}
