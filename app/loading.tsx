@@ -4,25 +4,17 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 import { AnaqioTypographyLogo } from '@/components/ui/anaqio-typography-logo';
-
-// ─── Loading Stages ──────────────────────────────────────────────────────────
-const STAGES = [
-  { threshold: 0, label: 'Initializing' },
-  { threshold: 25, label: 'Loading assets' },
-  { threshold: 60, label: 'Rendering' },
-  { threshold: 88, label: 'Preparing studio' },
-  { threshold: 100, label: 'Ready' },
-] as const;
-
-function resolveStage(p: number) {
-  return [...STAGES].reverse().find((s) => p >= s.threshold) ?? STAGES[0];
-}
+import { useDeviceTier } from '@/hooks/use-device-tier';
+import { resolveStage } from '@/lib/loading-stages';
+import { ease } from '@/lib/motion';
 
 // ─── Component ───────────────────────────────────────────────────────────────
 export default function Loading() {
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(true);
   const reduced = useReducedMotion();
+  const tier = useDeviceTier();
+  const animated = !reduced && tier !== 'low';
   const raf = useRef<number>(0);
   const current = useRef(0);
 
@@ -30,7 +22,7 @@ export default function Loading() {
     // Smooth easing toward a target value
     const animateTo = (to: number, onDone?: () => void) => {
       cancelAnimationFrame(raf.current);
-      if (reduced) {
+      if (!animated) {
         current.current = to;
         setProgress(to);
         onDone?.();
@@ -85,6 +77,7 @@ export default function Loading() {
       document.removeEventListener('readystatechange', onReadyState);
       clearTimeout(safety);
     };
+    // TODO: Remove this eslint-disable and update the dependencies
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -98,75 +91,83 @@ export default function Loading() {
           className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-aq-ink"
           initial={{ opacity: 1 }}
           exit={
-            reduced
-              ? { opacity: 0, transition: { duration: 0.3 } }
-              : {
+            animated
+              ? {
                   opacity: 0,
                   scale: 1.03,
                   filter: 'blur(8px)',
-                  transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
+                  transition: { duration: 0.65, ease },
                 }
+              : { opacity: 0, transition: { duration: 0.3 } }
           }
         >
-          {/* ── Atmospheric glows ──────────────────────────────── */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 overflow-hidden"
-          >
-            <div className="absolute left-0 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-aq-blue/[0.06] blur-[100px]" />
-            <div className="absolute right-0 top-1/2 h-[500px] w-[500px] -translate-y-1/2 translate-x-1/2 rounded-full bg-aq-purple/[0.06] blur-[100px]" />
-          </div>
+          {/* ── Atmospheric glows (skip on low-tier) ──────────── */}
+          {tier !== 'low' && (
+            <div
+              data-atom
+              data-decorative
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 overflow-hidden"
+            >
+              <div className="absolute left-0 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-aq-blue/[0.06] blur-[100px]" />
+              <div className="absolute right-0 top-1/2 h-[500px] w-[500px] -translate-y-1/2 translate-x-1/2 rounded-full bg-aq-purple/[0.06] blur-[100px]" />
+            </div>
+          )}
 
           {/* ── Eyebrow ────────────────────────────────────────── */}
           <motion.p
+            data-atom
             className="relative z-10 mb-10 font-label text-[0.6rem] uppercase tracking-label text-muted-foreground/30"
-            initial={reduced ? false : { opacity: 0, y: 8 }}
+            initial={animated ? { opacity: 0, y: 8 } : false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             Digital Atelier
           </motion.p>
 
-          {/* ── Logo ───────────────────────────────────────────── */}
+          {/* ── Logo with outline-fill animation ─────────────── */}
           <motion.div
+            data-atom
             className="relative z-10"
-            initial={reduced ? false : { opacity: 0, y: 20 }}
+            initial={animated ? { opacity: 0, y: 20 } : false}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.8, ease }}
           >
             <AnaqioTypographyLogo
-              variant={reduced ? 'none' : 'cinematic-reveal'}
-              className="w-56 sm:w-72"
+              variant={animated ? 'outline-fill' : 'none'}
+              progress={progress}
+              className="min-w-screen/2 max-w-1/2 w-[80dvw] sm:w-72"
             />
           </motion.div>
 
-          {/* ── Progress ───────────────────────────────────────── */}
+          {/* ── Progress bar + stage labels ───────────────────── */}
           <motion.div
+            data-atom
             className="relative z-10 mt-12 flex w-56 flex-col items-center gap-2.5 sm:w-72"
-            initial={reduced ? false : { opacity: 0 }}
+            initial={animated ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             {/* Track */}
-            <div className="relative h-px w-full overflow-hidden rounded-full bg-white/[0.08]">
+            <div className="relative h-px w-full overflow-hidden rounded-full bg-border/10">
               {/* Glow layer */}
-              <motion.div
-                className="absolute -top-0.5 bottom-0 left-0 h-[3px] rounded-full blur-sm"
-                animate={{ width: `${progress}%` }}
-                transition={{ duration: 0.45, ease: 'easeOut' }}
-                style={{
-                  background: 'linear-gradient(90deg, #3F57AF, #6F47A7)',
-                  opacity: 0.5,
-                }}
-              />
+              {tier !== 'low' && (
+                <motion.div
+                  data-atom
+                  data-decorative
+                  aria-hidden="true"
+                  className="bg-brand-gradient absolute -top-0.5 bottom-0 left-0 h-[3px] rounded-full blur-sm"
+                  animate={{ width: `${progress}%` }}
+                  transition={{ duration: 0.45, ease: 'easeOut' }}
+                  style={{ opacity: 0.5 }}
+                />
+              )}
               {/* Sharp fill */}
               <motion.div
-                className="absolute inset-y-0 left-0 rounded-full"
+                data-atom
+                className="bg-brand-gradient absolute inset-y-0 left-0 rounded-full"
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 0.45, ease: 'easeOut' }}
-                style={{
-                  background: 'linear-gradient(90deg, #3F57AF, #6F47A7)',
-                }}
               />
             </div>
 
@@ -175,6 +176,7 @@ export default function Loading() {
               <AnimatePresence mode="wait">
                 <motion.span
                   key={stage.label}
+                  data-atom
                   className="font-label text-[0.58rem] uppercase tracking-label text-muted-foreground/35"
                   initial={{ opacity: 0, y: 3 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -185,7 +187,10 @@ export default function Loading() {
                 </motion.span>
               </AnimatePresence>
 
-              <span className="font-label text-[0.58rem] tabular-nums tracking-label text-muted-foreground/35">
+              <span
+                data-atom
+                className="font-label text-[0.58rem] tabular-nums tracking-label text-muted-foreground/35"
+              >
                 {progress}%
               </span>
             </div>
