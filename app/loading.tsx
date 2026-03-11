@@ -49,9 +49,28 @@ export default function Loading() {
     // Initial jump to feel immediately responsive
     animateTo(20);
 
+    // Track real loading metrics via PerformanceObserver
+    const baselineResources = 15; // Heuristic baseline
+    let po: PerformanceObserver | null = null;
+    try {
+      po = new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        const resourceProgress = Math.min(
+          85,
+          current.current + (entries.length / baselineResources) * 30
+        );
+        if (current.current < resourceProgress) {
+          animateTo(resourceProgress);
+        }
+      });
+      po.observe({ type: 'resource', buffered: true });
+    } catch {
+      // Fallback if not supported
+    }
+
     // DOM interactive (HTML parsed, sub-resources not yet loaded)
     const onReadyState = () => {
-      if (document.readyState === 'interactive') animateTo(60);
+      if (document.readyState === 'interactive') animateTo(40);
       if (document.readyState === 'complete') animateTo(90);
     };
     document.addEventListener('readystatechange', onReadyState);
@@ -76,6 +95,7 @@ export default function Loading() {
       cancelAnimationFrame(raf.current);
       document.removeEventListener('readystatechange', onReadyState);
       clearTimeout(safety);
+      po?.disconnect();
     };
     // TODO: Remove this eslint-disable and update the dependencies
     // eslint-disable-next-line react-hooks/exhaustive-deps

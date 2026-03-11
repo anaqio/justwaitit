@@ -1,5 +1,7 @@
 'use client';
 
+import { AnimatePresence, motion } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -10,6 +12,7 @@ import { cn } from '@/lib/utils';
 export function Header() {
   const [isHidden, setIsHidden] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [hoverKey, setHoverKey] = useState(0);
   const lastScrollYRef = useRef(0);
@@ -121,17 +124,55 @@ export function Header() {
               'mr-1 rounded backdrop-blur-xl transition-all duration-500 sm:mr-2',
               isScrolled ? 'text-xs' : 'text-sm'
             )}
-            onClick={() =>
+            onClick={() => {
               document
                 .getElementById('waitlist')
-                ?.scrollIntoView({ behavior: 'smooth' })
-            }
+                ?.scrollIntoView({ behavior: 'smooth' });
+              setIsMobileMenuOpen(false);
+            }}
             aria-label="Scroll to Waitlist Section"
           >
             Join Waitlist
           </Button>
+
+          <button
+            className="flex items-center justify-center p-1 text-foreground/70 transition-colors hover:text-aq-blue md:hidden"
+            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
       </nav>
+
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="pointer-events-auto absolute left-4 right-4 top-[calc(100%+0.5rem)] rounded-xl border border-border/40 bg-background/95 p-4 shadow-xl backdrop-blur-xl md:hidden"
+          >
+            <div className="flex flex-col gap-4 text-sm font-medium text-foreground/70">
+              <Link
+                href="/about"
+                className="transition-colors hover:text-aq-blue"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                About
+              </Link>
+              <Link
+                href="/terms"
+                className="transition-colors hover:text-aq-blue"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Terms
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

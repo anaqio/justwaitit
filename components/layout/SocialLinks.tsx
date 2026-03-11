@@ -7,12 +7,12 @@ import { socialLinks } from '@/lib/content/navigation';
 
 export function SocialLinks() {
   return (
-    <div className="flex gap-5 md:gap-6">
+    <div className="flex w-full flex-wrap justify-center gap-4 sm:justify-between sm:gap-5 md:gap-6">
       {socialLinks.map((s) => (
         <motion.div
           key={s.label}
           whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
+          whileTap={{ scale: 1.5 }}
         >
           <Link
             href={s.href}

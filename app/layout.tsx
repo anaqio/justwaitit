@@ -1,22 +1,6 @@
-import dynamic from 'next/dynamic';
-
 import type { Metadata, Viewport } from 'next';
 
-const Analytics = dynamic(
-  () => import('@vercel/analytics/react').then((mod) => mod.Analytics),
-  { ssr: false }
-);
-
-const SpeedInsights = dynamic(
-  () => import('@vercel/speed-insights/next').then((mod) => mod.SpeedInsights),
-  { ssr: false }
-);
-
-const GoogleAnalytics = dynamic(
-  () => import('@next/third-parties/google').then((mod) => mod.GoogleAnalytics),
-  { ssr: false }
-);
-
+import { AnaqioAnalytica } from '@/components/brand/Analytica';
 import { GrainOverlay } from '@/components/ui/GrainOverlay';
 import './globals.css';
 import {
@@ -49,6 +33,14 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        {/* PWA Meta Tags */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#0F172A" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-title" content="ANAQIO" />
+        <link rel="apple-touch-icon" href="/icon-192x192.svg" />
+        {/* Structured Data */}
         <script
           id="org-jsonld"
           type="application/ld+json"
@@ -114,11 +106,7 @@ export default function RootLayout({
         {children}
         <GrainOverlay />
       </body>
-      <Analytics />
-      <SpeedInsights />
-      {process.env.NEXT_PUBLIC_GA_ID && (
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-      )}
+      <AnaqioAnalytica />
     </html>
   );
 }

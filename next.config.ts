@@ -1,4 +1,42 @@
+import withPWAInit from 'next-pwa';
 import type { NextConfig } from 'next';
+
+const withPWA = withPWAInit({
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
+  register: true,
+  skipWaiting: true,
+  runtimeCaching: [
+    {
+      urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'google-fonts-cache',
+        expiration: {
+          maxEntries: 10,
+          maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+        },
+        cacheableResponse: {
+          statuses: [0, 200],
+        },
+      },
+    },
+    {
+      urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'gstatic-fonts-cache',
+        expiration: {
+          maxEntries: 10,
+          maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+        },
+        cacheableResponse: {
+          statuses: [0, 200],
+        },
+      },
+    },
+  ],
+});
 
 const nextConfig = {
   poweredByHeader: false,
@@ -71,6 +109,7 @@ const nextConfig = {
     inlineCss: true,
     viewTransition: true,
   },
+  turbopack: {},
 } satisfies NextConfig;
 
-export default nextConfig;
+export default withPWA(nextConfig);
