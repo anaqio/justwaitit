@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/early-access',
     '/brand',
     '/contact',
+    '/about',
     '/terms',
     '/privacy',
     '/cookies',

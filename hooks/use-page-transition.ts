@@ -3,16 +3,21 @@
 import { useRouter } from 'next/navigation';
 import { useCallback, useTransition } from 'react';
 
+import { NAV_START_EVENT } from '@/components/ui/NavigationProgress';
+
 /**
- * Wraps Next.js navigation in React's `startTransition` so the current page
- * stays interactive while the new page loads (no blocking UI freeze).
+ * Wraps Next.js navigation with three enhancements:
  *
- * Also opts into the View Transition API when available, enabling the
- * CSS-based slide/crossfade animations defined in globals.css.
+ * 1. Fires `NAV_START_EVENT` BEFORE routing so NavigationProgress starts
+ *    during the actual wait (chunk fetch, server round-trip) not after commit.
+ * 2. Uses React's `startTransition` to keep the current page interactive.
+ * 3. Opts into the View Transition API when available.
  *
  * Usage:
  *   const { navigate, isPending, prefetch } = usePageTransition();
- *   <button onClick={() => navigate('/about')}>About</button>
+ *   <button onMouseEnter={() => prefetch('/about')} onClick={() => navigate('/about')}>
+ *     About
+ *   </button>
  */
 export function usePageTransition() {
   const router = useRouter();
@@ -20,12 +25,15 @@ export function usePageTransition() {
 
   const navigate = useCallback(
     (href: string) => {
+      // Signal the progress bar BEFORE the route change begins
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event(NAV_START_EVENT));
+      }
+
       if (
         typeof document !== 'undefined' &&
         'startViewTransition' in document
       ) {
-        // View Transition API: animates between old and new DOM states using
-        // the keyframes registered in globals.css (vt-slide-out / vt-slide-in)
         (
           document as Document & {
             startViewTransition: (cb: () => void) => void;
