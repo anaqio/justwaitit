@@ -107,6 +107,7 @@ export default function RootLayout({
         <NavigationProgress />
         {children}
         <GrainOverlay />
+        <Analytics />
       </body>
       <AnaqioAnalytica />
     </html>
