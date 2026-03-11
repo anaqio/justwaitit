@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { ComingSoonPage } from '@/components/sections/ComingSoonPage';
+import { PWAInstallPrompt } from '@/components/ui/PWAInstallPrompt';
 
 export const metadata: Metadata = {
   title: 'ANAQIO — AI Fashion Studio | Coming Soon',
@@ -9,5 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  return <ComingSoonPage />;
+  return (
+    <>
+      <ComingSoonPage />
+      <PWAInstallPrompt />
+    </>
+  );
 }
