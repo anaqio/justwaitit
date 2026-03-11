@@ -1,9 +1,8 @@
-import { GoogleAnalytics } from '@next/third-parties/google';
-import { Analytics } from '@vercel/analytics/next';
-
 import type { Metadata, Viewport } from 'next';
 
+import { AnaqioAnalytica } from '@/components/brand/Analytica';
 import { GrainOverlay } from '@/components/ui/GrainOverlay';
+import { NavigationProgress } from '@/components/ui/NavigationProgress';
 import './globals.css';
 import {
   appMeta,
@@ -35,6 +34,14 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        {/* PWA Meta Tags */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#0F172A" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-title" content="ANAQIO" />
+        <link rel="apple-touch-icon" href="/icon-192x192.svg" />
+        {/* Structured Data */}
         <script
           id="org-jsonld"
           type="application/ld+json"
@@ -57,7 +64,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${appFonts.cormorant.variable} ${appFonts.dmSans.variable} ${appFonts.instrumentSerif.variable} antialiased`}
+        className={`${appFonts.cormorant.variable} ${appFonts.dmSans.variable} ${appFonts.instrumentSerif.variable} relative antialiased`}
         suppressHydrationWarning
       >
         <a
@@ -97,13 +104,12 @@ export default function RootLayout({
           </div>
         </div>
 
+        <NavigationProgress />
         {children}
         <GrainOverlay />
         <Analytics />
       </body>
-      {process.env.NEXT_PUBLIC_GA_ID && (
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-      )}
+      <AnaqioAnalytica />
     </html>
   );
 }
