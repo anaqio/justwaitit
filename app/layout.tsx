@@ -1,4 +1,6 @@
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import type { Metadata, Viewport } from 'next';
 
@@ -99,6 +101,8 @@ export default function RootLayout({
         {children}
         <GrainOverlay />
       </body>
+      <Analytics />
+      <SpeedInsights />
       {process.env.NEXT_PUBLIC_GA_ID && (
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       )}
