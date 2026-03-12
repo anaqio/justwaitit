@@ -108,6 +108,42 @@ Branch: `feature/i18n` · PR: [#17](https://github.com/anaqio/justwaitit/pull/17
 
 ---
 
+## Phase 9 — Landing Page Sections ✅
+
+> Migrate all `lib/content/*.ts` static TypeScript objects to `messages/*.json` under `landing.*` namespace. Replace content imports with `useTranslations` in all section components.
+
+- [x] Add `landing.hero` keys + `waitlist.headline/formHeadline/formSubline` to all 3 locale files
+- [x] Add `landing.problem` keys to all 3 locale files
+- [x] Add `landing.solution` keys (incl. stat comparison) to all 3 locale files
+- [x] Add `landing.howItWorks` keys to all 3 locale files
+- [x] Add `landing.whyAnaqio` keys to all 3 locale files
+- [x] Add `landing.whoItsFor` keys (incl. features array) to all 3 locale files
+- [x] Add `landing.vision` keys to all 3 locale files
+- [x] Add `landing.philosophy` keys to all 3 locale files
+- [x] Add `landing.finalCta` keys to all 3 locale files
+- [x] `components/sections/HeroSection.tsx` — `useTranslations('landing.hero')`, char-split animation preserved
+- [x] `components/sections/SupportLine.tsx` — `useTranslations('landing.hero')`, `t.raw('supportLine.words')` for rotating words
+- [x] `components/sections/ProblemSection.tsx` — `useTranslations('landing.problem')`, icons kept in component via `PAIN_ICONS` array + `t.raw('painPoints')`
+- [x] `components/sections/SolutionSection.tsx` — `useTranslations('landing.solution')`, `PIPELINE_COLORS` merged with `t.raw('pipeline')`; stat comparison labels translated
+- [x] `components/sections/HowItWorksSection.tsx` — `useTranslations('landing.howItWorks')`, `t.raw('steps')` array
+- [x] `components/sections/WhyAnaqioSection.tsx` — `useTranslations('landing.whyAnaqio')`, `POINT_ICONS` merged with `t.raw('points')`
+- [x] `components/sections/WhoItsForSection.tsx` — `useTranslations('landing.whoItsFor')`, `AUDIENCE_ICONS` merged with `t.raw('audiences')`, `t.raw('features')`
+- [x] `components/sections/VisionSection.tsx` — `useTranslations('landing.vision')`, `VISION_ICONS` merged with `t.raw('points')`
+- [x] `components/sections/PhilosophySection.tsx` — `useTranslations('landing.philosophy')`, `t('body').split(' ')` for scroll-word animation
+- [x] `components/sections/FinalCTA.tsx` — `useTranslations('landing.finalCta')`
+- [x] `components/sections/WaitlistSection.tsx` — extended to use `t('headline.*')`, `t('formHeadline')`, `t('formSubline')` (was only using disclaimer)
+
+### icon-array pattern (t.raw)
+
+Icon arrays (lucide-react `LucideIcon` components) cannot be stored in JSON. Pattern used:
+```typescript
+const POINT_ICONS = [Ruler, Move3D, Sun, Zap, ShieldCheck];
+const points = (t.raw('points') as Array<{title: string; body: string}>)
+  .map((p, i) => ({ ...p, icon: POINT_ICONS[i] }));
+```
+
+---
+
 ## Remaining / Out of Scope
 
 | File                                         | Reason deferred                                                   |
