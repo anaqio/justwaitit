@@ -1,12 +1,18 @@
+import { getTranslations } from 'next-intl/server';
+
 import type { Metadata } from 'next';
 
 import { LegalPageLayout } from '@/components/layout/LegalPageLayout';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy — Anaqio',
-  description:
-    'Privacy Policy for Anaqio, a virtual studio for fashion commerce.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'meta.privacy' });
+  return { title: t('title'), description: t('desc') };
+}
 
 export default function PrivacyPolicyPage() {
   return (

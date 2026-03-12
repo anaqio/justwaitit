@@ -1,24 +1,33 @@
+import { getTranslations } from 'next-intl/server';
+
 import type { Metadata } from 'next';
 
 import { LegalPageLayout } from '@/components/layout/LegalPageLayout';
 
-export const metadata: Metadata = {
-  title: 'Legal Mentions — Anaqio',
-  description:
-    'Legal Mentions for Anaqio, a virtual studio for fashion commerce.',
-  robots: {
-    index: false,
-    follow: false,
-    googleBot: {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'meta.legal' });
+  return {
+    title: t('title'),
+    description: t('desc'),
+    robots: {
       index: false,
       follow: false,
-      noimageindex: true,
-      'max-image-preview': 'none',
-      'max-snippet': 0,
-      'max-video-preview': 0,
+      googleBot: {
+        index: false,
+        follow: false,
+        noimageindex: true,
+        'max-image-preview': 'none',
+        'max-snippet': 0,
+        'max-video-preview': 0,
+      },
     },
-  },
-};
+  };
+}
 
 export default function LegalMentionsPage() {
   return (

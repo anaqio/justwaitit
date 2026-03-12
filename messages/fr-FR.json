@@ -19,6 +19,22 @@
     "early": {
       "title": "Accès Anticipé — Anaqio",
       "desc": "Rejoignez la liste d'attente pour un accès anticipé au Studio Visuel IA d'Anaqio. Soyez le premier à vivre l'avenir du commerce de la mode."
+    },
+    "terms": {
+      "title": "Conditions d'Utilisation — Anaqio",
+      "desc": "Conditions d'utilisation d'Anaqio, un studio virtuel pour le commerce de la mode."
+    },
+    "privacy": {
+      "title": "Politique de Confidentialité — Anaqio",
+      "desc": "Politique de confidentialité d'Anaqio, un studio virtuel pour le commerce de la mode."
+    },
+    "cookies": {
+      "title": "Politique de Cookies — Anaqio",
+      "desc": "Politique de cookies d'Anaqio. Découvrez comment nous utilisons les cookies pour améliorer votre expérience dans notre studio IA."
+    },
+    "legal": {
+      "title": "Mentions Légales — Anaqio",
+      "desc": "Mentions légales d'Anaqio, un studio virtuel pour le commerce de la mode."
     }
   },
   "header": {

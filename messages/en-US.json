@@ -19,6 +19,22 @@
     "early": {
       "title": "Early Access — Anaqio",
       "desc": "Join the waitlist for early access to Anaqio's AI Visual Studio. Be the first to experience the future of fashion commerce."
+    },
+    "terms": {
+      "title": "Terms of Service — Anaqio",
+      "desc": "Terms of Service for Anaqio, a virtual studio for fashion commerce."
+    },
+    "privacy": {
+      "title": "Privacy Policy — Anaqio",
+      "desc": "Privacy Policy for Anaqio, a virtual studio for fashion commerce."
+    },
+    "cookies": {
+      "title": "Cookie Policy — Anaqio",
+      "desc": "Anaqio's Cookie Policy. Learn how we use cookies to improve your experience in our AI virtual studio."
+    },
+    "legal": {
+      "title": "Legal Mentions — Anaqio",
+      "desc": "Legal Mentions for Anaqio, a virtual studio for fashion commerce."
     }
   },
   "header": {

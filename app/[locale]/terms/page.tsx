@@ -1,14 +1,19 @@
-import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 
 import type { Metadata } from 'next';
 
 import { LegalPageLayout } from '@/components/layout/LegalPageLayout';
+import { Link } from '@/i18n/routing';
 
-export const metadata: Metadata = {
-  title: 'Terms of Service — Anaqio',
-  description:
-    'Terms of Service for Anaqio, a virtual studio for fashion commerce.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'meta.terms' });
+  return { title: t('title'), description: t('desc') };
+}
 
 export default function TermsOfServicePage() {
   return (

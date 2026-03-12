@@ -1,7 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { useState, useEffect } from 'react';
+
+import { Link } from '@/i18n/routing';
 
 export function BrandIdentityContent() {
   const [password, setPassword] = useState('');
