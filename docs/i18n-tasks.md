@@ -120,6 +120,30 @@ Branch: `feature/i18n` · PR: [#17](https://github.com/anaqio/justwaitit/pull/17
 
 ---
 
+## Implementation Notes
+
+### app/layout.tsx (Root Shell)
+
+The `app/layout.tsx` file is intentionally kept as a thin shell required by Next.js when using locale-prefixed routing with `app/[locale]/layout.tsx`. It simply renders children without any providers or layout logic.
+
+### Translation Key Structure
+
+All translation keys use camelCase format (e.g., `comingSoon`, `loading.stages`). The CSV file (`i18n/strings.csv`) has been updated to match the actual JSON structure used in the codebase.
+
+### Legal Pages
+
+Legal page body content (terms, privacy, cookies, legal-mentions) remains in English as the authoritative version for Moroccan law. Only metadata titles are translated.
+
+### SocialLinks Component
+
+The `components/layout/SocialLinks.tsx` component contains only external URLs with `target="_blank"` and aria-labels that are platform names (Twitter, Instagram, etc.). No i18n is needed since:
+
+- All hrefs point to external social media URLs
+- Icon labels are universal brand names
+- Adding translations would add complexity without user-facing benefit
+
+---
+
 ## Translation Key Namespaces
 
 | Namespace     | Used in                               |
