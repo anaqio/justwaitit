@@ -9,7 +9,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "playwright test",
-    "prepare": "husky"
+    "prepare": "husky",
+    "export:i18n": "bun run scripts/export-i18n.ts"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
