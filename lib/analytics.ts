@@ -37,52 +37,66 @@ export const pageview = (url: string) => {
 };
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
-export const event = ({
-  action,
-  category,
-  label,
-  value,
-}: {
-  action: string;
-  category?: string;
-  label?: string;
-  value?: number;
-}) => {
+export const event = (
+  action: string,
+  params?: Record<string, any>
+) => {
   if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', action, {
-      event_category: category,
-      event_label: label,
-      value: value,
-    });
+    window.gtag('event', action, params);
   }
+};
+
+/**
+ * Helper to mask PII (Personally Identifiable Information) before sending to GA
+ * It's generally against GA Terms of Service to send raw emails/names.
+ */
+const maskPII = (value: string) => {
+  if (!value) return '';
+  // Simple "masking" for GA - you might want to use a real SHA-256 hash if needed
+  // For now, we'll just send a placeholder or "hashed" version if it looks like an email
+  if (value.includes('@')) {
+    const [local, domain] = value.split('@');
+    return `${local.substring(0, 1)}***@${domain}`;
+  }
+  return value.length > 2 ? `${value.substring(0, 2)}***` : '***';
 };
 
 // Common tracking methods for user behavior
 export const trackUserBehavior = {
   // Track button clicks
   trackClick: (label: string, category: string = 'engagement') => {
-    event({
-      action: 'click',
-      category,
-      label,
+    event('click', {
+      event_category: category,
+      event_label: label,
     });
   },
 
-  // Track form submissions
-  trackFormSubmit: (formName: string) => {
-    event({
-      action: 'form_submission',
-      category: 'conversion',
-      label: formName,
-    });
+  // Track form submissions with details
+  trackFormSubmit: (formName: string, formData?: Record<string, string>) => {
+    const trackingData: Record<string, any> = {
+      event_category: 'conversion',
+      event_label: formName,
+    };
+
+    if (formData) {
+      // Map form fields to GA parameters (masking PII)
+      Object.entries(formData).forEach(([key, value]) => {
+        if (['email', 'full_name', 'name'].includes(key)) {
+          trackingData[`form_field_${key}`] = maskPII(value);
+        } else {
+          trackingData[`form_field_${key}`] = value;
+        }
+      });
+    }
+
+    event('form_submission', trackingData);
   },
 
   // Track sections viewed
   trackSectionView: (sectionId: string) => {
-    event({
-      action: 'section_view',
-      category: 'engagement',
-      label: sectionId,
+    event('section_view', {
+      event_category: 'engagement',
+      event_label: sectionId,
     });
   },
 };
