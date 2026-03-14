@@ -1,14 +1,37 @@
 /**
- * Analytics utility for Google Analytics (GA4)
+ * Analytics utility for Google Analytics (GA4) and GTM
  */
 
 export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID;
+export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+
+/**
+ * Domain allow-list for cross-domain tracking (Linker)
+ * Matches:
+ * - ^([a-z0-9-]+\.)?vusercontent\.net$
+ * - ^([a-z0-9-]+\.)?vercel\.app$
+ * - anaqio.com and *.anaqio.com
+ */
+export const ALLOWED_DOMAINS = [
+  'anaqio.com',
+  'vercel.app',
+  'vusercontent.net',
+];
+
+export const DOMAIN_REGEX = {
+  vusercontent: /^([a-z0-9-]+\.)?vusercontent\.net$/,
+  vercel: /^([a-z0-9-]+\.)?vercel\.app$/,
+  anaqio: /^([a-z0-9-]+\.)?anaqio\.com$/,
+};
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/pages
 export const pageview = (url: string) => {
   if (typeof window !== 'undefined' && window.gtag && GA_TRACKING_ID) {
     window.gtag('config', GA_TRACKING_ID, {
       page_path: url,
+      linker: {
+        domains: ALLOWED_DOMAINS,
+      },
     });
   }
 };

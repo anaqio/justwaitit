@@ -4,7 +4,7 @@ import { Suspense, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-import { pageview } from '@/lib/analytics';
+import { ALLOWED_DOMAINS, pageview } from '@/lib/analytics';
 
 const Analytics = dynamic(
   () => import('@vercel/analytics/react').then((mod) => mod.Analytics),
@@ -18,6 +18,11 @@ const SpeedInsights = dynamic(
 
 const GoogleAnalytics = dynamic(
   () => import('@next/third-parties/google').then((mod) => mod.GoogleAnalytics),
+  { ssr: true }
+);
+
+const GoogleTagManager = dynamic(
+  () => import('@next/third-parties/google').then((mod) => mod.GoogleTagManager),
   { ssr: true }
 );
 
@@ -46,8 +51,18 @@ export function AnaqioAnalytica() {
       <Suspense fallback={null}>
         <GoogleAnalyticsTracker />
       </Suspense>
+      {process.env.NEXT_PUBLIC_GTM_ID && (
+        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
+      )}
       {process.env.NEXT_PUBLIC_GA_ID && (
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        <GoogleAnalytics 
+          gaId={process.env.NEXT_PUBLIC_GA_ID} 
+          config={{
+            linker: {
+              domains: ALLOWED_DOMAINS,
+            }
+          }}
+        />
       )}
     </>
   );
