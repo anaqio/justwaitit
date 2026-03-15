@@ -20,7 +20,7 @@ export function useLazyVideo({
 }: UseLazyVideoOptions = {}) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldLoad, setShouldLoad] = useState(eager);
-  const [isInView, setIsInView] = useState(false);
+  const [_isInView, setIsInView] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
 
   useEffect(() => {
