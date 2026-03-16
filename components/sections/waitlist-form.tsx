@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState, useTransition, useMemo } from 'react';
 
+import { trackUserBehavior } from '@/lib/analytics';
 import { FormStep } from '@/components/sections/form-step';
 import { StepTransition } from '@/components/sections/step-transition';
 import { Button } from '@/components/ui/button';
@@ -50,12 +51,14 @@ export function WaitlistForm({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+    const rawFormData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(rawFormData.entries()) as Record<string, string>;
 
     startTransition(async () => {
       try {
-        const result = await joinWaitlist(formData);
+        const result = await joinWaitlist(rawFormData);
         if (result.success) {
+          trackUserBehavior.trackFormSubmit(`waitlist_simple_${source}`, data);
           setStatus('success');
           setMessage(result.message);
           (e.target as HTMLFormElement).reset();
@@ -83,6 +86,7 @@ export function WaitlistForm({
       setDirection('forward');
       setIsAnimating(true);
       setTimeout(() => {
+        trackUserBehavior.trackClick(`waitlist_next_step_${currentStep}`, 'form_navigation');
         next();
         setIsAnimating(false);
       }, 400);
@@ -106,6 +110,10 @@ export function WaitlistForm({
       try {
         const result = await joinWaitlist(submitFormData);
         if (result.success) {
+          trackUserBehavior.trackFormSubmit(`waitlist_full_${source}`, {
+            ...formData,
+            source,
+          });
           setStatus('success');
           setMessage(result.message);
         } else {
