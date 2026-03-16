@@ -37,6 +37,11 @@ export const appFounders = [
     role: 'Co-Founder & CTO',
     linkedin: 'https://www.linkedin.com/in/moughamir/',
   },
+];
+
+// Non-founder team members — kept separate so they are never emitted as
+// schema.org founders in structured data or layout microdata.
+export const appTeam = [
   {
     name: 'Zahir CHAIMAE',
     role: 'Marketing Director',

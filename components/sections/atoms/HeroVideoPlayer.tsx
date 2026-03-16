@@ -5,7 +5,6 @@ import { Play } from 'lucide-react';
 import { useState } from 'react';
 
 import { useLazyVideo } from '@/hooks/use-lazy-video';
-import { NANOBANANA_VISUALS } from '@/lib/content/nanobanana-assets';
 import { cn } from '@/lib/utils';
 
 export function HeroVideoPlayer() {
@@ -15,7 +14,7 @@ export function HeroVideoPlayer() {
   const [showControls, setShowControls] = useState(false);
 
   // Lazy video hook - loads when 10% visible with 200px margin
-  const { videoRef, shouldLoad, hasLoaded } = useLazyVideo({
+  const { containerRef, videoRef, shouldLoad, hasLoaded } = useLazyVideo({
     threshold: 0.1,
     rootMargin: '200px',
     eager: false,
@@ -34,7 +33,10 @@ export function HeroVideoPlayer() {
   };
 
   return (
-    <div className="relative mt-12 w-full max-w-3xl lg:mt-0 lg:w-1/2">
+    <div
+      ref={containerRef}
+      className="relative mt-12 w-full max-w-3xl lg:mt-0 lg:w-1/2"
+    >
       <div
         className={cn(
           'relative aspect-video w-full overflow-hidden rounded-2xl',

@@ -2,6 +2,10 @@ import { getTranslations } from 'next-intl/server';
 
 import type { Metadata } from 'next';
 
+// The landing page switches layout based on the current date, so it must be
+// rendered dynamically per request rather than statically at build time.
+export const dynamic = 'force-dynamic';
+
 import { Header } from '@/components/layout/Header';
 import { NewLandingPage } from '@/components/sections/NewLandingPage';
 import { ScrollTriggered } from '@/components/sections/ScrollTriggered';
