@@ -1,7 +1,5 @@
 import { type MetadataRoute } from 'next';
 
-import { locales } from '@/i18n/config';
-
 export default function robots(): MetadataRoute.Robots {
   const baseUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
@@ -41,6 +39,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
     ],
-    sitemap: locales.map((locale) => `${baseUrl}/${locale}/sitemap.xml`),
+    sitemap: `${baseUrl}/sitemap.xml`,
   };
 }

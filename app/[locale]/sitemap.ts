@@ -1,7 +1,5 @@
 import { type MetadataRoute } from 'next';
 
-import { locales, defaultLocale } from '@/i18n/config';
-
 const getBaseUrl = () => {
   if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
@@ -19,20 +17,13 @@ const ROUTES = [
   { path: '/cookies', changeFrequency: 'yearly' as const, priority: 0.3 },
 ];
 
-export default async function sitemap({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<MetadataRoute.Sitemap> {
-  const { locale } = await params;
+// localePrefix: 'never' — all locales share clean URLs, one sitemap for all
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = getBaseUrl();
   const lastModified = new Date();
 
-  // Validate locale, fallback to default if invalid
-  const targetLocale = locales.includes(locale as any) ? locale : defaultLocale;
-
   return ROUTES.map(({ path, changeFrequency, priority }) => ({
-    url: `${baseUrl}/${targetLocale}${path}`,
+    url: `${baseUrl}${path}`,
     lastModified,
     changeFrequency,
     priority,
