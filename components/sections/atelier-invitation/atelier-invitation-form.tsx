@@ -302,7 +302,7 @@ export function AtelierInvitationForm() {
         total={totalSteps}
         isOptional={!config.required}
         skipLabel={t('ui.skip')}
-        onSkip={advance}
+        onSkip={isLastStep ? handleSubmit : advance}
       />
 
       {/* Slide area */}
