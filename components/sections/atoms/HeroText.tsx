@@ -44,30 +44,42 @@ export function HeroText({ animated, reduced }: HeroTextProps) {
         <div className="h-px w-10 bg-muted-foreground/40" />
       </motion.div>
 
-      {/* Headline Pre */}
+      {/* Headline Pre — words wrapped in whitespace-nowrap spans to prevent mid-word breaks */}
       <motion.p
         data-atom
         aria-hidden="true"
         style={animated ? { y: headlineY } : {}}
-        className="mt-6 flex flex-wrap justify-center font-display font-light text-foreground lg:justify-start"
+        className="mt-6 flex flex-wrap justify-center gap-x-[0.22em] font-display font-light text-foreground lg:justify-start"
       >
-        {t('headline.pre')
-          .split('')
-          .map((char, i) => (
-            <motion.span
-              key={`pre-${char}-${i}`}
-              data-atom
-              aria-hidden="true"
-              {...(animated ? charReveal(reduced, i) : {})}
-              className="inline-block"
-              style={{
-                fontSize: 'clamp(2.5rem, 6vw, 6rem)',
-                letterSpacing: '-0.02em',
-              }}
-            >
-              {char === ' ' ? '\u00A0' : char}
-            </motion.span>
-          ))}
+        {(() => {
+          const headline = t('headline.pre');
+          const words = headline.split(' ');
+          // Precompute each word's starting character index to avoid mutations inside map
+          const wordOffsets = words.map((_, wi) =>
+            words.slice(0, wi).reduce((sum, w) => sum + w.length + 1, 0)
+          );
+          return words.map((word, wi) => (
+            <span key={`word-${wi}`} className="inline-flex whitespace-nowrap">
+              {word.split('').map((char, ci) => (
+                <motion.span
+                  key={`pre-${wi}-${ci}`}
+                  data-atom
+                  aria-hidden="true"
+                  {...(animated
+                    ? charReveal(reduced, wordOffsets[wi] + ci)
+                    : {})}
+                  className="inline-block"
+                  style={{
+                    fontSize: 'clamp(2.5rem, 6vw, 6rem)',
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </span>
+          ));
+        })()}
       </motion.p>
 
       {/* Headline Pro */}

@@ -35,11 +35,11 @@ export function HeroVideoPlayer() {
   return (
     <div
       ref={containerRef}
-      className="relative mt-12 w-full max-w-3xl lg:mt-0 lg:w-1/2"
+      className="relative mt-12 flex w-full justify-center lg:mt-0 lg:w-1/2"
     >
       <div
         className={cn(
-          'relative aspect-video w-full overflow-hidden rounded-2xl',
+          'relative aspect-[9/16] w-full max-w-xs overflow-hidden rounded-2xl',
           'bg-gradient-to-br from-white/5 to-white/[0.02]',
           'border border-white/10 shadow-2xl shadow-black/50',
           'transition-all duration-700',

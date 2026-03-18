@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect } from 'react';
 
-import { ALLOWED_DOMAINS, pageview } from '@/lib/analytics';
+import { pageview } from '@/lib/analytics';
 
 const Analytics = dynamic(
   () => import('@vercel/analytics/react').then((mod) => mod.Analytics),
@@ -58,14 +58,7 @@ export function AnaqioAnalytica() {
         <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
       )}
       {process.env.NEXT_PUBLIC_GA_ID && (
-        <GoogleAnalytics
-          gaId={process.env.NEXT_PUBLIC_GA_ID}
-          config={{
-            linker: {
-              domains: ALLOWED_DOMAINS,
-            },
-          }}
-        />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
       )}
     </>
   );

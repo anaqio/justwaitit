@@ -65,7 +65,7 @@ const WaitlistSection = dynamic(
     import('@/components/sections/WaitlistSection').then(
       (mod) => mod.WaitlistSection
     ),
-  { ssr: true }
+  { ssr: false }
 );
 const Footer = dynamic(
   () => import('@/components/layout/Footer').then((mod) => mod.Footer),
