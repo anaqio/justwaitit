@@ -6,7 +6,7 @@ test.describe('Analytics Utility', () => {
 
     await page.evaluate(() => {
       (window as any).gtag = function (...args: any[]) {
-        (window as any).gtagCalls = (window as any).gtagCalls || [];
+        (window as any).gtagCalls = (window as any).gtagCalls ?? [];
         (window as any).gtagCalls.push(args);
       };
     });

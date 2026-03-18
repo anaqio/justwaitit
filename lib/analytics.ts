@@ -33,7 +33,7 @@ export const pageview = (url: string) => {
 };
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
-export const event = (action: string, params?: Record<string, any>) => {
+export const event = (action: string, params?: Record<string, unknown>) => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', action, params);
   }
@@ -66,7 +66,7 @@ export const trackUserBehavior = {
 
   // Track form submissions with details
   trackFormSubmit: (formName: string, formData?: Record<string, string>) => {
-    const trackingData: Record<string, any> = {
+    const trackingData: Record<string, unknown> = {
       event_category: 'conversion',
       event_label: formName,
     };
@@ -121,7 +121,7 @@ interface EventParams {
   currency?: string;
   description?: string;
   fatal?: boolean;
-  items?: any[];
+  items?: unknown[];
   method?: string;
   number?: string;
   page_title?: string;
@@ -138,7 +138,7 @@ interface EventParams {
   event_category?: string;
   event_label?: string;
   non_interaction?: boolean;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface ConfigParams {
@@ -146,9 +146,9 @@ interface ConfigParams {
   page_location?: string;
   page_path?: string;
   send_page_view?: boolean;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface CustomParams {
-  [key: string]: any;
+  [key: string]: unknown;
 }

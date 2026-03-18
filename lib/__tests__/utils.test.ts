@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, beforeEach, afterAll } from 'vitest';
 
-import { cn, hasEnvVars } from '../utils';
+import { cn } from '../utils';
 
 describe('utils', () => {
   describe('cn', () => {
