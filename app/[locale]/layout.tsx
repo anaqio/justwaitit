@@ -42,20 +42,14 @@ export async function generateMetadata({
 
   return {
     title: t('title'),
-    description: t('description'),
+    description: t('desc'),
     alternates: {
-      canonical: `${defaultUrl}/${locale}`,
-      languages: {
-        'x-default': `${defaultUrl}/en-US`,
-        'en-US': `${defaultUrl}/en-US`,
-        'fr-FR': `${defaultUrl}/fr-FR`,
-        'ar-MA': `${defaultUrl}/ar-MA`,
-      },
+      canonical: defaultUrl,
     },
     openGraph: {
       title: t('title'),
-      description: t('description'),
-      url: `${defaultUrl}/${locale}`,
+      description: t('desc'),
+      url: defaultUrl,
       siteName: 'Anaqio',
       type: 'website',
       images: [
@@ -70,7 +64,7 @@ export async function generateMetadata({
     twitter: {
       card: 'summary_large_image',
       title: t('title'),
-      description: t('description'),
+      description: t('desc'),
       images: ['/twitter-image.png'],
     },
   };

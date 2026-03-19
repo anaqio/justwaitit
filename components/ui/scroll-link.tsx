@@ -2,6 +2,8 @@
 
 import { type ComponentPropsWithoutRef } from 'react';
 
+import { trackUserBehavior } from '@/lib/analytics';
+
 type ScrollLinkProps = ComponentPropsWithoutRef<'a'> & {
   targetId: string;
 };
@@ -23,6 +25,7 @@ export function ScrollLink({ targetId, children, ...props }: ScrollLinkProps) {
       {...props}
       onClick={(e) => {
         e.preventDefault();
+        trackUserBehavior.trackClick(`scroll_to_${targetId}`, 'navigation');
         document
           .getElementById(targetId)
           ?.scrollIntoView({ behavior: 'smooth' });
