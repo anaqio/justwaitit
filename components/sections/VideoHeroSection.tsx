@@ -33,28 +33,19 @@ export function VideoHeroSection() {
         ANAQIO — {t('headline.pre')} {t('headline.pro')}
       </h1>
 
-      {/* Layer 0: Background */}
+      {/* Layer 0: Subtle abstract background */}
       <div
         data-atom
         data-decorative
         aria-hidden="true"
-        className="hero-gradient pointer-events-none absolute inset-0 z-0"
-      />
-      <div
-        data-atom
-        data-decorative
-        aria-hidden="true"
-        className="animated-grid pointer-events-none absolute inset-0 z-0 opacity-25"
-      />
-
-      {/* Layer 1: Perspective Grid Overlay */}
-      <div
-        data-atom
-        data-decorative
-        aria-hidden="true"
-        className="absolute inset-0 z-10 overflow-hidden"
+        className="pointer-events-none absolute inset-0 z-0"
       >
-        <div className="perspective-grid mx-auto h-[160%] w-[120%]" />
+        {/* Soft gradient orb — top-left accent */}
+        <div className="absolute -left-[20%] -top-[10%] h-[60vh] w-[60vh] rounded-full bg-aq-blue/[0.07] blur-[120px]" />
+        {/* Soft gradient orb — bottom-right accent */}
+        <div className="absolute -bottom-[10%] -right-[15%] h-[50vh] w-[50vh] rounded-full bg-aq-purple/[0.05] blur-[100px]" />
+        {/* Center glow */}
+        <div className="absolute left-1/2 top-1/2 h-[40vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-aq-navy/[0.15] blur-[150px]" />
       </div>
 
       {/* Layer 2: Content - Two Column Layout */}
