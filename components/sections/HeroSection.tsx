@@ -155,7 +155,7 @@ export function HeroSection() {
               asChild
               className="group h-12 gap-3 rounded-xl px-8 text-[0.7rem] font-semibold uppercase tracking-[0.18em]"
             >
-              <ScrollLink targetId="waitlist">
+              <ScrollLink targetId="final-cta">
                 <span>{t('cta.act')}</span>
                 <ArrowDownRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
               </ScrollLink>

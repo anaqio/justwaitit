@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { ScrollLink } from '@/components/ui/scroll-link';
+import { Link } from '@/i18n/routing';
 import { ease } from '@/lib/motion';
 
 interface HeroCTAsProps {
@@ -31,10 +32,10 @@ export function HeroCTAs({ animated, tier }: HeroCTAsProps) {
           asChild
           className="group h-12 gap-3 rounded-xl px-8 text-[0.7rem] font-semibold uppercase tracking-[0.18em]"
         >
-          <ScrollLink targetId="waitlist">
+          <Link href="/early-access">
             <span>{t('cta.act')}</span>
             <ArrowDownRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
-          </ScrollLink>
+          </Link>
         </Button>
       </MagneticButton>
       <Button

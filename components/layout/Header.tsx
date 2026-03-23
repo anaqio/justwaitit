@@ -30,6 +30,7 @@ export function Header() {
     { label: t('nav.solution'), targetId: 'solution' },
     { label: t('nav.howItWorks'), targetId: 'how-it-works' },
     { label: t('nav.whyAnaqio'), targetId: 'why-anaqio' },
+    { label: t('nav.vision'), targetId: 'vision' },
   ] as const;
 
   const PAGE_LINKS = [
@@ -133,7 +134,7 @@ export function Header() {
         style={{
           transition: `1s all ${EASE_PILL}`,
           transitionDelay: isScrolled ? '0.5s' : '0.2s',
-          width: isScrolled ? '72px' : '560px',
+          width: isScrolled ? '72px' : '640px',
           height: '72px',
           marginTop: isScrolled ? '20px' : '8px',
           touchAction: 'manipulation',
@@ -339,7 +340,7 @@ export function Header() {
               {/* Lime CTA */}
               <button
                 className="mt-3 w-full rounded-full bg-gradient-to-r from-aq-lime to-[#a8d700] py-3 text-sm font-bold uppercase tracking-wider text-aq-ink transition-opacity hover:opacity-90"
-                onClick={() => scrollTo('waitlist')}
+                onClick={() => scrollTo('final-cta')}
                 aria-label={t('button.waitlist')}
               >
                 {t('button.waitlist')}
