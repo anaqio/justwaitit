@@ -34,7 +34,7 @@ export function HeroVideoPlayer() {
   return (
     <div
       ref={containerRef}
-      className="relative mt-12 flex w-full justify-center lg:mt-0 lg:w-5/12"
+      className="relative flex w-full justify-center lg:w-5/12"
     >
       <div
         className={cn(

@@ -60,7 +60,11 @@
       "terms": "Terms of Service",
       "privacy": "Privacy Policy",
       "cookies": "Cookie Policy",
-      "legalMentions": "Legal Mentions"
+      "legalMentions": "Legal Mentions",
+      "solution": "Solution",
+      "howItWorks": "How It Works",
+      "whyAnaqio": "Why Us",
+      "more": "More"
     },
     "button": {
       "waitlist": "Join Waitlist"

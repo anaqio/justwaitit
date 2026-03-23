@@ -55,6 +55,7 @@ export default {
         aq: {
           navy: '#1B2F52',
           gold: '#D4AF37',
+          lime: '#CCFF33',
           blue: '#2563EB',
           purple: '#7C3AED',
           white: '#F8F6F0',

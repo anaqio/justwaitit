@@ -60,7 +60,11 @@
       "terms": "Conditions d'Utilisation",
       "privacy": "Politique de Confidentialité",
       "cookies": "Politique des Cookies",
-      "legalMentions": "Mentions Légales"
+      "legalMentions": "Mentions Légales",
+      "solution": "Solution",
+      "howItWorks": "Comment ça marche",
+      "whyAnaqio": "Pourquoi Nous",
+      "more": "Plus"
     },
     "button": {
       "waitlist": "Rejoindre la Liste d'Attente"
