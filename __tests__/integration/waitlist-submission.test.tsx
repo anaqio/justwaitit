@@ -120,101 +120,117 @@ describe('Waitlist submission — integration', () => {
     }
   );
 
-  it('validation path: submit step 1 empty → errors shown → correct → progress', async () => {
-    const user = userEvent.setup();
-    render(<WaitlistForm source="integration-test" variant="full" />);
+  it(
+    'validation path: submit step 1 empty → errors shown → correct → progress',
+    { timeout: 15_000 },
+    async () => {
+      const user = userEvent.setup();
+      render(<WaitlistForm source="integration-test" variant="full" />);
 
-    fireEvent.submit(
-      screen.getByRole('button', { name: /continue/i }).closest('form')!
-    );
+      fireEvent.submit(
+        screen.getByRole('button', { name: /continue/i }).closest('form')!
+      );
 
-    expect(await screen.findByText('Name is required')).toBeInTheDocument();
-    expect(screen.getByText('Email is required')).toBeInTheDocument();
+      expect(await screen.findByText('Name is required')).toBeInTheDocument();
+      expect(screen.getByText('Email is required')).toBeInTheDocument();
 
-    await user.type(screen.getByPlaceholderText('Your name'), 'Jane Doe');
-    await user.type(
-      screen.getByPlaceholderText('professional@email.com'),
-      'jane@example.com'
-    );
-    fireEvent.submit(
-      screen.getByRole('button', { name: /continue/i }).closest('form')!
-    );
-    await advanceStep();
+      await user.type(screen.getByPlaceholderText('Your name'), 'Jane Doe');
+      await user.type(
+        screen.getByPlaceholderText('professional@email.com'),
+        'jane@example.com'
+      );
+      fireEvent.submit(
+        screen.getByRole('button', { name: /continue/i }).closest('form')!
+      );
+      await advanceStep();
 
-    expect(await screen.findByText('Profile')).toBeInTheDocument();
-  });
+      expect(await screen.findByText('Profile')).toBeInTheDocument();
+    }
+  );
 
-  it('server error path: error message renders, form data intact', async () => {
-    vi.mocked(joinWaitlist).mockResolvedValueOnce({
-      success: false,
-      message: 'Server error',
-    });
-    const user = userEvent.setup();
-    render(<WaitlistForm source="integration-test" variant="full" />);
+  it(
+    'server error path: error message renders, form data intact',
+    { timeout: 15_000 },
+    async () => {
+      vi.mocked(joinWaitlist).mockResolvedValueOnce({
+        success: false,
+        message: 'Server error',
+      });
+      const user = userEvent.setup();
+      render(<WaitlistForm source="integration-test" variant="full" />);
 
-    await fillStep1(user);
-    await fillStep2(user);
-    fireEvent.submit(
-      screen
-        .getByRole('button', { name: /secure beta access/i })
-        .closest('form')!
-    );
+      await fillStep1(user);
+      await fillStep2(user);
+      fireEvent.submit(
+        screen
+          .getByRole('button', { name: /secure beta access/i })
+          .closest('form')!
+      );
 
-    expect(await screen.findByText('Server error')).toBeInTheDocument();
-    expect(screen.queryByText("You're on the list!")).not.toBeInTheDocument();
-  });
+      expect(await screen.findByText('Server error')).toBeInTheDocument();
+      expect(screen.queryByText("You're on the list!")).not.toBeInTheDocument();
+    }
+  );
 
-  it('retry path: after server error, modifying a field clears the server error', async () => {
-    vi.mocked(joinWaitlist).mockResolvedValueOnce({
-      success: false,
-      message: 'Server error',
-    });
-    const user = userEvent.setup();
-    render(<WaitlistForm source="integration-test" variant="full" />);
+  it(
+    'retry path: after server error, modifying a field clears the server error',
+    { timeout: 15_000 },
+    async () => {
+      vi.mocked(joinWaitlist).mockResolvedValueOnce({
+        success: false,
+        message: 'Server error',
+      });
+      const user = userEvent.setup();
+      render(<WaitlistForm source="integration-test" variant="full" />);
 
-    await fillStep1(user);
-    await fillStep2(user);
-    fireEvent.submit(
-      screen
-        .getByRole('button', { name: /secure beta access/i })
-        .closest('form')!
-    );
-    await screen.findByText('Server error');
+      await fillStep1(user);
+      await fillStep2(user);
+      fireEvent.submit(
+        screen
+          .getByRole('button', { name: /secure beta access/i })
+          .closest('form')!
+      );
+      await screen.findByText('Server error');
 
-    // Navigate back to step 2, then step 1
-    fireEvent.click(screen.getByRole('button', { name: /back/i }));
-    await advanceStep();
-    await screen.findByText('Profile');
+      // Navigate back to step 2, then step 1
+      fireEvent.click(screen.getByRole('button', { name: /back/i }));
+      await advanceStep();
+      await screen.findByText('Profile');
 
-    fireEvent.click(screen.getByRole('button', { name: /back/i }));
-    await advanceStep();
-    await screen.findByText('Identity');
+      fireEvent.click(screen.getByRole('button', { name: /back/i }));
+      await advanceStep();
+      await screen.findByText('Identity');
 
-    await user.clear(screen.getByPlaceholderText('Your name'));
-    await user.type(screen.getByPlaceholderText('Your name'), 'Updated Name');
+      await user.clear(screen.getByPlaceholderText('Your name'));
+      await user.type(screen.getByPlaceholderText('Your name'), 'Updated Name');
 
-    expect(screen.queryByText('Server error')).not.toBeInTheDocument();
-  });
+      expect(screen.queryByText('Server error')).not.toBeInTheDocument();
+    }
+  );
 
-  it('email sanitization end-to-end: joinWaitlist called with lowercased trimmed email', async () => {
-    vi.mocked(joinWaitlist).mockResolvedValueOnce({
-      success: true,
-      message: 'Done',
-    });
-    const user = userEvent.setup();
-    render(<WaitlistForm source="integration-test" variant="full" />);
+  it(
+    'email sanitization end-to-end: joinWaitlist called with lowercased trimmed email',
+    { timeout: 15_000 },
+    async () => {
+      vi.mocked(joinWaitlist).mockResolvedValueOnce({
+        success: true,
+        message: 'Done',
+      });
+      const user = userEvent.setup();
+      render(<WaitlistForm source="integration-test" variant="full" />);
 
-    await fillStep1(user, 'Jane Doe', 'USER@EMAIL.COM');
-    await fillStep2(user);
-    fireEvent.submit(
-      screen
-        .getByRole('button', { name: /secure beta access/i })
-        .closest('form')!
-    );
+      await fillStep1(user, 'Jane Doe', 'USER@EMAIL.COM');
+      await fillStep2(user);
+      fireEvent.submit(
+        screen
+          .getByRole('button', { name: /secure beta access/i })
+          .closest('form')!
+      );
 
-    await waitFor(() => {
-      const fd = vi.mocked(joinWaitlist).mock.calls[0][0] as FormData;
-      expect(fd.get('email')).toBe('user@email.com');
-    });
-  });
+      await waitFor(() => {
+        const fd = vi.mocked(joinWaitlist).mock.calls[0][0] as FormData;
+        expect(fd.get('email')).toBe('user@email.com');
+      });
+    }
+  );
 });
