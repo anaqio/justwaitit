@@ -1,5 +1,6 @@
 'use server';
 
+import { after } from 'next/server';
 import { z } from 'zod';
 
 import { createClient } from '@/lib/supabase/server';
@@ -108,10 +109,12 @@ export async function joinWaitlist(formData: FormData) {
       };
     }
 
-    // Fire Brevo welcome sequence — do not await (non-blocking)
-    void triggerBrevoWelcome(
-      email.toLowerCase().trim(),
-      full_name.trim().split(' ')[0] ?? full_name.trim()
+    // Fire Brevo welcome sequence after response is sent
+    after(() =>
+      triggerBrevoWelcome(
+        email.toLowerCase().trim(),
+        full_name.trim().split(' ')[0] ?? full_name.trim()
+      )
     );
 
     return {

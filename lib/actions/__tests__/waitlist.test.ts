@@ -9,6 +9,11 @@ vi.mock('@/lib/supabase/server', () => ({
   createClient: vi.fn(),
 }));
 
+// Mock next/server's after() — it's not available in test env
+vi.mock('next/server', () => ({
+  after: (fn: () => void) => fn(),
+}));
+
 describe('joinWaitlist action', () => {
   let mockInsert: ReturnType<typeof vi.fn>;
   let mockFrom: ReturnType<typeof vi.fn>;
@@ -22,8 +27,9 @@ describe('joinWaitlist action', () => {
       from: mockFrom,
     } as any);
 
-    // Suppress console.error in tests
+    // Suppress console noise in tests
     vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
   });
 
   afterEach(() => {
@@ -145,5 +151,51 @@ describe('joinWaitlist action', () => {
       'Something went wrong. Please try again later.'
     );
     expect(console.error).toHaveBeenCalled();
+  });
+
+  it('includes source field in inserted row', async () => {
+    mockInsert.mockResolvedValue({ error: null });
+
+    const formData = new FormData();
+    formData.append('email', 'test@example.com');
+    formData.append('full_name', 'Jane Doe');
+    formData.append('role', 'Brand');
+    formData.append('source', 'hero');
+
+    await joinWaitlist(formData);
+
+    expect(mockInsert).toHaveBeenCalledWith(
+      expect.objectContaining({ source: 'hero' })
+    );
+  });
+
+  it('defaults source to "home" when not provided', async () => {
+    mockInsert.mockResolvedValue({ error: null });
+
+    const formData = new FormData();
+    formData.append('email', 'test@example.com');
+    formData.append('full_name', 'Jane Doe');
+    formData.append('role', 'Brand');
+
+    await joinWaitlist(formData);
+
+    expect(mockInsert).toHaveBeenCalledWith(
+      expect.objectContaining({ source: 'home' })
+    );
+  });
+
+  it('lowercases email in the insert payload', async () => {
+    mockInsert.mockResolvedValue({ error: null });
+
+    const formData = new FormData();
+    formData.append('email', 'UPPER@EXAMPLE.COM');
+    formData.append('full_name', 'Jane Doe');
+    formData.append('role', 'Brand');
+
+    await joinWaitlist(formData);
+
+    expect(mockInsert).toHaveBeenCalledWith(
+      expect.objectContaining({ email: 'upper@example.com' })
+    );
   });
 });

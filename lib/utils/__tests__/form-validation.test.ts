@@ -137,5 +137,15 @@ describe('form-validation', () => {
       expect(result.isValid).toBe(false);
       expect(result.errors).toHaveProperty('company', 'Company is too short');
     });
+
+    it('does not mutate the input formData object (purity)', () => {
+      const formData = Object.freeze({
+        fullName: 'John Doe',
+        email: 'john@example.com',
+      });
+      expect(() =>
+        validateStep(mockStep, formData as Record<string, string>)
+      ).not.toThrow();
+    });
   });
 });

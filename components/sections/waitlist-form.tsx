@@ -77,6 +77,15 @@ export function WaitlistForm({
     });
   };
 
+  // Clear server error when user modifies any field
+  const handleFieldChange = (name: string, value: string) => {
+    if (status === 'error') {
+      setStatus('idle');
+      setMessage('');
+    }
+    updateField(name, value);
+  };
+
   const handleMultiStepSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -237,7 +246,7 @@ export function WaitlistForm({
           step={steps[currentStep - 1]}
           formData={formData}
           errors={errors}
-          onChange={updateField}
+          onChange={handleFieldChange}
           onBlur={markFieldTouched}
           disabled={isPending || isAnimating}
         />

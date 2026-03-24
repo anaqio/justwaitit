@@ -192,4 +192,57 @@ describe('useMultiStepForm', () => {
 
     expect(result.current.isAnimating).toBe(true);
   });
+
+  it('resetForm returns to step 1 and clears data, errors, touched', () => {
+    const { result } = renderHook(() =>
+      useMultiStepForm(mockSteps, 'reset-test-key', { field1: 'hello' })
+    );
+
+    act(() => {
+      result.current.next();
+    });
+    act(() => {
+      result.current.resetForm();
+    });
+
+    expect(result.current.currentStep).toBe(1);
+    // resetForm restores to initialData when provided
+    expect(result.current.formData).toEqual({ field1: 'hello' });
+    expect(result.current.errors).toEqual({});
+    expect(result.current.touched).toEqual({});
+  });
+
+  it('formData persists across step transitions (forward and back)', () => {
+    const { result } = renderHook(() => useMultiStepForm(mockSteps));
+
+    act(() => {
+      result.current.updateField('field1', 'persisted value');
+    });
+    act(() => {
+      result.current.next();
+    });
+    act(() => {
+      result.current.previous();
+    });
+
+    expect(result.current.formData.field1).toBe('persisted value');
+  });
+
+  it('step index always stays within [1, totalSteps] after random navigation', () => {
+    const { result } = renderHook(() => useMultiStepForm(mockSteps));
+
+    const actions = Array.from({ length: 50 }, (_, i) =>
+      i % 3 === 0 ? 'prev' : 'next'
+    );
+    actions.forEach((action) => {
+      act(() => {
+        if (action === 'next') result.current.next();
+        else result.current.previous();
+      });
+    });
+
+    const { currentStep, totalSteps } = result.current;
+    expect(currentStep).toBeGreaterThanOrEqual(1);
+    expect(currentStep).toBeLessThanOrEqual(totalSteps);
+  });
 });
