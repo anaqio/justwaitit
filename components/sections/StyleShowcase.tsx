@@ -78,7 +78,7 @@ export function StyleShowcase() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease }}
-              className="text-aq-gold font-label text-xs uppercase tracking-label"
+              className="font-label text-xs uppercase tracking-label text-aq-gold"
             >
               {t('eyebrow')}
             </motion.p>
