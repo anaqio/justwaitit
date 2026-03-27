@@ -25,7 +25,6 @@ const WaitlistSchema = z.object({
     .transform((val) => (val?.trim() === '' ? null : val)),
   aesthetic: z.string().optional(),
   source: z.string().default('home'),
-  // UTM attribution fields
   utm_source: z.string().max(100).optional().nullable(),
   utm_medium: z.string().max(100).optional().nullable(),
   utm_campaign: z.string().max(100).optional().nullable(),
@@ -85,21 +84,8 @@ export async function joinWaitlist(formData: FormData) {
     };
   }
 
-  const {
-    email,
-    full_name,
-    role,
-    company,
-    revenue_range,
-    aesthetic,
-    source,
-    utm_source,
-    utm_medium,
-    utm_campaign,
-    utm_content,
-    utm_term,
-    referrer,
-  } = validatedFields.data;
+  const { email, full_name, role, company, revenue_range, aesthetic, source } =
+    validatedFields.data;
 
   try {
     const supabase = await createClient();
