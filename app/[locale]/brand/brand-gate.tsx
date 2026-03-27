@@ -123,37 +123,37 @@ export function BrandGate() {
             font-family: var(--font-inter), sans-serif;
           }
         `,
-          }}
-        />
-        <div className="gate-card">
-          <div className="gate-logo">Anaqio</div>
-          <h1 className="gate-title">Brand Identity Guidelines</h1>
-          <p className="gate-desc">
-            This document is confidential and contains proprietary brand assets.
-            Please enter the access key to continue.
-          </p>
-          <form onSubmit={handleLogin}>
-            <input
-              type="password"
-              className="gate-input"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoFocus
-              disabled={isPending}
-            />
-            {error && <div className="error-msg">Invalid access key</div>}
-            <button type="submit" className="gate-btn" disabled={isPending}>
-              {isPending ? 'Unlocking...' : 'Unlock Guidelines'}
-            </button>
-          </form>
-          <Link
-            href="/"
-            className="mt-8 inline-block text-[11px] uppercase tracking-[0.1em] text-[#5a5950] transition-colors hover:text-[#c9a96e]"
-          >
-            ← Back to Home
-          </Link>
-        </div>
+        }}
+      />
+      <div className="gate-card">
+        <div className="gate-logo">Anaqio</div>
+        <h1 className="gate-title">Brand Identity Guidelines</h1>
+        <p className="gate-desc">
+          This document is confidential and contains proprietary brand assets.
+          Please enter the access key to continue.
+        </p>
+        <form onSubmit={handleLogin}>
+          <input
+            type="password"
+            className="gate-input"
+            placeholder="••••••••"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            autoFocus
+            disabled={isPending}
+          />
+          {error && <div className="error-msg">Invalid access key</div>}
+          <button type="submit" className="gate-btn" disabled={isPending}>
+            {isPending ? 'Unlocking...' : 'Unlock Guidelines'}
+          </button>
+        </form>
+        <Link
+          href="/"
+          className="mt-8 inline-block text-[11px] uppercase tracking-[0.1em] text-[#5a5950] transition-colors hover:text-[#c9a96e]"
+        >
+          ← Back to Home
+        </Link>
       </div>
+    </div>
   );
 }
