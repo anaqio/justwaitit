@@ -10,7 +10,6 @@ import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
-// ─── Animation Variant Types ────────────────────────────────────────────────
 export type LogoAnimationVariant =
   | 'none'
   | 'stagger'
@@ -23,8 +22,6 @@ export type LogoAnimationVariant =
   | 'lock-in';
 
 export interface AnaqioTypographyLogoProps extends React.SVGProps<SVGSVGElement> {
-  /** @deprecated Use `variant` instead */
-  animated?: boolean;
   variant?: LogoAnimationVariant;
   /**
    * Loading progress (0–100). Only used when `variant="outline-fill"`.
@@ -38,9 +35,9 @@ export interface AnaqioTypographyLogoProps extends React.SVGProps<SVGSVGElement>
    * to avoid React hydration mismatches caused by useId() counter drift.
    */
   instanceId?: string;
+  animated?: boolean;
 }
 
-// ─── Letter Path Data ───────────────────────────────────────────────────────
 const letterPaths = [
   {
     id: 'letter-e',
@@ -75,7 +72,6 @@ const letterPaths = [
   },
 ];
 
-// ─── Gradient Definitions ───────────────────────────────────────────────────
 const gradientConfigs: { id: string; transform: string }[] = [
   { id: 'a', transform: 'matrix(114 0 0 -114 461 298)' },
   { id: 'b', transform: 'matrix(83 0 0 -83 213 308)' },
@@ -94,7 +90,6 @@ const gradientStops = [
   { offset: '1', color: '#6f47a7' },
 ];
 
-// ─── Shared SVG Defs ────────────────────────────────────────────────────────
 function LogoGradientDefs({ instanceId }: { instanceId: string }) {
   return (
     <>
@@ -119,7 +114,6 @@ function LogoGradientDefs({ instanceId }: { instanceId: string }) {
   );
 }
 
-// ─── Static Paths ───────────────────────────────────────────────────────────
 function StaticLetters({ instanceId }: { instanceId: string }) {
   return (
     <>
@@ -161,12 +155,6 @@ function StaggerLetters({ instanceId }: { instanceId: string }) {
   );
 }
 
-// ─── Variant: Outline → Fill (Progress-driven) ─────────────────────────────
-// Phase 1 (progress 0–40): stroke draws on via pathLength 0→1
-// Phase 2 (progress 40–100): fill fades in, stroke fades out
-// Driven entirely by a MotionValue derived from the `progress` prop,
-// so no JS-per-frame updates — only transform + opacity.
-
 function OutlineFillLetter({
   letter,
   index,
@@ -178,24 +166,18 @@ function OutlineFillLetter({
   instanceId: string;
   progressMv: ReturnType<typeof useMotionValue<number>>;
 }) {
-  // Stagger each letter slightly within the 0–40 phase
   const staggerStart = index * 0.04; // 0, 0.04, 0.08 … max ~0.24
   const strokeEnd = 0.4;
-
-  // Stroke draws on during phase 1 (0–40% of progress)
   const pathLength = useTransform(
     progressMv,
     [staggerStart * 100, strokeEnd * 100],
     [0, 1]
   );
   const strokeOpacity = useTransform(progressMv, [40, 70], [1, 0]);
-
-  // Fill fades in during phase 2 (40–100% of progress)
   const fillOpacity = useTransform(progressMv, [40, 80], [0, 1]);
 
   return (
     <g>
-      {/* Outline stroke layer */}
       <motion.path
         d={letter.d}
         transform="matrix(1 0 0 -1 0 794)"
@@ -204,7 +186,6 @@ function OutlineFillLetter({
         strokeWidth="1.5"
         style={{ pathLength, opacity: strokeOpacity }}
       />
-      {/* Gradient fill layer */}
       <motion.path
         d={letter.d}
         transform="matrix(1 0 0 -1 0 794)"
@@ -255,7 +236,6 @@ function OutlineFillLetters({
   );
 }
 
-// ─── Variant: Outline Only ─────────────────────────────────────────────────
 function OutlineLetters({ instanceId: _instanceId }: { instanceId: string }) {
   return (
     <>
@@ -284,7 +264,6 @@ function OutlineLetters({ instanceId: _instanceId }: { instanceId: string }) {
   );
 }
 
-// ─── Variant: Slow Continuous Spin ──────────────────────────────────────────
 function SpinLetters({ instanceId }: { instanceId: string }) {
   return (
     <motion.g
@@ -298,7 +277,6 @@ function SpinLetters({ instanceId }: { instanceId: string }) {
   );
 }
 
-// ─── Variant: Spring Bounce on Hover ────────────────────────────────────────
 function SpringHoverLetters({ instanceId }: { instanceId: string }) {
   return (
     <motion.g
@@ -328,7 +306,6 @@ function SpringHoverLetters({ instanceId }: { instanceId: string }) {
   );
 }
 
-// ─── Variant: Cinematic Reveal ──────────────────────────────────────────────
 function CinematicRevealLetters({ instanceId }: { instanceId: string }) {
   return (
     <>
@@ -354,7 +331,6 @@ function CinematicRevealLetters({ instanceId }: { instanceId: string }) {
   );
 }
 
-// ─── Variant: Breathing Scale ───────────────────────────────────────────────
 function BreathingLetters({ instanceId }: { instanceId: string }) {
   return (
     <motion.g
@@ -367,7 +343,6 @@ function BreathingLetters({ instanceId }: { instanceId: string }) {
   );
 }
 
-// ─── Variant: Lock-In Snap ──────────────────────────────────────────────────
 function LockInLetters({ instanceId }: { instanceId: string }) {
   return (
     <>
@@ -395,13 +370,12 @@ function LockInLetters({ instanceId }: { instanceId: string }) {
   );
 }
 
-// ─── Main Component ─────────────────────────────────────────────────────────
 export function AnaqioTypographyLogo({
-  animated = false,
   variant,
   progress = 0,
   instanceId: instanceIdProp,
   className,
+  animated = false,
   ...props
 }: AnaqioTypographyLogoProps) {
   // Backwards compat: `animated` maps to 'stagger'
