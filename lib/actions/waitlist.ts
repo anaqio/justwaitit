@@ -47,10 +47,8 @@ export async function joinWaitlist(formData: FormData) {
       email: email.toLowerCase().trim(),
       full_name: full_name.trim(),
       role: role,
-      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-      company: company?.trim() || null,
-      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-      revenue_range: revenue_range || null,
+      company: company?.trim() ?? null,
+      revenue_range: revenue_range ?? null,
       preferences: aesthetic ? { aesthetic } : {},
       source: source,
     });
