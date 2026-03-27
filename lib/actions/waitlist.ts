@@ -15,20 +15,19 @@ const WaitlistSchema = z.object({
   revenue_range: z.string().optional().nullable(),
   aesthetic: z.string().optional(),
   source: z.string().default('home'),
+  // UTM attribution fields
+  utm_source: z.string().max(100).optional().nullable(),
+  utm_medium: z.string().max(100).optional().nullable(),
+  utm_campaign: z.string().max(100).optional().nullable(),
+  utm_content: z.string().max(100).optional().nullable(),
+  utm_term: z.string().max(100).optional().nullable(),
+  referrer: z.string().max(500).optional().nullable(),
 });
 
 export async function joinWaitlist(formData: FormData) {
-  const rawData = {
-    email: formData.get('email'),
-    full_name: formData.get('full_name'),
-    role: formData.get('role'),
-    company: formData.get('company'),
-    revenue_range: formData.get('revenue_range'),
-    aesthetic: formData.get('aesthetic'),
-    source: formData.get('source'),
-  };
-
-  const validatedFields = WaitlistSchema.safeParse(rawData);
+  const validatedFields = WaitlistSchema.safeParse(
+    Object.fromEntries(formData.entries())
+  );
 
   if (!validatedFields.success) {
     return {
@@ -37,8 +36,21 @@ export async function joinWaitlist(formData: FormData) {
     };
   }
 
-  const { email, full_name, role, company, revenue_range, aesthetic, source } =
-    validatedFields.data;
+  const {
+    email,
+    full_name,
+    role,
+    company,
+    revenue_range,
+    aesthetic,
+    source,
+    utm_source,
+    utm_medium,
+    utm_campaign,
+    utm_content,
+    utm_term,
+    referrer,
+  } = validatedFields.data;
 
   try {
     const supabase = await createClient();
