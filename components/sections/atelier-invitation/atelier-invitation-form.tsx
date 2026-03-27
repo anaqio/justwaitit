@@ -165,9 +165,12 @@ export function AtelierInvitationForm() {
 
   // Auto-focus when step changes
   useEffect(() => {
+    // Prevent auto-focus on initial mount to avoid stealing scroll from the top of the page
+    if (stepIndex === 0) return;
+
     const timer = setTimeout(() => {
-      inputRef.current?.focus();
-      selectRef.current?.focus();
+      inputRef.current?.focus({ preventScroll: true });
+      selectRef.current?.focus({ preventScroll: true });
     }, 380);
     return () => clearTimeout(timer);
   }, [stepIndex]);
