@@ -238,7 +238,7 @@ function OutlineFillLetters({
   }, [progress, internalProgressMv]);
 
   const progressMv =
-    typeof progress === 'number' ? internalProgressMv : progress;
+    progress && typeof progress !== 'number' ? progress : internalProgressMv;
 
   return (
     <>

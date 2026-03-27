@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 
 const WaitlistSchema = z.object({
-  email: z.string().email('Please provide a valid email address.'),
+  email: z.email('Please provide a valid email address.'),
   full_name: z
     .string()
     .min(2, 'Name is too short.')
