@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 
 const WaitlistSchema = z.object({
-  email: z.string().email('Please provide a valid email address.'),
+  email: z.email('Please provide a valid email address.'),
   full_name: z
     .string()
     .min(2, 'Name is too short.')
@@ -25,6 +25,12 @@ const WaitlistSchema = z.object({
     .transform((val) => (val?.trim() === '' ? null : val)),
   aesthetic: z.string().optional(),
   source: z.string().default('home'),
+  utm_source: z.string().max(100).optional().nullable(),
+  utm_medium: z.string().max(100).optional().nullable(),
+  utm_campaign: z.string().max(100).optional().nullable(),
+  utm_content: z.string().max(100).optional().nullable(),
+  utm_term: z.string().max(100).optional().nullable(),
+  referrer: z.string().max(500).optional().nullable(),
 });
 
 /**
@@ -67,17 +73,9 @@ async function triggerBrevoWelcome(
 }
 
 export async function joinWaitlist(formData: FormData) {
-  const rawData = {
-    email: formData.get('email')?.toString().trim() ?? '',
-    full_name: formData.get('full_name')?.toString().trim() ?? '',
-    role: formData.get('role')?.toString().trim() ?? '',
-    company: formData.get('company')?.toString().trim() ?? null,
-    revenue_range: formData.get('revenue_range')?.toString().trim() ?? null,
-    aesthetic: formData.get('aesthetic')?.toString().trim() ?? undefined,
-    source: formData.get('source')?.toString().trim() ?? undefined,
-  };
-
-  const validatedFields = WaitlistSchema.safeParse(rawData);
+  const validatedFields = WaitlistSchema.safeParse(
+    Object.fromEntries(formData.entries())
+  );
 
   if (!validatedFields.success) {
     return {
@@ -92,15 +90,24 @@ export async function joinWaitlist(formData: FormData) {
   try {
     const supabase = await createClient();
 
-    const { error } = await supabase.from('waitlist').insert({
+    const payload: any = {
       email: email.toLowerCase().trim(),
       full_name: full_name.trim(),
       role: role,
-      company: company?.trim() ?? null,
-      revenue_range: revenue_range ?? null,
       preferences: aesthetic ? { aesthetic } : {},
       source: source,
-    });
+    };
+
+    const trimmedCompany = company?.trim();
+    if (trimmedCompany) {
+      payload.company = trimmedCompany;
+    }
+
+    if (revenue_range) {
+      payload.revenue_range = revenue_range;
+    }
+
+    const { error } = await supabase.from('waitlist').insert(payload);
 
     if (error) {
       if (error.code === '23505') {

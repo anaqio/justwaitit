@@ -42,21 +42,16 @@ export function HeroSection() {
       aria-labelledby="hero-heading"
       className="relative flex min-h-[100dvh] flex-col overflow-hidden"
     >
-      {/* Semantic duplicate for screen readers / SEO */}
       <h1 id="hero-heading" className="sr-only">
         ANAQIO — {t('headline.pre')} {t('headline.pro')}
       </h1>
-
-      {/* Layer 0: Background */}
       <div
         data-atom
         data-decorative
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0"
       />
-      {/* Layer 2: Content Column */}
       <div className="relative z-20 mx-auto flex w-full flex-1 flex-col items-center justify-center px-6 pt-24 text-center sm:px-12">
-        {/* Atom A: pre — charReveal per character */}
         <motion.p
           data-atom
           aria-hidden="true"
@@ -96,7 +91,6 @@ export function HeroSection() {
                   </motion.span>
                 ))}
         </motion.p>
-        {/* Atom B: pro — word-by-word y: 20→0, gradient italic */}
         <p
           data-atom
           aria-hidden="true"
@@ -120,7 +114,6 @@ export function HeroSection() {
             </motion.span>
           ))}
         </p>
-
         <p
           className="mt-8 text-sm leading-[1.8] text-muted-foreground sm:text-[0.93rem]"
           aria-hidden="true"
@@ -139,8 +132,6 @@ export function HeroSection() {
           ))}
         </p>
       </div>
-
-      {/* Layer 3: Interactive atoms (Buttons) */}
       <div className="relative z-30 mb-12 mt-8 flex w-full flex-col items-center justify-center gap-4 px-6 sm:mb-16">
         <motion.div
           data-atom
@@ -170,8 +161,6 @@ export function HeroSection() {
           </Button>
         </motion.div>
       </div>
-
-      {/* Scroll indicator atom */}
       <motion.div
         data-atom
         data-decorative
