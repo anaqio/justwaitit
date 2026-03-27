@@ -63,6 +63,18 @@ export function Header() {
    */
   const pillCollapsed = isScrolled && !isPillForced;
 
+  /* ─── Body scroll lock for mobile menu ─── */
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+
   /* ─── Scroll: collapse pill at 100px, close forced pill & mobile menu ─── */
   useEffect(() => {
     const onScroll = () => {
@@ -70,7 +82,8 @@ export function Header() {
       setIsScrolled(current > 100);
       lastScrollYRef.current = current;
       if (isPillForced) setIsPillForced(false);
-      if (isMenuOpen) setIsMenuOpen(false);
+      // Removed: if (isMenuOpen) setIsMenuOpen(false);
+      // Closing on scroll is bad for full-screen menus on mobile since mobile browsers fire scroll events when top bars hide/show.
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -314,7 +327,7 @@ export function Header() {
       {/* ─── Mobile: glass hamburger ─── */}
       <button
         className={cn(
-          'pointer-events-auto absolute end-4 top-5 flex h-11 w-11 items-center justify-center md:hidden',
+          'pointer-events-auto absolute end-4 top-5 z-[9999] flex h-11 w-11 items-center justify-center md:hidden',
           'rounded-full bg-[#131b2e]/70 shadow-lg backdrop-blur-[20px]',
           'text-white/60 transition-all duration-300 hover:text-white'
         )}
@@ -341,45 +354,53 @@ export function Header() {
       {/* ─── Mobile dropdown menu ─── */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
+          <motion.nav
+            role="navigation"
+            aria-label={t('nav.about') ? 'Mobile' : 'Mobile'} // Fallback since we don't know translations map exactly
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="pointer-events-auto mx-auto mt-3 max-w-sm rounded-2xl bg-[#131b2e]/95 p-5 shadow-[0_16px_48px_rgba(0,0,0,0.4)] backdrop-blur-[20px] md:hidden"
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="pointer-events-auto fixed inset-0 z-[9998] flex h-[100dvh] w-full flex-col overflow-y-auto bg-[#1b2f52] px-6 pb-12 pt-28 md:hidden"
           >
-            <div className="flex flex-col gap-1 text-sm font-medium">
+            <div className="flex flex-col gap-6 text-center">
               {/* Section scroll links */}
-              {SECTION_LINKS.map(({ label, targetId }) => (
-                <a
-                  key={targetId}
-                  href={`#${targetId}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollTo(targetId);
-                  }}
-                  className="rounded-xl px-4 py-2.5 text-white/70 transition-colors hover:bg-white/[0.05] hover:text-aq-gold"
-                >
-                  {label}
-                </a>
-              ))}
+              <div className="flex flex-col gap-5">
+                {SECTION_LINKS.map(({ label, targetId }) => (
+                  <a
+                    key={targetId}
+                    href={`#${targetId}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollTo(targetId);
+                    }}
+                    className="text-2xl font-bold tracking-wide text-white transition-colors hover:text-aq-gold active:text-aq-gold"
+                  >
+                    {label}
+                  </a>
+                ))}
+              </div>
 
               {/* Lime CTA */}
-              <button
-                className="mt-3 w-full rounded-full bg-gradient-to-r from-aq-lime to-[#a8d700] py-3 text-sm font-bold uppercase tracking-wider text-aq-ink transition-opacity hover:opacity-90"
-                onClick={() => scrollTo('final-cta')}
-                aria-label={t('button.waitlist')}
-              >
-                {t('button.waitlist')}
-              </button>
+              <div className="mx-auto mt-4 w-full max-w-[280px]">
+                <button
+                  className="w-full rounded-full bg-gradient-to-r from-aq-lime to-[#a8d700] py-4 text-[15px] font-bold uppercase tracking-wider text-black transition-opacity hover:opacity-90 active:scale-[0.98]"
+                  onClick={() => scrollTo('final-cta')}
+                  aria-label={t('button.waitlist')}
+                >
+                  {t('button.waitlist')}
+                </button>
+              </div>
+
+              <hr className="my-5 w-full border-t border-white/10" />
 
               {/* Page links */}
-              <div className="mt-3 pt-3">
+              <div className="flex flex-col gap-5">
                 {PAGE_LINKS.map(({ label, href }) => (
                   <Link
                     key={href}
                     href={href}
-                    className="block rounded-xl px-4 py-2.5 text-white/70 transition-colors hover:bg-white/[0.05] hover:text-aq-gold"
+                    className="text-[20px] font-medium text-white/80 transition-colors hover:text-white"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {label}
@@ -388,15 +409,15 @@ export function Header() {
               </div>
 
               {/* Legal */}
-              <div className="mt-2 pt-2">
-                <p className="mb-1 px-4 text-[10px] font-medium uppercase tracking-[0.2em] text-white/25">
+              <div className="mt-8 flex flex-col gap-4">
+                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/30">
                   {t('nav.legal')}
                 </p>
                 {LEGAL_LINKS.map(({ label, href }) => (
                   <Link
                     key={href}
                     href={href}
-                    className="block rounded-xl px-4 py-2 text-xs text-white/40 transition-colors hover:bg-white/[0.05] hover:text-aq-gold"
+                    className="text-[15px] text-white/60 transition-colors hover:text-white"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {label}
@@ -405,11 +426,11 @@ export function Header() {
               </div>
 
               {/* Locale */}
-              <div className="mt-3 flex justify-center pt-3">
+              <div className="mt-10 flex justify-center pb-8">
                 <LocaleSwitcher />
               </div>
             </div>
-          </motion.div>
+          </motion.nav>
         )}
       </AnimatePresence>
     </header>
