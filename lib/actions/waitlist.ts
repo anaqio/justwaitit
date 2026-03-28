@@ -104,7 +104,23 @@ export async function joinWaitlist(formData: FormData) {
   try {
     const supabase = await createClient();
 
-    const payload: any = {
+    type WaitlistPayload = {
+      email: string;
+      full_name: string;
+      role: string;
+      preferences: { aesthetic?: string };
+      source: string;
+      utm_source?: string | null;
+      utm_medium?: string | null;
+      utm_campaign?: string | null;
+      utm_content?: string | null;
+      utm_term?: string | null;
+      referrer?: string | null;
+      company?: string | null;
+      revenue_range?: string | null;
+    };
+
+    const payload: WaitlistPayload = {
       email: email.toLowerCase().trim(),
       full_name: full_name.trim(),
       role: role,

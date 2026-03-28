@@ -5,6 +5,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- `lib/content/` (15 files) merged into `lib/data/` — all section text, navigation, llms routes, atelier configs, and type definitions now live in a single canonical data directory
+- `lib/motion.ts` → `lib/data/motion.ts` — animation presets colocated with other static data
+- `lib/tokens.ts` → `lib/data/tokens.ts` — design tokens colocated with other static data
+- All `@/lib/content/` and `@/lib/motion` import paths updated across 20+ consumers
+
 ### Added
 
 - `AtelierForm` component (`components/sections/waitlist/atelier-form.tsx`) — shadcn Drawer wrapper around `AtelierInvitationForm`; accepts optional `trigger` prop; uses `useToggle` from `@uidotdev/usehooks` for open state; `DataManager` for bulk card translation access
