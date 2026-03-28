@@ -1,6 +1,6 @@
 import { Briefcase, LayoutGrid, Palette, Store } from 'lucide-react';
 
-import type { FeatureItem } from '@/lib/content/types';
+import type { FeatureItem } from '@/lib/data/types';
 
 export const WhoItsForSectionText = {
   eyebrow: "Who It's For",

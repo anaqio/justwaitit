@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { ScrollLink } from '@/components/ui/scroll-link';
 import { Link } from '@/i18n/routing';
-import { ease } from '@/lib/motion';
+import { ease } from '@/lib/data/motion';
 
 interface HeroCTAsProps {
   animated: boolean;

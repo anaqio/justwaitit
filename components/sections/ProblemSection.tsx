@@ -12,8 +12,8 @@ import { useTranslations } from 'next-intl';
 import { useRef } from 'react';
 
 import { useDeviceTier } from '@/hooks/use-device-tier';
-import { NANOBANANA_VISUALS } from '@/lib/content/nanobanana-assets';
-import { clipReveal } from '@/lib/motion';
+import { clipReveal } from '@/lib/data/motion';
+import { NANOBANANA_VISUALS } from '@/lib/data/nanobanana-assets';
 
 export function ProblemSection() {
   const t = useTranslations('landing.problem');

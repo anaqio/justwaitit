@@ -14,6 +14,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { AnaqioTypographyLogo } from '@/components/ui/anaqio-typography-logo';
 import { useDeviceTier } from '@/hooks/use-device-tier';
+import { ease } from '@/lib/data/motion';
 import {
   getConnectionTier,
   getBytesDecoded,
@@ -21,7 +22,6 @@ import {
   getSafetyTimeout,
   resolveStage,
 } from '@/lib/loading-stages';
-import { ease } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 
 // ─── Component ───────────────────────────────────────────────────────────────

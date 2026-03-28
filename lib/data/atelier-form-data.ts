@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { createElement, type ReactNode } from 'react';
 
-import type { AtelierIconName } from '@/lib/content/atelier-invitation';
+import type { AtelierIconName } from '@/lib/data/atelier-invitation';
 import type { Variants } from 'framer-motion';
 
 const iconClass = 'h-6 w-6';

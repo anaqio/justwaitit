@@ -15,7 +15,7 @@ import { AnaqioTypographyLogo } from '@/components/ui/anaqio-typography-logo';
 import { PerspectiveGrid } from '@/components/ui/PerspectiveGrid';
 import { useDeviceTier } from '@/hooks/use-device-tier';
 import { Link } from '@/i18n/routing';
-import { ease, fadeIn, fadeUp } from '@/lib/motion';
+import { ease, fadeIn, fadeUp } from '@/lib/data/motion';
 
 // ─── Main Component ──────────────────────────────────────────────────────────
 

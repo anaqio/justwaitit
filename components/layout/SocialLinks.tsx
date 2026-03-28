@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-import { socialLinks } from '@/lib/content/navigation';
+import { socialLinks } from '@/lib/data/navigation';
 
 /**
  * SocialLinks component — intentionally NOT internationalized.

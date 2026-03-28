@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { useDeviceTier } from '@/hooks/use-device-tier';
 import { Link } from '@/i18n/routing';
-import { ease } from '@/lib/motion';
+import { ease } from '@/lib/data/motion';
 
 export function FinalCTA() {
   const t = useTranslations('landing.finalCta');

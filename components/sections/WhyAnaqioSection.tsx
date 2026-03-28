@@ -12,7 +12,7 @@ import { useRef } from 'react';
 
 import { Section } from '@/components/ui/section';
 import { useDeviceTier } from '@/hooks/use-device-tier';
-import { ease } from '@/lib/motion';
+import { ease } from '@/lib/data/motion';
 
 export function WhyAnaqioSection() {
   const t = useTranslations('landing.whyAnaqio');

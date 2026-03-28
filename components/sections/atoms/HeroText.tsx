@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useRef } from 'react';
 
 import { isRTL, type Locale } from '@/i18n/config';
-import { charReveal, ease, wordReveal } from '@/lib/motion';
+import { charReveal, ease, wordReveal } from '@/lib/data/motion';
 
 interface HeroTextProps {
   animated: boolean;

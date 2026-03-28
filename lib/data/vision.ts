@@ -1,6 +1,6 @@
 import { Globe, RefreshCw, Rocket } from 'lucide-react';
 
-import type { IconItem } from '@/lib/content/types';
+import type { IconItem } from '@/lib/data/types';
 
 export const VisionSectionText = {
   eyebrow: 'Our Vision',

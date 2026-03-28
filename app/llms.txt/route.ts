@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { LLMS_TXT } from '@/lib/content/llms';
+import { LLMS_TXT } from '@/lib/data/llms';
 
 export async function GET() {
   return new NextResponse(LLMS_TXT, {

@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-import { HeroSectionText } from '@/lib/content/hero';
+import { HeroSectionText } from '@/lib/data/hero';
 
 export function ScrollText() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);

@@ -7,7 +7,7 @@ import { UTM_KEYS } from '../UTM_KEYS';
 import { type UtmParams } from '../UtmParams';
 
 import { notifyMe } from '@/lib/actions/notify';
-import { ease, fadeIn } from '@/lib/motion';
+import { ease, fadeIn } from '@/lib/data/motion';
 
 export function NotifyForm({ animated }: { animated: boolean }) {
   const t = useTranslations('comingSoon.form');

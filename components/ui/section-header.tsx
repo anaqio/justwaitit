@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 import type { ReactNode } from 'react';
 
-import { fadeUp } from '@/lib/motion';
+import { fadeUp } from '@/lib/data/motion';
 import { cn } from '@/lib/utils';
 
 type SectionHeaderProps = {

@@ -11,7 +11,7 @@ import { useTranslations } from 'next-intl';
 import { Fragment, useRef } from 'react';
 
 import { useDeviceTier } from '@/hooks/use-device-tier';
-import { flipReveal, scatterIn } from '@/lib/motion';
+import { flipReveal, scatterIn } from '@/lib/data/motion';
 
 export function SolutionSection() {
   const t = useTranslations('landing.solution');

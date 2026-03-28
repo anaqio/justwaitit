@@ -14,8 +14,8 @@ import { useRef } from 'react';
 import { VisionPointAtom } from './atoms/vision-point-atom';
 
 import { useDeviceTier } from '@/hooks/use-device-tier';
-import { NANOBANANA_VISUALS } from '@/lib/content/nanobanana-assets';
-import { ease } from '@/lib/motion';
+import { ease } from '@/lib/data/motion';
+import { NANOBANANA_VISUALS } from '@/lib/data/nanobanana-assets';
 
 export function VisionSection() {
   const t = useTranslations('landing.vision');

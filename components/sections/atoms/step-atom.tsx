@@ -2,8 +2,8 @@ import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import { useRef } from 'react';
 
-import { NANOBANANA_VISUALS } from '@/lib/content/nanobanana-assets';
-import { ease } from '@/lib/motion';
+import { ease } from '@/lib/data/motion';
+import { NANOBANANA_VISUALS } from '@/lib/data/nanobanana-assets';
 
 export function StepAtom({
   step,

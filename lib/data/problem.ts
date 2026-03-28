@@ -1,6 +1,6 @@
 import { Camera, LayoutList, Share2, ShoppingBag } from 'lucide-react';
 
-import type { IconItem } from '@/lib/content/types';
+import type { IconItem } from '@/lib/data/types';
 
 export const ProblemSectionText = {
   eyebrow: 'The Challenge',

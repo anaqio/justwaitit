@@ -12,8 +12,8 @@ import { useRef } from 'react';
 
 import { Section, SectionContainer } from '@/components/ui/section';
 import { useDeviceTier } from '@/hooks/use-device-tier';
-import { NANOBANANA_VISUALS } from '@/lib/content/nanobanana-assets';
-import { ease } from '@/lib/motion';
+import { ease } from '@/lib/data/motion';
+import { NANOBANANA_VISUALS } from '@/lib/data/nanobanana-assets';
 
 export function StyleShowcase() {
   const t = useTranslations('landing.styleShowcase');

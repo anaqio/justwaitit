@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 
 import Loading from '@/app/[locale]/loading';
-import { ease } from '@/lib/motion';
+import { ease } from '@/lib/data/motion';
 
 interface LoadingScreenProps {
   /** Called when the loading animation completes (progress bar full). */

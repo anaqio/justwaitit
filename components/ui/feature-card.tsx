@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 import type { ElementType } from 'react';
 
-import { fadeUpCard } from '@/lib/motion';
+import { fadeUpCard } from '@/lib/data/motion';
 import { cn } from '@/lib/utils';
 
 type FeatureCardProps = {

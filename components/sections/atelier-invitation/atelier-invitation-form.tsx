@@ -20,12 +20,12 @@ import { AtelierSuccess } from './atoms/atelier-success';
 import { AtelierTextInput } from './atoms/atelier-text-input';
 
 import { requestAtelierInvitation } from '@/lib/actions/atelier-invitation';
-import { ATELIER_STEP_CONFIGS } from '@/lib/content/atelier-invitation';
 import {
   ICONS,
   SLIDE_TRANSITION,
   SLIDE_VARIANTS,
 } from '@/lib/data/atelier-form-data';
+import { ATELIER_STEP_CONFIGS } from '@/lib/data/atelier-invitation';
 import { DataManager } from '@/lib/utils/data-manager';
 import { sanitizeEmail, validateEmail } from '@/lib/utils/form-validation';
 

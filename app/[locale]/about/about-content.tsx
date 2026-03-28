@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { Link } from '@/i18n/routing';
-import { clipReveal, fadeIn, fadeUp } from '@/lib/motion';
+import { clipReveal, fadeIn, fadeUp } from '@/lib/data/motion';
 
 export default function AboutContent() {
   const t = useTranslations('about');
