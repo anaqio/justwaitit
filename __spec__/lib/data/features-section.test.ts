@@ -1,6 +1,7 @@
+// __spec__/lib/data/features-section.test.ts
 import { describe, it, expect } from 'vitest';
 
-import { FEATURES } from '@/lib/data/features-sections';
+import { FEATURES } from '@/lib/data/features-section';
 
 describe('features-section', () => {
   it('should export FEATURES array with 3 items', () => {
