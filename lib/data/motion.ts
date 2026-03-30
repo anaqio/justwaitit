@@ -88,6 +88,70 @@ export const wordReveal = (reduced: Reduced, index = 0) => ({
 });
 
 // Scatter converge — atom starts offset from multiple axes
+/**
+ * Marquee scroll animation: continuous horizontal scroll loop.
+ * @param reduced - from useReducedMotion()
+ * @returns Framer Motion animation config for 40s linear loop
+ */
+export function marqueeScroll(reduced: boolean | null) {
+  if (reduced) {
+    return {}; // no animation on reduced motion
+  }
+  return {
+    x: [0, -1000],
+    transition: {
+      duration: 40,
+      ease: 'linear',
+      repeat: Infinity,
+    },
+  };
+}
+
+/**
+ * Marquee hover pause: pause animation on hover.
+ * @returns Framer Motion whileHover config
+ */
+export function marqueeOnHover() {
+  return {
+    x: 0,
+    transition: { duration: 0.3 },
+  };
+}
+
+/**
+ * Segment reveal: staggered entrance from below with fade.
+ * @param reduced - from useReducedMotion()
+ * @param index - item index for delay calculation
+ * @returns Framer Motion animation config for whileInView
+ */
+export function segmentReveal(reduced: boolean | null, index: number) {
+  if (reduced) {
+    return { opacity: 1, y: 0 };
+  }
+  return {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: {
+      duration: 0.6,
+      delay: index * 0.1,
+      ease,
+    },
+    viewport: { once: true, margin: '0px 0px -100px 0px' },
+  };
+}
+
+/**
+ * Pricing card hover: scale and lift effect.
+ * @returns Framer Motion whileHover config
+ */
+export function pricingCardHover() {
+  return {
+    scale: 1.02,
+    y: -8,
+    transition: { duration: 0.3, ease },
+  };
+}
+
 export const scatterIn = (reduced: Reduced, x = 0, y = 60, delay = 0) => ({
   initial: reduced ? false : { x, y, opacity: 0 },
   whileInView: { x: 0, y: 0, opacity: 1 },
