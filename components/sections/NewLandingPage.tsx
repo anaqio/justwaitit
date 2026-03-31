@@ -94,9 +94,9 @@ export function NewLandingPage() {
       <ProblemSection />
       <SolutionSection />
       <MarqueeSection background="bg-foreground/[0.03]" />
-      <FeaturesSection />
+      <FeaturesSection background="bg-muted/30" />
       <ResultsSection />
-      <SegmentsSection />
+      <SegmentsSection background="bg-muted/30" />
       <PricingSection />
       <HowItWorksSection />
       <WhyAnaqioSection />

@@ -6,7 +6,11 @@ import { SegmentCardAtom } from '@/components/atoms/SegmentCardAtom';
 import { useDeviceTier } from '@/hooks/use-device-tier';
 import { SEGMENTS } from '@/lib/data/segments-section';
 
-export function SegmentsSection() {
+export function SegmentsSection({
+  background = 'bg-background',
+}: {
+  background?: string;
+}) {
   const reduced = useReducedMotion();
   const tier = useDeviceTier();
   const animated = !reduced && tier !== 'low';
@@ -15,7 +19,7 @@ export function SegmentsSection() {
     <section
       id="segments"
       aria-labelledby="segments-heading"
-      className="relative flex min-h-[100dvh] flex-col items-center justify-center px-4 pb-24 pt-32 lg:pt-48"
+      className={`relative flex min-h-[100dvh] flex-col items-center justify-center px-4 pb-24 pt-32 lg:pt-48 ${background}`}
     >
       <h2 id="segments-heading" className="sr-only">
         Who It's For

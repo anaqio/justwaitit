@@ -6,7 +6,11 @@ import { ResultCardAtom } from '@/components/atoms/ResultCardAtom';
 import { useDeviceTier } from '@/hooks/use-device-tier';
 import { RESULTS } from '@/lib/data/results-section';
 
-export function ResultsSection() {
+export function ResultsSection({
+  background = 'bg-background',
+}: {
+  background?: string;
+}) {
   const reduced = useReducedMotion();
   const tier = useDeviceTier();
   const animated = !reduced && tier !== 'low';
@@ -15,7 +19,7 @@ export function ResultsSection() {
     <section
       id="results"
       aria-labelledby="results-heading"
-      className="relative flex min-h-[100dvh] flex-col items-center justify-center px-4 pb-24 pt-32 lg:pt-48"
+      className={`relative flex min-h-[100dvh] flex-col items-center justify-center px-4 pb-24 pt-32 lg:pt-48 ${background}`}
     >
       <h2 id="results-heading" className="sr-only">
         Measurable Impact

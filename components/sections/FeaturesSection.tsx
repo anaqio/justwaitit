@@ -6,7 +6,11 @@ import { FeatureCardAtom } from '@/components/atoms/FeatureCardAtom';
 import { useDeviceTier } from '@/hooks/use-device-tier';
 import { FEATURES } from '@/lib/data/features-section';
 
-export function FeaturesSection() {
+export function FeaturesSection({
+  background = 'bg-background',
+}: {
+  background?: string;
+}) {
   const reduced = useReducedMotion();
   const tier = useDeviceTier();
   const animated = !reduced && tier !== 'low';
@@ -15,7 +19,7 @@ export function FeaturesSection() {
     <section
       id="features"
       aria-labelledby="features-heading"
-      className="relative flex min-h-[100dvh] flex-col items-center justify-center px-4 pb-24 pt-32 lg:pt-48"
+      className={`relative flex min-h-[100dvh] flex-col items-center justify-center px-4 pb-24 pt-32 lg:pt-48 ${background}`}
     >
       <h2 id="features-heading" className="sr-only">
         Our Features

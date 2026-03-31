@@ -1,8 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 import type { ResultCard } from '@/lib/data/results-section';
+
+import { fadeUpCard } from '@/lib/data/motion';
 
 interface ResultCardAtomProps {
   result: ResultCard;
@@ -10,12 +12,10 @@ interface ResultCardAtomProps {
 }
 
 export function ResultCardAtom({ result, index = 0 }: ResultCardAtomProps) {
+  const reduced = useReducedMotion();
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      viewport={{ once: true }}
+      {...fadeUpCard(reduced, index)}
       className="overflow-hidden rounded-lg border border-border bg-card"
     >
       <div className="border-b border-border bg-muted/50 p-4">
