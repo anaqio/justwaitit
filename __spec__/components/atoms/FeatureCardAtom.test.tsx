@@ -1,7 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import type { Feature } from '@/lib/data/features-section';
+
+vi.mock('@/hooks/use-animation-ready', () => ({
+  useAnimationReady: () => ({ reduced: false, tier: 'high', animated: true }),
+}));
 
 import { FeatureCardAtom } from '@/components/atoms/FeatureCardAtom';
 

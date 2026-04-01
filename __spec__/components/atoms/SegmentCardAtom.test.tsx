@@ -1,7 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import type { Segment } from '@/lib/data/segments-section';
+
+vi.mock('@/hooks/use-animation-ready', () => ({
+  useAnimationReady: () => ({ reduced: false, tier: 'high', animated: true }),
+}));
 
 import { SegmentCardAtom } from '@/components/atoms/SegmentCardAtom';
 

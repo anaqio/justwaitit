@@ -1,7 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import type { PricingTier } from '@/lib/data/pricing-section';
+
+vi.mock('@/hooks/use-animation-ready', () => ({
+  useAnimationReady: () => ({ reduced: false, tier: 'high', animated: true }),
+}));
 
 import { PricingTierAtom } from '@/components/atoms/PricingTierAtom';
 
@@ -87,5 +91,22 @@ describe('PricingTierAtom', () => {
     };
     render(<PricingTierAtom tier={customTier} />);
     expect(screen.getByText('Custom')).toBeInTheDocument();
+  });
+
+  it('shows Contact Sales button for Custom price tier', () => {
+    const customTier: PricingTier = {
+      ...basicTier,
+      name: 'Studio Enterprise',
+      price: 'Custom',
+    };
+    render(<PricingTierAtom tier={customTier} />);
+    const button = screen.getByRole('button', { name: /Contact Sales/i });
+    expect(button).toBeInTheDocument();
+  });
+
+  it('shows Get Started button for numeric price tier', () => {
+    render(<PricingTierAtom tier={mockTier} />);
+    const button = screen.getByRole('button', { name: /Get Started/i });
+    expect(button).toBeInTheDocument();
   });
 });
