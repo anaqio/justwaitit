@@ -1,25 +1,18 @@
 'use client';
 
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Camera, LayoutList, Share2, ShoppingBag } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useRef } from 'react';
 
-import { useDeviceTier } from '@/hooks/use-device-tier';
+import { useAnimationReady } from '@/hooks/use-animation-ready';
 import { clipReveal } from '@/lib/data/motion';
 import { NANOBANANA_VISUALS } from '@/lib/data/nanobanana-assets';
 
 export function ProblemSection() {
   const t = useTranslations('landing.problem');
-  const reduced = useReducedMotion();
-  const tier = useDeviceTier();
-  const animated = !reduced && tier !== 'low';
+  const { reduced, animated } = useAnimationReady();
   const sectionRef = useRef<HTMLElement>(null);
 
   const { scrollYProgress } = useScroll({

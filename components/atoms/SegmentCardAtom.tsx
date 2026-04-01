@@ -4,18 +4,20 @@ import { motion } from 'framer-motion';
 
 import type { Segment } from '@/lib/data/segments-section';
 
+import { useAnimationReady } from '@/hooks/use-animation-ready';
+import { slideInLeft } from '@/lib/data/motion';
+
 interface SegmentCardAtomProps {
   segment: Segment;
   index?: number;
 }
 
 export function SegmentCardAtom({ segment, index = 0 }: SegmentCardAtomProps) {
+  const { reduced } = useAnimationReady();
+
   return (
     <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      viewport={{ once: true }}
+      {...slideInLeft(reduced, index)}
       whileHover={{ x: 4, transition: { duration: 0.2 } }}
       className="group flex gap-4 rounded-lg border border-border bg-card p-5 transition-all hover:border-aq-blue/60 hover:shadow-md"
     >

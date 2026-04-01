@@ -1,9 +1,7 @@
 'use client';
 
-import { useReducedMotion } from 'framer-motion';
-
 import { FeatureCardAtom } from '@/components/atoms/FeatureCardAtom';
-import { useDeviceTier } from '@/hooks/use-device-tier';
+import { useAnimationReady } from '@/hooks/use-animation-ready';
 import { FEATURES } from '@/lib/data/features-section';
 
 export function FeaturesSection({
@@ -11,9 +9,7 @@ export function FeaturesSection({
 }: {
   background?: string;
 }) {
-  const reduced = useReducedMotion();
-  const tier = useDeviceTier();
-  const animated = !reduced && tier !== 'low';
+  const { animated } = useAnimationReady();
 
   return (
     <section

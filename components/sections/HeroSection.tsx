@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useReducedMotion,
-} from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDownRight, ChevronDown } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRef } from 'react';
@@ -13,7 +8,7 @@ import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { ScrollLink } from '@/components/ui/scroll-link';
-import { useDeviceTier } from '@/hooks/use-device-tier';
+import { useAnimationReady } from '@/hooks/use-animation-ready';
 import { isRTL, type Locale } from '@/i18n/config';
 import { charReveal, ease, wordReveal } from '@/lib/data/motion';
 
@@ -22,9 +17,7 @@ export function HeroSection() {
   const locale = useLocale();
   const rtl = isRTL(locale as Locale);
   const sectionRef = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
-  const tier = useDeviceTier();
-  const animated = !reduced && tier !== 'low';
+  const { reduced, tier, animated } = useAnimationReady();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,

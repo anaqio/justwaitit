@@ -1,16 +1,11 @@
 'use client';
 
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Fragment, useRef } from 'react';
 
-import { useDeviceTier } from '@/hooks/use-device-tier';
+import { useAnimationReady } from '@/hooks/use-animation-ready';
 import { flipReveal, scatterIn } from '@/lib/data/motion';
 
 export function SolutionSection() {
@@ -23,9 +18,7 @@ export function SolutionSection() {
     color: PIPELINE_COLORS[i],
   }));
 
-  const reduced = useReducedMotion();
-  const tier = useDeviceTier();
-  const animated = !reduced && tier !== 'low';
+  const { reduced, animated } = useAnimationReady();
   const sectionRef = useRef<HTMLElement>(null);
 
   const { scrollYProgress } = useScroll({

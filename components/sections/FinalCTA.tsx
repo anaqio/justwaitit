@@ -1,17 +1,12 @@
 'use client';
 
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useReducedMotion,
-} from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useRef } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/MagneticButton';
-import { useDeviceTier } from '@/hooks/use-device-tier';
+import { useAnimationReady } from '@/hooks/use-animation-ready';
 import { Link } from '@/i18n/routing';
 import { ease } from '@/lib/data/motion';
 
@@ -19,9 +14,7 @@ export function FinalCTA() {
   const t = useTranslations('landing.finalCta');
   const sectionRef = useRef<HTMLElement>(null);
 
-  const reduced = useReducedMotion();
-  const tier = useDeviceTier();
-  const animated = !reduced && tier !== 'low';
+  const { tier, animated } = useAnimationReady();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,

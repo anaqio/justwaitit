@@ -1,9 +1,7 @@
 'use client';
 
-import { useReducedMotion } from 'framer-motion';
-
 import { ResultCardAtom } from '@/components/atoms/ResultCardAtom';
-import { useDeviceTier } from '@/hooks/use-device-tier';
+import { useAnimationReady } from '@/hooks/use-animation-ready';
 import { RESULTS } from '@/lib/data/results-section';
 
 export function ResultsSection({
@@ -11,9 +9,7 @@ export function ResultsSection({
 }: {
   background?: string;
 }) {
-  const reduced = useReducedMotion();
-  const tier = useDeviceTier();
-  const animated = !reduced && tier !== 'low';
+  const { animated } = useAnimationReady();
 
   return (
     <section

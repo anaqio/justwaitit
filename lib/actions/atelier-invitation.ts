@@ -2,13 +2,14 @@
 
 import { z } from 'zod';
 
+import { ERROR_MESSAGES } from '@/lib/constants/errors';
 import { createClient } from '@/lib/supabase/server';
 
 const AtelierInvitationSchema = z.object({
   email: z
     .string()
     .min(1, 'Please provide an email address.')
-    .email('Please provide a valid email address.'),
+    .email(ERROR_MESSAGES.VALID_EMAIL),
   entity_name: z
     .string()
     .min(2, 'Name is too short.')
@@ -73,7 +74,7 @@ export async function requestAtelierInvitation(formData: FormData) {
       console.error('Atelier invitation insert error:', error);
       return {
         success: false,
-        message: 'Something went wrong. Please try again later.',
+        message: ERROR_MESSAGES.GENERIC,
       };
     }
 
@@ -85,7 +86,7 @@ export async function requestAtelierInvitation(formData: FormData) {
     console.error('Atelier invitation error:', err);
     return {
       success: false,
-      message: 'Something went wrong. Please try again later.',
+      message: ERROR_MESSAGES.GENERIC,
     };
   }
 }

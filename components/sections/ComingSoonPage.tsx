@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useCallback, useState } from 'react';
 
@@ -13,7 +13,7 @@ import { LoadingScreen } from '@/components/sections/LoadingScreen';
 import AbstractBackground from '@/components/ui/AbstractBackground';
 import { AnaqioTypographyLogo } from '@/components/ui/anaqio-typography-logo';
 import { PerspectiveGrid } from '@/components/ui/PerspectiveGrid';
-import { useDeviceTier } from '@/hooks/use-device-tier';
+import { useAnimationReady } from '@/hooks/use-animation-ready';
 import { Link } from '@/i18n/routing';
 import { ease, fadeIn, fadeUp } from '@/lib/data/motion';
 
@@ -21,9 +21,7 @@ import { ease, fadeIn, fadeUp } from '@/lib/data/motion';
 
 export function ComingSoonPage() {
   const t = useTranslations('comingSoon');
-  const reduced = useReducedMotion();
-  const tier = useDeviceTier();
-  const animated = !reduced && tier !== 'low';
+  const { reduced, animated } = useAnimationReady();
 
   const [phase, setPhase] = useState<Phase>('loading');
 

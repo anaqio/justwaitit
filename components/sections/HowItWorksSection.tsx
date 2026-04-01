@@ -1,11 +1,10 @@
 'use client';
 
-import { useReducedMotion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
 import { StepAtom } from './atoms/step-atom';
 
-import { useDeviceTier } from '@/hooks/use-device-tier';
+import { useAnimationReady } from '@/hooks/use-animation-ready';
 
 export function HowItWorksSection() {
   const t = useTranslations('landing.howItWorks');
@@ -14,9 +13,7 @@ export function HowItWorksSection() {
     title: string;
     body: string;
   }>;
-  const reduced = useReducedMotion();
-  const tier = useDeviceTier();
-  const animated = !reduced && tier !== 'low';
+  const { animated } = useAnimationReady();
 
   return (
     <section

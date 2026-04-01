@@ -1,17 +1,12 @@
 'use client';
 
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useReducedMotion,
-} from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Move3D, Ruler, ShieldCheck, Sun, Zap } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRef } from 'react';
 
 import { Section } from '@/components/ui/section';
-import { useDeviceTier } from '@/hooks/use-device-tier';
+import { useAnimationReady } from '@/hooks/use-animation-ready';
 import { ease } from '@/lib/data/motion';
 
 export function WhyAnaqioSection() {
@@ -26,9 +21,7 @@ export function WhyAnaqioSection() {
 
   const sectionRef = useRef<HTMLElement>(null);
 
-  const reduced = useReducedMotion();
-  const tier = useDeviceTier();
-  const animated = !reduced && tier !== 'low';
+  const { animated } = useAnimationReady();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,

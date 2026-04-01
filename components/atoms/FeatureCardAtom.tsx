@@ -4,18 +4,20 @@ import { motion } from 'framer-motion';
 
 import type { Feature } from '@/lib/data/features-section';
 
+import { useAnimationReady } from '@/hooks/use-animation-ready';
+import { fadeUpCard } from '@/lib/data/motion';
+
 interface FeatureCardAtomProps {
   feature: Feature;
   index?: number;
 }
 
 export function FeatureCardAtom({ feature, index = 0 }: FeatureCardAtomProps) {
+  const { reduced } = useAnimationReady();
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      viewport={{ once: true }}
+      {...fadeUpCard(reduced, index)}
       whileHover={{ y: -8, transition: { duration: 0.3 } }}
       className="group flex flex-col gap-4 rounded-lg border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
     >

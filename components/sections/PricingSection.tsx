@@ -1,9 +1,7 @@
 'use client';
 
-import { useReducedMotion } from 'framer-motion';
-
 import { PricingTierAtom } from '@/components/atoms/PricingTierAtom';
-import { useDeviceTier } from '@/hooks/use-device-tier';
+import { useAnimationReady } from '@/hooks/use-animation-ready';
 import { PRICING_TIERS } from '@/lib/data/pricing-section';
 
 export function PricingSection({
@@ -11,9 +9,7 @@ export function PricingSection({
 }: {
   background?: string;
 }) {
-  const reduced = useReducedMotion();
-  const tier = useDeviceTier();
-  const animated = !reduced && tier !== 'low';
+  const { animated } = useAnimationReady();
 
   return (
     <section

@@ -5,20 +5,22 @@ import { Check } from 'lucide-react';
 
 import type { PricingTier } from '@/lib/data/pricing-section';
 
+import { useAnimationReady } from '@/hooks/use-animation-ready';
+import { fadeUpCard, ease } from '@/lib/data/motion';
+
 interface PricingTierAtomProps {
   tier: PricingTier;
   index?: number;
 }
 
 export function PricingTierAtom({ tier, index = 0 }: PricingTierAtomProps) {
+  const { reduced } = useAnimationReady();
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      viewport={{ once: true }}
+      {...fadeUpCard(reduced, index)}
       whileHover={
-        tier.highlighted ? { y: -8, transition: { duration: 0.3 } } : {}
+        tier.highlighted ? { y: -8, transition: { duration: 0.3, ease } } : {}
       }
       className={`group relative flex flex-col rounded-xl border transition-all ${
         tier.highlighted

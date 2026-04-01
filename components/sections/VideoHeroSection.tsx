@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRef } from 'react';
@@ -9,14 +9,12 @@ import { HeroCTAs } from './atoms/HeroCTAs';
 import { HeroText } from './atoms/HeroText';
 import { HeroVideoPlayer } from './atoms/HeroVideoPlayer';
 
-import { useDeviceTier } from '@/hooks/use-device-tier';
+import { useAnimationReady } from '@/hooks/use-animation-ready';
 
 export function VideoHeroSection() {
   const t = useTranslations('landing.hero');
   const sectionRef = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
-  const tier = useDeviceTier();
-  const animated = !reduced && tier !== 'low';
+  const { reduced, tier, animated } = useAnimationReady();
 
   return (
     <section
