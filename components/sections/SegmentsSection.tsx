@@ -1,12 +1,21 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 import { useAnimationReady } from '@/hooks/use-animation-ready';
-import { SEGMENTS } from '@/lib/data/segments-section';
 
 export function SegmentsSection() {
+  const t = useTranslations('landing.segments');
   const { animated } = useAnimationReady();
+
+  const items = t.raw('items') as Array<{
+    icon: string;
+    name: string;
+    role: string;
+    problem: string;
+    solution: string;
+  }>;
 
   return (
     <section
@@ -20,16 +29,15 @@ export function SegmentsSection() {
           className="font-display font-black text-black"
           style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
         >
-          Built for <span className="vb-underline">fashion creators</span> at
-          any scale
+          {t('heading.pre')}{' '}
+          <span className="vb-underline">{t('heading.highlight')}</span>{' '}
+          {t('heading.post')}
         </h2>
-        <p className="max-w-md text-sm text-black/60">
-          From emerging brands to established agencies
-        </p>
+        <p className="max-w-md text-sm text-black/60">{t('subheading')}</p>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {SEGMENTS.map((seg, i) => (
+        {items.map((seg, i) => (
           <motion.div
             key={seg.name}
             initial={animated ? { opacity: 0, y: 20 } : false}
@@ -39,7 +47,7 @@ export function SegmentsSection() {
             className="group relative overflow-hidden rounded-xl bg-[#EBEBEB] p-8 transition-colors hover:bg-[#2B3AE7]"
           >
             <p className="mb-2 text-[9px] font-bold uppercase tracking-[0.3em] text-black/40 group-hover:text-white/50">
-              Segment
+              {t('labels.segment')}
             </p>
             <h3 className="font-display text-xl font-bold text-black group-hover:text-white">
               {seg.name}
@@ -50,7 +58,7 @@ export function SegmentsSection() {
             <div className="mt-4 space-y-2">
               <div>
                 <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-black/30 group-hover:text-white/40">
-                  Problem
+                  {t('labels.problem')}
                 </p>
                 <p className="text-sm text-black/60 group-hover:text-white/70">
                   {seg.problem}
@@ -58,7 +66,7 @@ export function SegmentsSection() {
               </div>
               <div>
                 <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-black/30 group-hover:text-white/40">
-                  Solution
+                  {t('labels.solution')}
                 </p>
                 <p className="text-sm text-black/60 group-hover:text-white/70">
                   {seg.solution}

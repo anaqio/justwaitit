@@ -211,6 +211,112 @@
     "eyebrow": "Notre philosophie",
     "body": "La mode a toujours été une forme d'expression artistique. La technologie ne doit pas se substituer à la créativité, elle doit l'autonomiser. Anaqio a été construit avec une croyance simple : AI devrait optimiser l'aspect opérationnel de la production de mode afin que les designers et les marques puissent se concentrer sur la créativité et la narration. Nous ne remplaçons pas l’art de la mode, nous construisons les infrastructures qui lui permettent de s’échelonner."
   },
+  "features": {
+    "eyebrow": "Fonctionnalités Clés",
+    "heading": {
+      "pre": "Tout ce dont vous avez besoin pour",
+      "highlight": "transformer",
+      "post": "votre production"
+    },
+    "items": [
+      {
+        "icon": "🎨",
+        "title": "Essayage Virtuel IA",
+        "description": "Permettez aux clients de visualiser les produits avant l'achat grâce à notre technologie avancée d'essayage virtuel."
+      },
+      {
+        "icon": "📸",
+        "title": "Photographie Studio Automatisée",
+        "description": "Générez des photos de produits professionnelles avec un éclairage, des arrière-plans et des angles ajustables instantanément."
+      },
+      {
+        "icon": "⚡",
+        "title": "Production à Grande Échelle",
+        "description": "Créez des lookbooks, des variations et des campagnes illimités sans les coûts des séances photo traditionnelles."
+      }
+    ]
+  },
+  "results": {
+    "eyebrow": "Résultats Prouvés",
+    "items": [
+      {
+        "metric": "Coût par Séance",
+        "traditional": "5 000 MAD",
+        "anaqio": "500 MAD",
+        "improvement": "Réduction de 90%"
+      },
+      {
+        "metric": "Temps de Production",
+        "traditional": "2–3 semaines",
+        "anaqio": "2–3 heures",
+        "improvement": "99% plus rapide"
+      },
+      {
+        "metric": "Variations Photo",
+        "traditional": "20–50 par session",
+        "anaqio": "Illimité",
+        "improvement": "10x+ plus"
+      }
+    ]
+  },
+  "segments": {
+    "heading": {
+      "pre": "Conçu pour",
+      "highlight": "les créateurs de mode",
+      "post": "à toute échelle"
+    },
+    "subheading": "Des marques émergentes aux agences établies",
+    "labels": {
+      "segment": "Segment",
+      "problem": "Problème",
+      "solution": "Solution"
+    },
+    "items": [
+      {
+        "icon": "👨‍💼",
+        "name": "Propriétaire de Marque Émergente",
+        "role": "Fondateur / PDG",
+        "problem": "Les contraintes budgétaires limitent la fréquence des séances photo",
+        "solution": "Générez du contenu illimité à une fraction du coût"
+      },
+      {
+        "icon": "👩‍🎨",
+        "name": "Directrice de Mode Établie",
+        "role": "Directrice Créative",
+        "problem": "Les longs cycles de production retardent les collections",
+        "solution": "Créez des lookbooks et des variations en quelques heures"
+      },
+      {
+        "icon": "📦",
+        "name": "Responsable E-commerce",
+        "role": "Responsable Opérations",
+        "problem": "Maintenir la cohérence du catalogue sur toutes les plateformes",
+        "solution": "Garantissez un style uniforme grâce aux standards IA"
+      },
+      {
+        "icon": "🎬",
+        "name": "Créatif Freelance",
+        "role": "Styliste/Photographe Freelance",
+        "problem": "Coûts élevés d'équipement et de location par projet",
+        "solution": "Offrez à vos clients une production premium sans surcoûts"
+      }
+    ]
+  },
+  "team": {
+    "eyebrow": "Découvrez nos",
+    "heading": "Fondateurs",
+    "linkedin": "LinkedIn",
+    "members": [
+      {
+        "role": "Co-Fondatrice & Visionnaire",
+        "bio": "Façonne la vision et l'identité de marque d'Anaqio. Dirige la stratégie, les partenariats et le go-to-market dans l'écosystème de la mode marocaine."
+      },
+      {
+        "role": "Co-Fondateur & CTO",
+        "bio": "Conçoit les systèmes techniques derrière chaque génération IA. Ingénierie full-stack, conception produit et infrastructure à grande échelle."
+      }
+    ]
+  },
   "finalCta": {
     "srHeading": "Obtenir un accès anticipé",
     "headline": {

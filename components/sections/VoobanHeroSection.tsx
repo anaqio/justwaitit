@@ -5,6 +5,7 @@ import { ArrowDownRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useLayoutEffect, useRef, useState } from 'react';
 
+import { AnaqioLogo } from '@/components/ui/AnaqioLogo';
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { ScrollLink } from '@/components/ui/scroll-link';
@@ -145,15 +146,8 @@ export function VoobanHeroSection() {
 
         {/* ── CTAs — absolute above wordmark, fade as scroll begins ── */}
         <motion.div
-          style={
-            animated
-              ? {
-                  opacity: ctaOpacity,
-                  bottom: 'calc(clamp(5rem, 32vw, 30rem) + 1.5rem)',
-                }
-              : { bottom: 'calc(clamp(5rem, 32vw, 30rem) + 1.5rem)' }
-          }
-          className="absolute left-0 right-0 z-20 flex items-center justify-center gap-4"
+          style={animated ? { opacity: ctaOpacity } : {}}
+          className="absolute bottom-24 left-0 right-0 z-20 flex items-center justify-center gap-4"
         >
           <MagneticButton strength={tier === 'high' ? 0.35 : 0}>
             <Button
@@ -175,22 +169,12 @@ export function VoobanHeroSection() {
           </Button>
         </motion.div>
 
-        {/* ── Oversized ANAQIO wordmark — absolute bottom, bleeds off edge ── */}
+        {/* ── ANAQIO logo — absolute bottom, fades with scroll ── */}
         <motion.div
-          aria-hidden="true"
           style={animated ? { opacity: wordmarkOpacity } : {}}
-          className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 overflow-hidden"
+          className="pointer-events-none absolute bottom-8 left-0 right-0 z-20 flex justify-center"
         >
-          <p
-            className="select-none text-center font-display font-black uppercase leading-none tracking-tight text-white"
-            style={{
-              fontSize: 'clamp(5rem, 32vw, 30rem)',
-              letterSpacing: '-0.03em',
-              marginBottom: '-0.12em',
-            }}
-          >
-            ANAQIO
-          </p>
+          <AnaqioLogo theme="dark" size={64} />
         </motion.div>
       </div>
     </section>

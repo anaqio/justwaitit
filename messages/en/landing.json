@@ -211,6 +211,112 @@
     "eyebrow": "Our Philosophy",
     "body": "Fashion has always been a form of artistic expression. Technology should not replace creativity — it should empower it. Anaqio was built with a simple belief: AI should optimize the operational side of fashion production so designers and brands can focus on creativity and storytelling. We are not replacing fashion art. We are building the infrastructure that allows it to scale."
   },
+  "features": {
+    "eyebrow": "Core Capabilities",
+    "heading": {
+      "pre": "Everything you need to",
+      "highlight": "transform",
+      "post": "your production"
+    },
+    "items": [
+      {
+        "icon": "🎨",
+        "title": "AI Virtual Try-On",
+        "description": "Let customers visualize products before purchase with our advanced virtual try-on technology."
+      },
+      {
+        "icon": "📸",
+        "title": "Automated Studio Photography",
+        "description": "Generate professional product shots with adjustable lighting, backgrounds, and angles instantly."
+      },
+      {
+        "icon": "⚡",
+        "title": "Production at Scale",
+        "description": "Create unlimited lookbooks, variations, and campaigns without the cost of traditional photoshoots."
+      }
+    ]
+  },
+  "results": {
+    "eyebrow": "Proven Results",
+    "items": [
+      {
+        "metric": "Cost per Shoot",
+        "traditional": "5,000 MAD",
+        "anaqio": "500 MAD",
+        "improvement": "90% reduction"
+      },
+      {
+        "metric": "Production Time",
+        "traditional": "2–3 weeks",
+        "anaqio": "2–3 hours",
+        "improvement": "99% faster"
+      },
+      {
+        "metric": "Photo Variations",
+        "traditional": "20–50 per session",
+        "anaqio": "Unlimited",
+        "improvement": "10x+ more"
+      }
+    ]
+  },
+  "segments": {
+    "heading": {
+      "pre": "Built for",
+      "highlight": "fashion creators",
+      "post": "at any scale"
+    },
+    "subheading": "From emerging brands to established agencies",
+    "labels": {
+      "segment": "Segment",
+      "problem": "Problem",
+      "solution": "Solution"
+    },
+    "items": [
+      {
+        "icon": "👨‍💼",
+        "name": "Emerging Brand Owner",
+        "role": "Founder / CEO",
+        "problem": "Budget constraints limit photoshoot frequency",
+        "solution": "Generate unlimited content at a fraction of cost"
+      },
+      {
+        "icon": "👩‍🎨",
+        "name": "Established Fashion Director",
+        "role": "Creative Director",
+        "problem": "Long production cycles delay collections",
+        "solution": "Create lookbooks and variations in hours"
+      },
+      {
+        "icon": "📦",
+        "name": "E-commerce Operations Manager",
+        "role": "Operations Lead",
+        "problem": "Maintaining catalog consistency across platforms",
+        "solution": "Ensure uniform styling with AI-driven standards"
+      },
+      {
+        "icon": "🎬",
+        "name": "Creative Freelancer",
+        "role": "Freelance Stylist/Photographer",
+        "problem": "High equipment and location costs per project",
+        "solution": "Offer clients premium output without overhead"
+      }
+    ]
+  },
+  "team": {
+    "eyebrow": "Meet our",
+    "heading": "Founders",
+    "linkedin": "LinkedIn",
+    "members": [
+      {
+        "role": "Co-Founder & Visionary",
+        "bio": "Shapes Anaqio's vision and brand identity. Leads strategy, partnerships, and go-to-market across the Moroccan fashion ecosystem."
+      },
+      {
+        "role": "Co-Founder & CTO",
+        "bio": "Architects the technical systems behind every AI generation. Full-stack engineering, product design, and infrastructure at scale."
+      }
+    ]
+  },
   "finalCta": {
     "srHeading": "Get Early Access",
     "headline": {

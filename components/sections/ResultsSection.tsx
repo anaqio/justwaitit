@@ -1,12 +1,20 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 import { useAnimationReady } from '@/hooks/use-animation-ready';
-import { RESULTS } from '@/lib/data/results-section';
 
 export function ResultsSection() {
+  const t = useTranslations('landing.results');
   const { animated } = useAnimationReady();
+
+  const items = t.raw('items') as Array<{
+    metric: string;
+    traditional: string;
+    anaqio: string;
+    improvement: string;
+  }>;
 
   return (
     <section
@@ -15,15 +23,15 @@ export function ResultsSection() {
       className="vb-blue relative overflow-hidden px-8 py-24 md:px-16"
     >
       <p className="mb-16 text-[10px] font-bold uppercase tracking-[0.3em] text-white/50">
-        Proven Results
+        {t('eyebrow')}
       </p>
 
       <h2 id="results-heading" className="sr-only">
-        Measurable Impact
+        {t('eyebrow')}
       </h2>
 
       <div className="grid grid-cols-1 divide-y divide-white/10 border-t border-white/10 sm:grid-cols-3">
-        {RESULTS.map((s, i) => (
+        {items.map((s, i) => (
           <motion.div
             key={s.metric}
             initial={animated ? { opacity: 0, y: 20 } : false}

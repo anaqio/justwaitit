@@ -3,22 +3,19 @@
 import { motion } from 'framer-motion';
 import { Linkedin } from 'lucide-react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 import { useAnimationReady } from '@/hooks/use-animation-ready';
 
-const TEAM = [
+const TEAM_STATIC = [
   {
     name: 'Amal AIT OUKHARAZ',
-    role: 'Co-Founder & Visionary',
-    bio: "Shapes Anaqio's vision and brand identity. Leads strategy, partnerships, and go-to-market across the Moroccan fashion ecosystem.",
     linkedin: 'https://www.linkedin.com/in/aitoukhraz/',
     photo: '/images/amal-founder.png',
     initials: 'AA',
   },
   {
     name: 'Mohamed MOUGHAMIR',
-    role: 'Co-Founder & CTO',
-    bio: 'Architects the technical systems behind every AI generation. Full-stack engineering, product design, and infrastructure at scale.',
     linkedin: 'https://www.linkedin.com/in/moughamir/',
     photo: 'https://avatars.githubusercontent.com/u/8163598?v=4',
     initials: 'MM',
@@ -26,7 +23,10 @@ const TEAM = [
 ];
 
 export function TeamSection() {
+  const t = useTranslations('landing.team');
   const { animated } = useAnimationReady();
+
+  const members = t.raw('members') as Array<{ role: string; bio: string }>;
 
   return (
     <section
@@ -43,7 +43,7 @@ export function TeamSection() {
           transition={{ duration: 0.5 }}
           className="mb-3 block text-[10px] font-bold uppercase tracking-[0.3em] text-white/40"
         >
-          Meet our
+          {t('eyebrow')}
         </motion.span>
         <motion.h2
           id="team-heading"
@@ -54,13 +54,13 @@ export function TeamSection() {
           className="font-display font-black tracking-tight text-white"
           style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}
         >
-          Founders
+          {t('heading')}
         </motion.h2>
       </div>
 
       {/* Cards — fill remaining height */}
       <div className="grid flex-1 grid-cols-1 sm:grid-cols-2">
-        {TEAM.map((member, i) => (
+        {TEAM_STATIC.map((member, i) => (
           <motion.div
             key={member.name}
             initial={animated ? { opacity: 0 } : false}
@@ -96,13 +96,13 @@ export function TeamSection() {
             {/* Content */}
             <div className="absolute inset-x-0 bottom-0 z-10 p-8">
               <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4AF37]">
-                {member.role}
+                {members[i]?.role}
               </p>
               <h3 className="mb-3 font-display text-2xl font-bold text-white md:text-3xl">
                 {member.name}
               </h3>
               <p className="mb-5 max-w-xs text-sm leading-relaxed text-white/60">
-                {member.bio}
+                {members[i]?.bio}
               </p>
               <a
                 href={member.linkedin}
@@ -112,7 +112,7 @@ export function TeamSection() {
                 className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.15em] text-white/50 transition-colors hover:text-[#D4AF37]"
               >
                 <Linkedin size={14} />
-                LinkedIn
+                {t('linkedin')}
               </a>
             </div>
           </motion.div>

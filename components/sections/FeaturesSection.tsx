@@ -1,12 +1,19 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 import { useAnimationReady } from '@/hooks/use-animation-ready';
-import { FEATURES } from '@/lib/data/features-section';
 
 export function FeaturesSection() {
+  const t = useTranslations('landing.features');
   const { animated, reduced } = useAnimationReady();
+
+  const items = t.raw('items') as Array<{
+    icon: string;
+    title: string;
+    description: string;
+  }>;
 
   return (
     <section
@@ -15,19 +22,20 @@ export function FeaturesSection() {
       className="vb-white relative overflow-hidden px-8 py-24 md:px-16"
     >
       <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-black/40">
-        Core Capabilities
+        {t('eyebrow')}
       </p>
       <h2
         id="features-heading"
         className="mb-16 max-w-2xl font-display font-black text-black"
         style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
       >
-        Everything you need to <span className="vb-underline">transform</span>{' '}
-        your production
+        {t('heading.pre')}{' '}
+        <span className="vb-underline">{t('heading.highlight')}</span>{' '}
+        {t('heading.post')}
       </h2>
 
       <div className="grid grid-cols-1 gap-px bg-black/10 sm:grid-cols-2 lg:grid-cols-3">
-        {FEATURES.map((feature, i) => (
+        {items.map((feature, i) => (
           <motion.div
             key={feature.title}
             initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
