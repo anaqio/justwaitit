@@ -1,19 +1,17 @@
 'use client';
 
-import { useScroll, useReducedMotion } from 'framer-motion';
+import { useScroll } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useRef } from 'react';
 
 import { ScrollWord } from './atoms/scroll-word';
 
-import { useDeviceTier } from '@/hooks/use-device-tier';
+import { useAnimationReady } from '@/hooks/use-animation-ready';
 
 export function PhilosophySection() {
   const t = useTranslations('landing.philosophy');
   const sectionRef = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
-  const tier = useDeviceTier();
-  const animated = !reduced && tier !== 'low';
+  const { animated } = useAnimationReady();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,

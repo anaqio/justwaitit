@@ -3,10 +3,12 @@
 import { after } from 'next/server';
 import { z } from 'zod';
 
+import { utmFieldsSchema } from '@/lib/actions/shared';
+import { ERROR_MESSAGES } from '@/lib/constants/errors';
 import { createClient } from '@/lib/supabase/server';
 
 const WaitlistSchema = z.object({
-  email: z.email('Please provide a valid email address.'),
+  email: z.email(ERROR_MESSAGES.VALID_EMAIL),
   full_name: z
     .string()
     .min(2, 'Name is too short.')
@@ -25,13 +27,7 @@ const WaitlistSchema = z.object({
     .transform((val) => (val?.trim() === '' ? null : val)),
   aesthetic: z.string().optional(),
   source: z.string().default('home'),
-  // UTM attribution fields
-  utm_source: z.string().max(100).optional().nullable(),
-  utm_medium: z.string().max(100).optional().nullable(),
-  utm_campaign: z.string().max(100).optional().nullable(),
-  utm_content: z.string().max(100).optional().nullable(),
-  utm_term: z.string().max(100).optional().nullable(),
-  referrer: z.string().max(500).optional().nullable(),
+  ...utmFieldsSchema,
 });
 
 /**
@@ -155,7 +151,7 @@ export async function joinWaitlist(formData: FormData) {
       console.error('Waitlist insert error:', error);
       return {
         success: false,
-        message: 'Something went wrong. Please try again later.',
+        message: ERROR_MESSAGES.GENERIC,
       };
     }
 
@@ -175,7 +171,7 @@ export async function joinWaitlist(formData: FormData) {
     console.error('Waitlist error:', err);
     return {
       success: false,
-      message: 'Something went wrong. Please try again later.',
+      message: ERROR_MESSAGES.GENERIC,
     };
   }
 }

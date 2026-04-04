@@ -1,11 +1,11 @@
 'use client';
 
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Briefcase, LayoutGrid, Palette, Store } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import { useDeviceTier } from '@/hooks/use-device-tier';
+import { useAnimationReady } from '@/hooks/use-animation-ready';
 import { useInterval } from '@/hooks/use-interval';
 import { slideInLeft, ease } from '@/lib/data/motion';
 
@@ -19,9 +19,7 @@ export function WhoItsForSection() {
 
   const [active, setActive] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const reduced = useReducedMotion();
-  const tier = useDeviceTier();
-  const animated = !reduced && tier !== 'low';
+  const { reduced, animated } = useAnimationReady();
 
   useInterval(() => {
     if (!isHovered) setActive((a) => (a + 1) % audiences.length);

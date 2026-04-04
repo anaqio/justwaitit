@@ -1,6 +1,7 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 
 import { joinWaitlist } from '@/lib/actions/waitlist';
+import { ERROR_MESSAGES } from '@/lib/constants/errors';
 import { createClient } from '@/lib/supabase/server';
 
 // Mock Supabase server client
@@ -8,9 +9,12 @@ vi.mock('@/lib/supabase/server', () => ({
   createClient: vi.fn(),
 }));
 
-// Mock next/server's after() — no-op in test env (don't execute the callback)
+// Capture after() callbacks so we can execute them in tests
+let afterCallbacks: Array<() => void | Promise<void>> = [];
 vi.mock('next/server', () => ({
-  after: vi.fn(),
+  after: (cb: () => void | Promise<void>) => {
+    afterCallbacks.push(cb);
+  },
 }));
 
 describe('joinWaitlist action', () => {
@@ -29,6 +33,9 @@ describe('joinWaitlist action', () => {
     // Suppress console noise in tests
     vi.spyOn(console, 'error').mockImplementation(() => {});
     vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+    // Reset after callbacks
+    afterCallbacks = [];
   });
 
   afterEach(() => {
@@ -132,9 +139,7 @@ describe('joinWaitlist action', () => {
     const result = await joinWaitlist(formData);
 
     expect(result.success).toBe(false);
-    expect(result.message).toBe(
-      'Something went wrong. Please try again later.'
-    );
+    expect(result.message).toBe(ERROR_MESSAGES.GENERIC);
     expect(console.error).toHaveBeenCalled();
   });
 
@@ -151,9 +156,7 @@ describe('joinWaitlist action', () => {
     const result = await joinWaitlist(formData);
 
     expect(result.success).toBe(false);
-    expect(result.message).toBe(
-      'Something went wrong. Please try again later.'
-    );
+    expect(result.message).toBe(ERROR_MESSAGES.GENERIC);
     expect(console.error).toHaveBeenCalled();
   });
 
@@ -203,6 +206,34 @@ describe('joinWaitlist action', () => {
     );
   });
 
+  it('forwards UTM fields in the insert payload', async () => {
+    mockInsert.mockResolvedValue({ error: null });
+
+    const formData = new FormData();
+    formData.append('email', 'test@example.com');
+    formData.append('full_name', 'Jane Doe');
+    formData.append('role', 'Brand');
+    formData.append('utm_source', 'google');
+    formData.append('utm_medium', 'cpc');
+    formData.append('utm_campaign', 'summer');
+    formData.append('utm_content', 'banner1');
+    formData.append('utm_term', 'fashion');
+    formData.append('referrer', 'https://example.com');
+
+    await joinWaitlist(formData);
+
+    expect(mockInsert).toHaveBeenCalledWith(
+      expect.objectContaining({
+        utm_source: 'google',
+        utm_medium: 'cpc',
+        utm_campaign: 'summer',
+        utm_content: 'banner1',
+        utm_term: 'fashion',
+        referrer: 'https://example.com',
+      })
+    );
+  });
+
   it('normalizes empty or whitespace-only optional fields to null', async () => {
     mockInsert.mockResolvedValue({ error: null });
 
@@ -219,5 +250,154 @@ describe('joinWaitlist action', () => {
     const insertArg = mockInsert.mock.calls[0][0];
     expect(insertArg).not.toHaveProperty('company');
     expect(insertArg).not.toHaveProperty('revenue_range');
+  });
+
+  it('includes revenue_range in payload when provided', async () => {
+    mockInsert.mockResolvedValue({ error: null });
+
+    const formData = new FormData();
+    formData.append('email', 'test@example.com');
+    formData.append('full_name', 'Jane Doe');
+    formData.append('role', 'Brand');
+    formData.append('revenue_range', '10k-50k');
+
+    await joinWaitlist(formData);
+
+    expect(mockInsert).toHaveBeenCalledWith(
+      expect.objectContaining({ revenue_range: '10k-50k' })
+    );
+  });
+
+  it('triggers Brevo welcome via after callback on success', async () => {
+    mockInsert.mockResolvedValue({ error: null });
+
+    const mockFetch = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal('fetch', mockFetch);
+    process.env.BREVO_API_KEY = 'test-api-key';
+
+    const formData = new FormData();
+    formData.append('email', 'test@example.com');
+    formData.append('full_name', 'Jane Doe');
+    formData.append('role', 'Brand');
+
+    await joinWaitlist(formData);
+
+    // Execute the after callback
+    expect(afterCallbacks).toHaveLength(1);
+    await afterCallbacks[0]();
+
+    expect(mockFetch).toHaveBeenCalledWith(
+      'https://api.brevo.com/v3/contacts',
+      expect.objectContaining({
+        method: 'POST',
+        headers: expect.objectContaining({
+          'api-key': 'test-api-key',
+        }),
+        body: expect.stringContaining('test@example.com'),
+      })
+    );
+
+    delete process.env.BREVO_API_KEY;
+    vi.unstubAllGlobals();
+  });
+
+  it('includes BREVO_LIST_ID in Brevo payload when set', async () => {
+    mockInsert.mockResolvedValue({ error: null });
+
+    const mockFetch = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal('fetch', mockFetch);
+    process.env.BREVO_API_KEY = 'test-api-key';
+    process.env.BREVO_LIST_ID = '42';
+
+    const formData = new FormData();
+    formData.append('email', 'test@example.com');
+    formData.append('full_name', 'Jane Doe');
+    formData.append('role', 'Brand');
+
+    await joinWaitlist(formData);
+
+    // Execute the after callback
+    await afterCallbacks[0]();
+
+    expect(mockFetch).toHaveBeenCalledWith(
+      'https://api.brevo.com/v3/contacts',
+      expect.objectContaining({
+        body: expect.stringContaining('"listIds":[42]'),
+      })
+    );
+
+    delete process.env.BREVO_API_KEY;
+    delete process.env.BREVO_LIST_ID;
+    vi.unstubAllGlobals();
+  });
+
+  it('skips Brevo when BREVO_API_KEY is not set', async () => {
+    mockInsert.mockResolvedValue({ error: null });
+
+    delete process.env.BREVO_API_KEY;
+
+    const formData = new FormData();
+    formData.append('email', 'test@example.com');
+    formData.append('full_name', 'Jane Doe');
+    formData.append('role', 'Brand');
+
+    await joinWaitlist(formData);
+
+    // Execute the after callback
+    await afterCallbacks[0]();
+
+    // Should warn but not throw
+    expect(console.warn).toHaveBeenCalledWith(
+      expect.stringContaining('BREVO_API_KEY is not set')
+    );
+  });
+
+  it('handles Brevo fetch failure gracefully', async () => {
+    mockInsert.mockResolvedValue({ error: null });
+
+    const mockFetch = vi.fn().mockRejectedValue(new Error('Network error'));
+    vi.stubGlobal('fetch', mockFetch);
+    process.env.BREVO_API_KEY = 'test-api-key';
+
+    const formData = new FormData();
+    formData.append('email', 'test@example.com');
+    formData.append('full_name', 'Jane Doe');
+    formData.append('role', 'Brand');
+
+    await joinWaitlist(formData);
+
+    // Execute the after callback — should not throw
+    await afterCallbacks[0]();
+
+    expect(console.error).toHaveBeenCalledWith(
+      expect.stringContaining('[Brevo]'),
+      expect.any(Error)
+    );
+
+    delete process.env.BREVO_API_KEY;
+    vi.unstubAllGlobals();
+  });
+
+  it('extracts first name from full_name for Brevo', async () => {
+    mockInsert.mockResolvedValue({ error: null });
+
+    const mockFetch = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal('fetch', mockFetch);
+    process.env.BREVO_API_KEY = 'test-api-key';
+
+    const formData = new FormData();
+    formData.append('email', 'test@example.com');
+    formData.append('full_name', 'John Doe');
+    formData.append('role', 'Brand');
+
+    await joinWaitlist(formData);
+
+    await afterCallbacks[0]();
+
+    const body = JSON.parse(mockFetch.mock.calls[0][1].body);
+    expect(body.attributes.FIRSTNAME).toBe('John');
+
+    delete process.env.BREVO_API_KEY;
+    vi.unstubAllGlobals();
   });
 });

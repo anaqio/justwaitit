@@ -1,26 +1,19 @@
 'use client';
 
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useReducedMotion,
-} from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useRef } from 'react';
 
 import { Section, SectionContainer } from '@/components/ui/section';
-import { useDeviceTier } from '@/hooks/use-device-tier';
+import { useAnimationReady } from '@/hooks/use-animation-ready';
 import { ease } from '@/lib/data/motion';
 import { NANOBANANA_VISUALS } from '@/lib/data/nanobanana-assets';
 
 export function StyleShowcase() {
   const t = useTranslations('landing.styleShowcase');
   const sectionRef = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
-  const tier = useDeviceTier();
-  const animated = !reduced && tier !== 'low';
+  const { animated } = useAnimationReady();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,

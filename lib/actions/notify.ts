@@ -2,17 +2,13 @@
 
 import { z } from 'zod';
 
+import { utmFieldsSchema } from '@/lib/actions/shared';
+import { ERROR_MESSAGES } from '@/lib/constants/errors';
 import { createClient } from '@/lib/supabase/server';
 
 const NotifySchema = z.object({
-  email: z.email('Please provide a valid email address.'),
-  // UTM attribution fields — all optional, passed as hidden form inputs
-  utm_source: z.string().max(100).optional().nullable(),
-  utm_medium: z.string().max(100).optional().nullable(),
-  utm_campaign: z.string().max(100).optional().nullable(),
-  utm_content: z.string().max(100).optional().nullable(),
-  utm_term: z.string().max(100).optional().nullable(),
-  referrer: z.string().max(500).optional().nullable(),
+  email: z.email(ERROR_MESSAGES.VALID_EMAIL),
+  ...utmFieldsSchema,
 });
 
 /**
@@ -75,7 +71,7 @@ export async function notifyMe(formData: FormData) {
       console.error('Notify insert error:', error);
       return {
         success: false,
-        message: 'Something went wrong. Please try again.',
+        message: ERROR_MESSAGES.GENERIC_SHORT,
       };
     }
 
@@ -87,7 +83,7 @@ export async function notifyMe(formData: FormData) {
     console.error('Notify error:', err);
     return {
       success: false,
-      message: 'Something went wrong. Please try again.',
+      message: ERROR_MESSAGES.GENERIC_SHORT,
     };
   }
 }

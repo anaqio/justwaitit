@@ -3,6 +3,8 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
+import { AuthCard } from '@/components/ui/auth-card';
+import { AuthField } from '@/components/ui/auth-field';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -11,15 +13,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Link } from '@/i18n/routing';
+import { ERROR_MESSAGES } from '@/lib/constants/errors';
 import { createClient } from '@/lib/supabase/client';
 import { cn } from '@/lib/utils';
 
 export function ForgotPasswordForm({
   className,
-  ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
   const t = useTranslations('auth.forgot');
   const tLogin = useTranslations('auth.login');
@@ -41,14 +41,14 @@ export function ForgotPasswordForm({
       if (error) throw error;
       setSuccess(true);
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : 'An error occurred');
+      setError(error instanceof Error ? error.message : ERROR_MESSAGES.AUTH);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className={cn('flex flex-col gap-6', className)} {...props}>
+    <div className={cn('flex flex-col gap-6', className)}>
       {success ? (
         <Card className="noise-overlay border-white/5">
           <CardHeader>
@@ -66,60 +66,40 @@ export function ForgotPasswordForm({
           </CardContent>
         </Card>
       ) : (
-        <Card className="noise-overlay border-white/5">
-          <CardHeader>
-            <CardTitle className="font-display text-3xl font-bold tracking-tight">
-              {t('title')}
-            </CardTitle>
-            <CardDescription className="pt-2 font-body">
-              {t('desc')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleForgotPassword}>
-              <div className="relative z-10 flex flex-col gap-6">
-                <div className="grid gap-2">
-                  <Label
-                    htmlFor="email"
-                    className="font-body text-xs uppercase tracking-widest text-muted-foreground"
-                  >
-                    {tLogin('email.label')}
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder={tLogin('email.placeholder')}
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="border-white/10 bg-background/50"
-                  />
-                </div>
-                {error && (
-                  <p className="text-xs font-medium text-destructive">
-                    {error}
-                  </p>
-                )}
-                <Button
-                  type="submit"
-                  variant="brand"
-                  className="h-11 w-full"
-                  disabled={isLoading}
-                >
-                  {isLoading ? t('submitPending') : t('submit')}
-                </Button>
-              </div>
-              <div className="mt-6 text-center font-body text-sm">
-                <Link
-                  href="/auth/login"
-                  className="font-semibold text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
-                >
-                  {t('back')}
-                </Link>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
+        <AuthCard title={t('title')} description={t('desc')}>
+          <form onSubmit={handleForgotPassword}>
+            <div className="relative z-10 flex flex-col gap-6">
+              <AuthField
+                id="email"
+                label={tLogin('email.label')}
+                type="email"
+                placeholder={tLogin('email.placeholder')}
+                required
+                value={email}
+                onChange={setEmail}
+              />
+              {error && (
+                <p className="text-xs font-medium text-destructive">{error}</p>
+              )}
+              <Button
+                type="submit"
+                variant="brand"
+                className="h-11 w-full"
+                disabled={isLoading}
+              >
+                {isLoading ? t('submitPending') : t('submit')}
+              </Button>
+            </div>
+            <div className="mt-6 text-center font-body text-sm">
+              <Link
+                href="/auth/login"
+                className="font-semibold text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
+              >
+                {t('back')}
+              </Link>
+            </div>
+          </form>
+        </AuthCard>
       )}
     </div>
   );

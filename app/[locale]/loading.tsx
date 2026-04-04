@@ -3,7 +3,6 @@
 import {
   AnimatePresence,
   motion,
-  useReducedMotion,
   useMotionValue,
   useMotionValueEvent,
   animate,
@@ -13,7 +12,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 
 import { AnaqioTypographyLogo } from '@/components/ui/anaqio-typography-logo';
-import { useDeviceTier } from '@/hooks/use-device-tier';
+import { useAnimationReady } from '@/hooks/use-animation-ready';
 import { ease } from '@/lib/data/motion';
 import {
   getConnectionTier,
@@ -28,9 +27,7 @@ import { cn } from '@/lib/utils';
 export default function Loading() {
   const t = useTranslations('loading');
   const [visible, setVisible] = useState(true);
-  const reduced = useReducedMotion();
-  const tier = useDeviceTier();
-  const animated = !reduced && tier !== 'low';
+  const { tier, animated } = useAnimationReady();
 
   // Performance optimization: use MotionValue for high-frequency updates
   const progressMv = useMotionValue(0);

@@ -4,12 +4,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { forwardRef } from 'react';
 
-import { cn } from '@/lib/utils';
+import type { SelectOption } from '@/lib/types/waitlist-form';
 
-interface SelectOption {
-  value: string;
-  label: string;
-}
+import { cn } from '@/lib/utils';
 
 interface AtelierSelectInputProps {
   value: string;

@@ -1,6 +1,7 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 
 import { notifyMe } from '@/lib/actions/notify';
+import { ERROR_MESSAGES } from '@/lib/constants/errors';
 import { createClient } from '@/lib/supabase/server';
 
 vi.mock('@/lib/supabase/server', () => ({
@@ -51,7 +52,7 @@ describe('notifyMe action', () => {
     const result = await notifyMe(formData);
 
     expect(result.success).toBe(false);
-    expect(result.message).toBe('Please provide a valid email address.');
+    expect(result.message).toBe(ERROR_MESSAGES.VALID_EMAIL);
     expect(mockInsert).not.toHaveBeenCalled();
   });
 
@@ -80,7 +81,7 @@ describe('notifyMe action', () => {
     const result = await notifyMe(formData);
 
     expect(result.success).toBe(false);
-    expect(result.message).toBe('Something went wrong. Please try again.');
+    expect(result.message).toBe(ERROR_MESSAGES.GENERIC_SHORT);
   });
 
   it('catches unexpected exceptions', async () => {
@@ -92,6 +93,6 @@ describe('notifyMe action', () => {
     const result = await notifyMe(formData);
 
     expect(result.success).toBe(false);
-    expect(result.message).toBe('Something went wrong. Please try again.');
+    expect(result.message).toBe(ERROR_MESSAGES.GENERIC_SHORT);
   });
 });
